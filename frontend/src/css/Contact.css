@@ -1,0 +1,86 @@
+/* Styl dla całej strony */
+body {
+	background-color: rgb(
+		81,
+		179,
+		240
+	); /* Dodanie niebieskiego tła do całej strony */
+	color: white; /* Ustawienie koloru tekstu na biały */
+	font-family: Arial, sans-serif; /* Ustawienie czcionki */
+	margin: 0; /* Usunięcie domyślnego marginesu */
+	padding: 0; /* Usunięcie domyślnego wewnętrznego marginesu */
+}
+
+/* Styl dla tytułu przychodni */
+.clinic-title {
+	position: fixed;
+	top: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	text-align: center; /* Wyśrodkowanie tekstu */
+	width: 100%; /* Zapewnia, że tekst będzie zajmował całą szerokość */
+	font-size: 48px; /* Rozmiar czcionki */
+	font-family: "Arial Black", sans-serif; /* Ustawienie czcionki */
+	background: linear-gradient(to right, #66adff, #000000); /* Gradient tła */
+	-webkit-background-clip: text; /* Cieniowanie tekstu */
+	color: transparent; /* Ukrycie koloru tekstu */
+	-webkit-text-fill-color: transparent; /* Ukrycie koloru tekstu */
+}
+
+/* Styl dla ramki */
+.frame {
+	border: 2px solid rgba(255, 255, 255, 0.5); /* Grubość i kolor obramowania z przezroczystością */
+	padding: 40px; /* Wewnętrzny margines ramki */
+	position: absolute; /* Ustawienie pozycji na absolutną */
+	top: 50%; /* Przesunięcie do góry o 50% */
+	left: 50%; /* Przesunięcie w lewo o 50% */
+	transform: translate(-50%, -50%); /* Wyśrodkowanie wertykalne i poziome */
+	max-width: 800px; /* Maksymalna szerokość ramki */
+	background-color: rgba(
+		255,
+		255,
+		255,
+		0.1
+	); /* Kolor tła ramki z przezroczystością */
+	border-radius: 20px; /* Zaokrąglenie rogów ramki */
+	box-shadow: 0 0 20px rgba(15, 22, 158, 0.942); /* Dodanie cienia */
+}
+
+/* Styl dla tytułu opisu */
+.clinic-description-title {
+	font-size: 24px; /* Rozmiar czcionki tytułu */
+	margin-bottom: 20px; /* Margines na dół */
+	background: linear-gradient(to right, #1c75da, #000000); /* Gradient tła */
+	-webkit-background-clip: text; /* Cieniowanie tekstu */
+	color: transparent; /* Ukrycie koloru tekstu */
+	-webkit-text-fill-color: transparent; /* Ukrycie koloru tekstu */
+}
+
+/* Styl dla listy punktowanej */
+.frame ul {
+	list-style-type: disc; /* Typ punktorów */
+	padding-left: 20px; /* Wewnętrzny margines lewy */
+}
+
+/* Styl dla elementów listy punktowanej */
+.frame li {
+	margin-bottom: 10px; /* Margines na dół dla każdego elementu */
+}
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.images-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.clinic-image {
+    max-width: 30%; /* Ustawienie maksymalnej szerokości obrazu */
+    margin: 10px; /* Dodanie marginesu do rozdzielania obrazów */
+}

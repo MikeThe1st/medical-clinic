@@ -1,6 +1,6 @@
 import React from "react";
-import Navbar from "../components/Navbar";
-import App from "../App";
+import "../css/Login.css"; 
+
 const Login = () => {
 	return (
 		<div className=".login-container">

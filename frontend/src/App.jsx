@@ -1,10 +1,12 @@
 import "./App.css";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Main from "./pages/Main.jsx";
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import Main from './pages/Main.jsx'
 import Test from "./pages/Test.jsx";
-import Admin from "./pages/Admin.jsx";
 import Login from "./pages/Login.jsx";
-import Reg from "./pages/Reg.jsx";
+import Admin from "./pages/Admin.jsx";
+import UserPage from "./pages/UserPage.jsx";
+import Registration from "./pages/Registration.jsx";
+
 
 function App() {
 	return (
@@ -12,9 +14,10 @@ function App() {
 			<Routes>
 				<Route element={<Main />} path="/" />
 				<Route element={<Test />} path="/test" />
+				<Route element={<Login />} path="/Login" /> 
 				<Route element={<Admin />} path="/Admin" />
-				<Route element={<Login />} path="/Login" />
-				<Route element={<Reg />} path="/Registration " />
+				<Route element={<UserPage />}path="/UserPage"/>
+				<Route element={<Registration />}path="/Registration"/>
 			</Routes>
 		</BrowserRouter>
 	);
