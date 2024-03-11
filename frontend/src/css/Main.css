@@ -1,48 +1,96 @@
-.wrapper {
+body {
+	overflow: hidden; /* Ukrywa pasek przewijania */
+}
+
+.image-container {
 	position: relative;
-	height: 100vh; /* Ustawienie wysokości na wysokość widoku */
-	display: flex; /* Ustawienie flexboxa */
-	justify-content: center; /* Wycentrowanie w poziomie */
-	align-items: flex-end; /* Umieszczenie zawartości na dole */
-	overflow: hidden; /* Zapobieganie wyświetlaniu przewijania */
-	margin: 0; /* Usunięcie marginesów */
-	padding: 0; /* Usunięcie paddingów */
-}
-
-.wrapper::before {
-	content: "";
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 70%; /* 70% wysokości */
-	background-image: url("https://media.istockphoto.com/id/500675660/pl/zdj%C4%99cie/nowoczesne-wn%C4%99trze-gabinetu-dentystycznego.jpg?s=1024x1024&w=is&k=20&c=F8BT_hSMNYqa1gy7Czf1BYukpgDgqMSCfWpfQsjjXOY=");
+	width: 100vw;
+	height: 100vh;
+	background-image: url("https://iursus.pl/static/files/gallery/29/1494830_1699263606.webp");
 	background-size: cover;
-	background-repeat: no-repeat;
 	background-position: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden; /* Dodane, aby ukryć ewentualny pasek przewijania wewnątrz image-container */
 }
 
-.wrapper::after {
-	content: "";
-	position: absolute;
+.Main-container {
+	text-align: center;
+	margin-bottom: 20px; /* Zmniejszony margines */
+	overflow: hidden; /* Dodane, aby ukryć ewentualny pasek przewijania wewnątrz Main-container */
+}
+
+.Main-title {
+	font-size: 2.5em;
+	color: #ffffff;
+	margin-bottom: 20px;
+	border: 10px solid #1f0471;
+	padding: 15px 25px;
+	border-radius: 20px;
+	background-color: #1f0471;
+}
+
+.Main-description-box {
+	border: 2px solid rgb(48, 182, 244);
+	padding: 20px;
+	max-width: 600px;
+	margin: 20px auto 30px; /* Zmniejszony margines na dole */
+	border-radius: 20px;
+	background-color: rgb(93, 165, 243);
+}
+
+.Main-description {
+	font-size: 1.2em;
+	color: #000000;
+	line-height: 1.5;
+}
+
+.Main-highlight {
+	font-weight: bold;
+	color: #e80909;
+}
+
+.services-container {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 20px;
+	margin-bottom: 30px; /* Zmniejszony margines na dole */
+	overflow: hidden; /* Dodane, aby ukryć ewentualny pasek przewijania wewnątrz services-container */
+}
+
+.service-box {
+	width: 45%;
+	padding: 20px;
+
+	border-radius: 20px;
+	background-color: #1f0471;
+}
+
+.service-title {
+	font-size: 1.5em;
+	color: #ffffff;
+	margin-bottom: 10px;
+}
+
+.service-list {
+	list-style-type: none;
+	padding: 0;
+}
+
+.service-list li {
+	font-size: 1.2em;
+	color: #ffffff;
+	margin-bottom: 5px;
+}
+
+footer {
+	color: #000000;
+	background-color: rgb(93, 165, 243);
+	padding: 10px 0;
+	position: fixed;
 	bottom: 0;
 	left: 0;
 	width: 100%;
-	height: 30%; /* 30% wysokości */
-	background-color: rgb(132, 128, 128); /* Kolor tła */
-}
-
-.main-container {
-    position: relative;
-    z-index: 1; /* Ustawienie warstwy na wierzchu */
-    text-align: center; /* Wyśrodkowanie tekstu */
-    font-size: 20px; /* Rozmiar czcionki */
-    color: rgb(0, 0, 0); /* Ustawienie koloru tekstu na czarny */
-    margin-bottom: 20px; /* Dodanie marginesu na dole */
-    transform: translateY(50%); /* Przesunięcie o połowę wysokości kontenera w dół */
-    padding: 20px; /* Dodanie wewnętrznego odstępu */
-    background-color: rgb(222, 220, 220); /* Ustawienie koloru tła na jasnoszary */
-    border-radius: 20px; /* Zaokrąglenie rogów */
-    border: 2px solid rgb(132, 128, 128); /* Dodanie ramki */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Dodanie cienia */
+	border-top: 2px solid rgb(108, 147, 165);
 }
