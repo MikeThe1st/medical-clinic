@@ -28,11 +28,10 @@ export const login = async (req, res) => {
         if (password === loginUser.password) {
             console.log('Password matches. Login successful.')
             const secretKey = process.env.JWT_SECRET
-            const expires = '1d'
-            const token = jwt.sign(loginUser.isAdmin, secretKey)
-            // res.cookie("token", token, { httpOnly: false, path: '/', sameSite: 'none' })
-            res.cookie("token", token, { httpOnly: false, secure: true, path: '/', sameSite: 'none', expiresIn: expires })
-            console.log(req.cookies)
+            const { email, isAdmin } = loginUser
+            const token = jwt.sign({ email, isAdmin }, secretKey)
+            res.cookie("token", token, { httpOnly: false, path: '/', sameSite: 'none' })
+            res.cookie("token", token, { httpOnly: false, secure: true, path: '/', sameSite: 'none', expiresIn: '1d' })
             return res.status(200).json({ token, msg: 'Login success.' })
         }
         else {
