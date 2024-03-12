@@ -15,7 +15,7 @@
 	padding: 40px;
 	background-color: rgba(35, 59, 167, 0.5); /* Transparent black background */
 	border-radius: 20px;
-	color: white;
+	color: black;
 }
 
 .login-form input {

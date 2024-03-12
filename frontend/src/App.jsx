@@ -14,10 +14,10 @@ function App() {
 			<Routes>
 				<Route element={<Main />} path="/" />
 				<Route element={<Test />} path="/test" />
-				<Route element={<Login />} path="/Login" /> 
-				<Route element={<Admin />} path="/Admin" />
-				<Route element={<UserPage />}path="/UserPage"/>
-				<Route element={<Registration />}path="/Registration"/>
+				<Route element={<Login />} path="/login" />
+				<Route element={<Admin />} path="/admin" />
+				<Route element={<UserPage />} path="/user-page" />
+				<Route element={<Registration />} path="/register" />
 			</Routes>
 		</BrowserRouter>
 	);
