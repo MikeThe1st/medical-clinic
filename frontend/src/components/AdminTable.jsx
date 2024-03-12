@@ -1,6 +1,16 @@
 import React from "react";
 
 const AdminTable = ({ users }) => {
+	if (!users || users.length === 0) {
+		return (
+			<div>
+				<h2>Lista Użytkowników</h2>
+				<p className="text-4xl text-bold">No users found!</p>
+				<p className="text-4xl text-bold">Loading...</p>
+			</div>
+		);
+	}
+
 	return (
 		<div>
 			<h2>Lista Użytkowników</h2>
@@ -14,6 +24,7 @@ const AdminTable = ({ users }) => {
 						<th>Płeć</th>
 						<th>Email</th>
 						<th>Nr telefonu</th>
+						<th>Akcje</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -27,7 +38,7 @@ const AdminTable = ({ users }) => {
 							<td>{user.email}</td>
 							<td>{user.phoneNumber}</td>
 							<td>
-								<button>Edytuj</button>
+								<button onClick={(e) => { e.preventDefault(); alert(user.login) }}>Edytuj</button>
 							</td>
 						</tr>
 					))}
