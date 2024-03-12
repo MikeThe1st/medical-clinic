@@ -11,8 +11,8 @@ export const register = async (req, res) => {
 
         return res.status(200).json(newUser)
     } catch (error) {
-        console.error('Registration failed:', error);
-        return res.status(500).json({ error: 'Registration failed.' });
+        console.error('Registration failed:', error)
+        return res.status(500).json({ error: 'Registration failed.' })
     }
 }
 
@@ -37,8 +37,8 @@ export const login = async (req, res) => {
             return res.status(409).json({ msg: 'Please provide valid email and password.' })
         }
     } catch (error) {
-        console.error('Display failed:', error);
-        return res.status(500).json({ error: 'Login failed.' });
+        console.error('Display failed:', error)
+        return res.status(500).json({ error: 'Login failed.' })
     }
 }
 
@@ -46,7 +46,7 @@ export const getUser = async (req, res) => {
     try {
         const token = req.cookies.token
         if (!token) {
-            return res.status(404).json({ error: 'Token not found.', status: false });
+            return res.status(404).json({ error: 'Token not found.', status: false })
         }
 
         const secretKey = process.env.JWT_SECRET
@@ -61,6 +61,49 @@ export const getUser = async (req, res) => {
             return res.status(404).json({ msg: "User not found.", status: false })
         }
         return res.status(200).json(checkUser)
+    } catch (error) {
+        return res.status(500).json({ error: 'Authentication failed.', status: false })
+    }
+}
+
+export const forgotPassword = async (req, res) => {
+    try {
+        const { email } = req.body
+        const user = await User.findOne({ email: email })
+        if (!user) {
+            return res.status(404).json({ msg: `User with ${email} not found.`, status: false })
+        }
+
+        const minLength = 8
+        const maxLength = 15
+        const upperCaseLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        const lowerCaseLetters = 'abcdefghijklmnopqrstuvwxyz'
+        const numbers = '0123456789'
+        const specialCharacters = '-_!*#$&'
+
+        // Ensure the inclusion of at least one character from each required set
+        const passwordArray = [
+            upperCaseLetters[Math.floor(Math.random() * upperCaseLetters.length)],
+            lowerCaseLetters[Math.floor(Math.random() * lowerCaseLetters.length)],
+            numbers[Math.floor(Math.random() * numbers.length)],
+            specialCharacters[Math.floor(Math.random() * specialCharacters.length)],
+        ]
+
+        const allCharacters = upperCaseLetters + lowerCaseLetters + numbers + specialCharacters
+
+        // Calculate the remaining length to fill (subtract 4 because we already have 4 characters guaranteed)
+        const remainingLength = Math.floor(Math.random() * (maxLength - minLength)) + minLength - 4
+
+        for (let i = 0; i < remainingLength; i++) {
+            passwordArray.push(allCharacters[Math.floor(Math.random() * allCharacters.length)])
+        }
+
+        // Shuffle the array to ensure the order of characters is random
+        const shuffleArray = (array) => array.sort(() => Math.random() - 0.5)
+
+        const password = shuffleArray(passwordArray).join('')
+
+        return res.status(200).json({ user: user, newPassword: password })
     } catch (error) {
         return res.status(500).json({ error: 'Authentication failed.', status: false })
     }
