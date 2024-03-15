@@ -1,7 +1,3 @@
-body {
-	overflow: hidden; /* Ukrywa pasek przewijania */
-}
-
 .image-container {
 	position: relative;
 	width: 100vw;
@@ -17,8 +13,8 @@ body {
 
 .Main-container {
 	text-align: center;
-	margin-bottom: 20px; /* Zmniejszony margines */
-	overflow: hidden; /* Dodane, aby ukryć ewentualny pasek przewijania wewnątrz Main-container */
+	margin-bottom: 1px; /* Zmniejszony margines */
+	 
 }
 
 .Main-title {
@@ -35,7 +31,7 @@ body {
 	border: 2px solid rgb(48, 182, 244);
 	padding: 20px;
 	max-width: 600px;
-	margin: 20px auto 30px; /* Zmniejszony margines na dole */
+	margin: 10px auto 30px; /* Zmniejszony margines na dole */
 	border-radius: 20px;
 	background-color: rgb(93, 165, 243);
 }
@@ -54,14 +50,14 @@ body {
 .services-container {
 	display: flex;
 	justify-content: space-between;
-	margin-top: 20px;
+	margin-top: 0px;
 	margin-bottom: 30px; /* Zmniejszony margines na dole */
 	overflow: hidden; /* Dodane, aby ukryć ewentualny pasek przewijania wewnątrz services-container */
 }
 
 .service-box {
 	width: 45%;
-	padding: 20px;
+	padding: 5px;
 
 	border-radius: 20px;
 	background-color: #1f0471;
@@ -84,13 +80,3 @@ body {
 	margin-bottom: 5px;
 }
 
-footer {
-	color: #000000;
-	background-color: rgb(93, 165, 243);
-	padding: 10px 0;
-	position: fixed;
-	bottom: 0;
-	left: 0;
-	width: 100%;
-	border-top: 2px solid rgb(108, 147, 165);
-}

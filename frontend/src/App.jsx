@@ -7,6 +7,7 @@ import UserPage from "./pages/UserPage.jsx";
 import Registration from "./pages/Registration.jsx";
 import Contact from "./pages/Contact.jsx";
 import ResetForgotPassword from "./pages/ResetForgotPassword.jsx";
+import Visits from "./pages/Visits.jsx";
 
 function App() {
 	return (
@@ -19,7 +20,7 @@ function App() {
 				<Route element={<Registration />} path="/register" />
 				<Route element={<Contact />} path="/contact" />
 				<Route element={<ResetForgotPassword />} path="/reset-forgot-password" />
-				
+				<Route element={<Visits />} path="/visits" />
 			</Routes>
 		</BrowserRouter>
 	);

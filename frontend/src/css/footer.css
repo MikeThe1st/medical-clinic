@@ -1,0 +1,16 @@
+footer {
+    color: #000000;
+    background-color: rgb(93, 165, 243);
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border-top: 2px solid rgb(108, 147, 165);
+    text-align: center;
+}
+
+footer .content {
+    margin: 0 auto;
+    max-width: 1200px; /* Dostosuj maksymalną szerokość do swoich potrzeb */
+}

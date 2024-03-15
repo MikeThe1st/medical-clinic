@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import "../css/AdminPanel.css";
 import UserTable from "../components/AdminTable";
-
+import Footer from "../components/Footer";
 import axios from "axios";
 
 const Admin = () => {
@@ -30,11 +30,12 @@ const Admin = () => {
         console.log("Wyszukaj: ", searchQuery);
     };
 
-    return (
-        <div>
-            <Navbar />
-            <div className="admin-container">
-                <h1>Panel Administratora</h1>
+	return (
+		<div>
+			<Footer/>
+			<Navbar />
+			<div className="admin-container">
+				<h1>Panel Administratora</h1>
 
                 <div className="admin-content">
                     <h2>Statystyki</h2>
