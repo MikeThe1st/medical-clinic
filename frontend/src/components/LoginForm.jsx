@@ -1,5 +1,6 @@
-import React from 'react'
-import axios from 'axios'
+import React from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom'; // Załóżmy, że używamy React Router
 
 import "../css/Login.css";
 
@@ -19,14 +20,14 @@ const LoginForm = () => {
         try {
             const response = await axios.post('http://localhost:3000/backend/user/login', userData, { withCredentials: true })
             console.log('Response:', response.data)
-            if (response.status == 200) window.location.href = '/'
+            if (response.status === 200) window.location.href = '/'
         } catch (error) {
             console.error('Error:', error);
         }
     }
 
     return (
-        <div className=".login-container">
+        <div className="login-container"> {/* Usunięcie kropki z klasy */}
             <h1>Witaj ponownie! </h1>
 
             <div className="login-form">
@@ -51,9 +52,11 @@ const LoginForm = () => {
                     <br />
                     <button type="submit">LOGIN</button>
                 </form>
+                {/* Dodanie linku do zapomnianego hasła */}
+                <Link id='forgot-password'>Forgot Password?</Link>
             </div>
         </div>
     )
 }
 
-export default LoginForm
+export default LoginForm;

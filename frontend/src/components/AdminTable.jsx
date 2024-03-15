@@ -14,7 +14,7 @@ const AdminTable = ({ users }) => {
 	return (
 		<div>
 			<h2>Lista Użytkowników</h2>
-			<table>
+			<table className="admin-table">
 				<thead>
 					<tr>
 						<th>ID</th>
@@ -30,15 +30,16 @@ const AdminTable = ({ users }) => {
 				<tbody>
 					{users.map((user) => (
 						<tr key={user.id}>
-							<td>{user.id}</td>
+							<td>{user._id}</td>
 							<td>{user.login}</td>
-							<td>{user.firstName}</td>
+							<td>{user.name}</td>
 							<td>{user.lastName}</td>
 							<td>{user.gender}</td>
 							<td>{user.email}</td>
 							<td>{user.phoneNumber}</td>
 							<td>
 								<button onClick={(e) => { e.preventDefault(); alert(user.login) }}>Edytuj</button>
+								<button onClick={(e) => { e.preventDefault(); alert(user.login) }}>Usuń</button>
 							</td>
 						</tr>
 					))}

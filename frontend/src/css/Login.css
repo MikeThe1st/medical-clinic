@@ -1,71 +1,49 @@
+/* Styl dla formularza logowania */
 .login-container {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	min-height: 100vh;
-	border-radius: 20px;
-	background-size: cover;
-	background-position: center;
-	filter: blur(2px); /* Adjust blur as needed */
+	
 }
 
 .login-form {
-	display: flex;
-	flex-direction: column;
-	padding: 40px;
-	background-color: rgba(35, 59, 167, 0.5); /* Transparent black background */
+	padding: 20px;
+	background-color: rgba(164, 199, 238, 0.884);
 	border-radius: 20px;
 	color: black;
+	width: 80%; /* Szerokość formularza dostosowana do różnych ekranów */
+	max-width: 400px; /* Maksymalna szerokość formularza */
+	margin: auto;
 }
 
 .login-form input {
 	padding: 10px;
 	margin-bottom: 15px;
 	border: none;
-	border-radius: 3px;
-	border-radius: 20px;
-	background-color: #f2f2f2; /* Light gray background for inputs */
+	border-radius: 5px;
+	background-color: #f2f2f2;
+	width: 100%; /* Szerokość inputów na pełną szerokość formularza */
 }
 
 .login-form button {
 	padding: 15px;
 	border: none;
 	cursor: pointer;
-	background-color: rgb(14, 43, 82); /* Green button */
+	background-color: rgb(14, 43, 82);
 	color: white;
-	border-radius: 20px;
-}
-.login-container {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	min-height: 100vh;
-	background-position: center;
-	filter: blur(2px); /* Adjust blur as needed */
-}
-
-@media (max-width: 768px) {
-	.login-container {
-		flex-direction: column;
-	}
-}
-.login-body {
-	margin: 0;
-	padding: 0;
-	min-height: 100vh;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	background-color: rgb(108, 147, 165);
-}
-
-.login-container {
-	width: 500px;
-	margin: auto;
-	background-color: #f0f0f0;
-	padding: 20px;
+	border-radius: 5px;
+	width: 100%; /* Szerokość przycisku na pełną szerokość formularza */
 }
 
 .text {
 	text-align: center;
+}
+
+
+/* Media queries dla różnych rozmiarów ekranu */
+@media (max-width: 768px) {
+	.login-form {
+		padding: 15px; /* Zmniejszenie odstępów na mniejszych ekranach */
+	}
 }
