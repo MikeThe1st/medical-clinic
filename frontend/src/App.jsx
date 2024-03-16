@@ -8,7 +8,7 @@ import Registration from "./pages/Registration.jsx";
 import Contact from "./pages/Contact.jsx";
 import ResetForgotPassword from "./pages/ResetForgotPassword.jsx";
 import Visits from "./pages/Visits.jsx";
-
+import Doctors from "./pages/Doctors.jsx";
 function App() {
 	return (
 		<BrowserRouter>
@@ -21,6 +21,7 @@ function App() {
 				<Route element={<Contact />} path="/contact" />
 				<Route element={<ResetForgotPassword />} path="/reset-forgot-password" />
 				<Route element={<Visits />} path="/visits" />
+				<Route element={<Doctors />} path="/doctors" />
 			</Routes>
 		</BrowserRouter>
 	);
