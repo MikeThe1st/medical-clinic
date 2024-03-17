@@ -1,48 +1,91 @@
-import React from "react";
-import Navbar from "../components/Navbar";
-import "../css/AdminPanel.css";
-import UserTable from "../components/ProfileTable";
+import React, { useState } from "react";
+import "../css/UserPage.css";
+
 const UserPage = () => {
-	const userArray = [
-		{
-			id: 1,
-			login: "john_doe_login",
-			firstName: "John",
-			lastName: "Doe",
-			address: {
-				city: "New York",
-				zipCode: "10001",
-				street: "Broadway",
-				houseNumber: "123",
-				apartmentNumber: "45",
-			},
-			pesel: "12345678901",
-			birthDate: "1990-01-15",
-			gender: "Male",
-			email: "john.doe@example.com",
-			phoneNumber: "123-456-789",
-		},
-	];
+	const [activeAccount, setActiveAccount] = useState("Account1"); // Domyślne aktywne konto
+	const [userData, setUserData] = useState({
+		firstName: "sdf",
+		lastName: "asd",
+		username: "asdas",
+		age: "", // Dodane pole na wiek użytkownika
+		photoUrl:
+			"https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png", // Dodane pole na adres URL zdjęcia
+	});
+
+	const handleAccountChange = (e) => {
+		setActiveAccount(e.target.value);
+	};
+
+	const handleInputChange = (e) => {
+		const { name, value } = e.target;
+		setUserData({ ...userData, [name]: value });
+	};
 
 	return (
-		<div className="w-screen">
-			<Navbar />
-
-			<div className="admin-container">
-				<h1>Panel Użytkownika</h1>
-
-				<div className="admin-content">
-					<h2>Statystyki</h2>
-					<p>Liczba użytkowników: 100</p>
-					<p>Liczba zamówień: 50</p>
+		<div className="user-page">
+			<div className="header">
+				<h1 className="header-title">Mój pulpit nawigacyjny</h1>
+				<div className="user-info">
+					{/* Zdjęcie użytkownika */}
+					{userData.photoUrl && (
+						<img className="user-photo" src={userData.photoUrl} alt="User" />
+					)}
+					<p className="welcome-message">
+						Witaj, {userData.firstName} {userData.lastName}!
+					</p>
+					<p className="user-login">Login: {userData.username}</p>
+					
 				</div>
 
-				<div className="admin-actions">
-					<h2>Akcje Administratora</h2>
-					<button>Dodaj  użytkownika</button><br />
-					<button>usuń  użytkownika</button>
+				<div className="sidebar">
+					<div className="my-profile">
+						<h2 className="profile-title">Mój profil</h2>
+						<div className="form-container">
+							<form>
+								<div className="input-container">
+									<label>Imię:</label>
+									<input
+										className="input-field"
+										type="text"
+										name="firstName"
+										value={userData.firstName}
+										onChange={handleInputChange}
+									/>
+								</div>
+								<div className="input-container">
+									<label>Nazwisko:</label>
+									<input
+										className="input-field"
+										type="text"
+										name="lastName"
+										value={userData.lastName}
+										onChange={handleInputChange}
+									/>
+								</div>
+								<div className="input-container">
+									<label>Login:</label>
+									<input
+										className="input-field"
+										type="text"
+										name="username"
+										value={userData.username}
+										onChange={handleInputChange}
+									/>
+								</div>
+								<div className="input-container">
+									<label>Dodatkowe informacje:</label>
+									<input
+										className="input-field"
+										type="text"
+										name="age"
+										value={userData.age}
+										onChange={handleInputChange}
+									/>
+								</div>
+							</form>
+						</div>
+					</div>
 				</div>
-				<UserTable user={userArray} />
 			</div>
 		</div>
 	);
