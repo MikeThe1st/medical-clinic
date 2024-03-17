@@ -72,12 +72,28 @@ const updateUser = async (filter, update) => {
             update.password = hashedPassword
         }
 
+        const arrayOfLocations = ['city', 'postalCode', 'street', 'propertyNumber', 'apartmentNumber'];
+
         for (const key in update) {
-            if (update[key] !== '') {
+            console.log(`Key ${key}`)
+            if (key == 'location') {
+                const dbLocation = await User.findOne(filter, 'location');
+
+                const locationUpdate = { ...dbLocation.location }
+
+                // Iterate over the keys of the location object in the update
+                for (const field in update.location) {
+                    if (arrayOfLocations.includes(field) && update.location[field] !== '') {
+                        locationUpdate[field] = update.location[field];
+                    }
+                }
+
+                nonEmptyUpdate.location = locationUpdate
+            } else if (update[key] !== '') {
                 nonEmptyUpdate[key] = update[key];
             }
         }
-
+        console.log(nonEmptyUpdate)
         const updatedUser = await User.findOneAndUpdate(filter, nonEmptyUpdate, { new: true })
 
         return updatedUser;
@@ -89,10 +105,11 @@ const updateUser = async (filter, update) => {
 
 export const editUser = async (req, res) => {
     try {
-        const { newUser, previousLogin } = req.body
+        const { userData, previousLogin } = req.body
+        console.log(userData, previousLogin)
 
         const query = { login: previousLogin }
-        const updatedUser = await updateUser(query, newUser)
+        const updatedUser = await updateUser(query, userData)
 
         return res.status(201).json(updatedUser)
     } catch (error) {

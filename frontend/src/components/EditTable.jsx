@@ -1,4 +1,4 @@
-// EditProfilePage.jsx
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../css/EditPage.css";
@@ -9,11 +9,13 @@ const EditProfilePage = () => {
         login: "",
         name: "",
         lastName: "",
-        city: "",
-        postalCode: "",
-        street: "",
-        propertyNumber: "",
-        apartmentNumber: "",
+        location: {
+            city: "",
+            postalCode: "",
+            street: "",
+            propertyNumber: "",
+            apartmentNumber: "",
+        },
         pesel: "",
         birthDate: "",
         gender: "",
@@ -61,15 +63,9 @@ const EditProfilePage = () => {
         e.preventDefault();
 
         try {
-            const formData = new FormData(e.target);
-            const newUser = {};
-            formData.forEach((value, key) => {
-                newUser[key] = value;
-            });
-
             const { login: previousLogin } = previousUserData
 
-            const response = await axios.post(`http://localhost:3000/backend/admin/edit-user`, { newUser, previousLogin }, { withCredentials: true });
+            const response = await axios.post(`http://localhost:3000/backend/admin/edit-user`, { userData, previousLogin }, { withCredentials: true });
             if (response.status == 201) {
                 alert("Changes submitted successfully.")
                 window.location.reload()
@@ -81,11 +77,24 @@ const EditProfilePage = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setUserData((prevUserData) => ({
-            ...prevUserData,
-            [name]: value
-        }));
+        const arrayOfLocations = ['city', 'postalCode', 'street', 'propertyNumber', 'apartmentNumber'];
+        if (arrayOfLocations.includes(name)) {
+            setUserData(prevUserData => ({
+                ...prevUserData,
+                location: {
+                    ...prevUserData.location,
+                    [name]: value
+                }
+            }));
+        } else {
+            setUserData(prevUserData => ({
+                ...prevUserData,
+                [name]: value
+            }));
+        }
     };
+
+
 
     return (
         <div className="EditProfile-container">
@@ -135,7 +144,7 @@ const EditProfilePage = () => {
                             type="text"
                             id="city"
                             name="city"
-                            value={userData.city}
+                            value={userData.location.city}
                             onChange={handleChange}
 
                         />
@@ -147,7 +156,7 @@ const EditProfilePage = () => {
                             type="text"
                             id="postalCode"
                             name="postalCode"
-                            value={userData.postalCode}
+                            value={userData.location.postalCode}
                             onChange={handleChange}
 
                         />
@@ -161,7 +170,7 @@ const EditProfilePage = () => {
                             type="text"
                             id="street"
                             name="street"
-                            value={userData.street}
+                            value={userData.location.street}
                             onChange={handleChange}
                         />
                     </div>
@@ -172,7 +181,7 @@ const EditProfilePage = () => {
                             type="text"
                             id="propertyNumber"
                             name="propertyNumber"
-                            value={userData.propertyNumber}
+                            value={userData.location.propertyNumber}
                             onChange={handleChange}
 
                         />
@@ -184,7 +193,7 @@ const EditProfilePage = () => {
                             type="text"
                             id="apartmentNumber"
                             name="apartmentNumber"
-                            value={userData.apartmentNumber}
+                            value={userData.location.apartmentNumber}
                             onChange={handleChange}
                         />
                     </div>
