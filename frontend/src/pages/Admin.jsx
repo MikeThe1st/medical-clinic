@@ -38,15 +38,13 @@ const Admin = () => {
 
     return (
         <div className="w-screen">
-            <Footer />
             <Navbar />
             <div className="admin-container">
                 <h1>Panel Administratora</h1>
-
                 <div className="admin-content">
                     <p>{`Liczba użytkowników: ${users?.length}`}</p>
                 </div>
-
+                <button className='my-6' onClick={() => window.location.href = '/add-user'}>Dodaj użytkownika</button>
                 <div className="admin-actions">
                     <h2>Wyszukiwarka</h2>
                     <form onSubmit={handleSearch} className="search-inputs">
@@ -81,6 +79,7 @@ const Admin = () => {
                     <UserTable users={users} />
                 </div>
             </div>
+            <Footer />
         </div>
     );
 };

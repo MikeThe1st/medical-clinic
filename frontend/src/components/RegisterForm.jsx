@@ -31,12 +31,12 @@ const RegisterForm = () => {
 
     return (
         <div className="Registration-container max-w-[800px] mx-auto">
-            <h1 className='m-10'>Zarejestruj sie! </h1>
+            <h1 className='m-10'>Dodaj użytkownika</h1>
 
             <form className="Registration-form" onSubmit={handleSubmit}>
                 <div className="Registration-column">
                     {/* Pierwsza kolumna */}
-                    <label htmlFor="login">Identyfikator użytkownika (Login)</label>
+                    <label htmlFor="login">Login</label>
                     <br />
                     <input
                         type="text"
