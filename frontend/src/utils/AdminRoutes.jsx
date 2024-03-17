@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Outlet, Navigate } from 'react-router-dom'
 import axios from 'axios';
 
-const PrivateRoutes = () => {
+const UserRoutes = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(false)
     const [isLoading, setIsLoading] = useState(true)
 
@@ -10,7 +10,7 @@ const PrivateRoutes = () => {
         const checkAuthentication = async () => {
             try {
                 const response = await axios.get('http://localhost:3000/backend/user/get-user', { withCredentials: true })
-                if (response.status == 200) {
+                if (response.data[0].isAdmin) {
                     setIsAuthenticated(true)
                     console.log(response)
                 }
@@ -32,4 +32,4 @@ const PrivateRoutes = () => {
     return isAuthenticated ? <Outlet /> : <Navigate to="/login" />
 };
 
-export default PrivateRoutes
+export default UserRoutes
