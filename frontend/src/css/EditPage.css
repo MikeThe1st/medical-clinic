@@ -1,0 +1,57 @@
+/* EditPage.css */
+
+.EditProfile-container {
+	width: 90%;
+	max-width: 600px;
+	margin: 50px auto;
+	padding: 20px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	background-color: #ffffff; /* Set background color to white */
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+	overflow: hidden; /* Ensure no overflow */
+}
+
+.EditProfile-form {
+	display: flex;
+	flex-wrap: wrap; /* Allow elements to wrap */
+	justify-content: space-between;
+}
+
+.form-column {
+	width: calc(33.33% - 10px); /* Adjust width to create three columns */
+	margin-bottom: 20px; /* Add spacing between columns */
+}
+
+.form-group {
+	margin-bottom: 15px; /* Add spacing between form groups */
+}
+
+label {
+	display: block; /* Ensure labels are on their own line */
+	color: #000000; /* Black color for label text */
+}
+
+input,
+select {
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #ccc; /* Changed border color to #ccc */
+	border-radius: 5px;
+	box-sizing: border-box;
+}
+
+.edit-button button {
+	width: 100%;
+	padding: 10px;
+	background-color: #318fdd;
+	color: #fff;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+.edit-button button:hover {
+	background-color: #007ab3;
+}

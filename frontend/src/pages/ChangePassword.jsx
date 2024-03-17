@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "../css/ForgotPassword.css";
 
-const ResetForgotPassword = () => {
-  const [email, setEmail] = useState("");
+const ChangePassword = () => {
+
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -24,12 +24,22 @@ const ResetForgotPassword = () => {
       <div className="forgot-password-form">
         <h2>Reset Forgotten Password</h2>
         <form onSubmit={handleSubmit}>
+        
           <div className="input-container">
             <input
-              type="email"
-              placeholder="Enter your email address"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              type="password"
+              placeholder="Enter your new password"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+              required
+            />
+          </div>
+          <div className="input-container">
+            <input
+              type="password"
+              placeholder="Confirm your new password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
               required
             />
           </div>
@@ -48,4 +58,4 @@ const ResetForgotPassword = () => {
   );
 };
 
-export default ResetForgotPassword;
+export default ChangePassword;
