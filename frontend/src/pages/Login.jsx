@@ -4,10 +4,10 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 const Login = () => {
 	return (
-		<div>
+		<div className="w-screen">
 			<Navbar />
 			<LoginForm />
-			<Footer/>
+			<Footer />
 		</div>
 	);
 };

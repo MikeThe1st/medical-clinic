@@ -10,6 +10,8 @@ import ResetForgotPassword from "./pages/ResetForgotPassword.jsx";
 import Visits from "./pages/Visits.jsx";
 import EditPage from "./pages/EditPage.jsx";
 import ChangePassword from "./pages/ChangePassword.jsx";
+import Doctors from "./pages/Doctors.jsx";
+
 function App() {
 	return (
 		<BrowserRouter>
@@ -25,10 +27,10 @@ function App() {
 				<Route element={<EditPage />} path="/edit-page" />
 				<Route element={<ChangePassword />} path="/change-password" />
 
+				<Route element={<Doctors />} path="/doctors" />
 			</Routes>
 		</BrowserRouter>
 	);
 }
 
 export default App;
-//hello

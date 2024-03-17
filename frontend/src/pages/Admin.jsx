@@ -30,12 +30,12 @@ const Admin = () => {
         console.log("Wyszukaj: ", searchQuery);
     };
 
-	return (
-		<div>
-			<Footer/>
-			<Navbar />
-			<div className="admin-container">
-				<h1>Panel Administratora</h1>
+    return (
+        <div className="w-screen">
+            <Footer />
+            <Navbar />
+            <div className="admin-container">
+                <h1>Panel Administratora</h1>
 
                 <div className="admin-content">
                     <h2>Statystyki</h2>
@@ -75,7 +75,7 @@ const Admin = () => {
                                 onChange={handleSearchChange}
                             />
                         </div>
-						<div className="search-input">
+                        <div className="search-input">
                             <input
                                 type="text"
                                 id="searchInput4"

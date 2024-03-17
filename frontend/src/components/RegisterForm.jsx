@@ -29,8 +29,8 @@ const RegisterForm = () => {
     }
 
     return (
-        <div className="Registration-container">
-            <h1>Zarejestruj sie! </h1>
+        <div className="Registration-container max-w-[800px] mx-auto">
+            <h1 className='m-10'>Zarejestruj sie! </h1>
 
             <form className="Registration-form" onSubmit={handleSubmit}>
                 <div className="Registration-column">

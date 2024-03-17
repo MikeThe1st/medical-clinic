@@ -5,10 +5,10 @@ import Footer from "../components/Footer";
 
 const Visits = () => {
     return (
-        <div>
-           
+        <div className="w-screen">
+
             <Navbar />
-            <Footer/>
+            <Footer />
         </div>
     );
 };
