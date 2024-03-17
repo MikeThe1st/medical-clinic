@@ -18,7 +18,12 @@ const UserSchema = new mongoose.Schema(
         gender: { type: String, required: true, enum: ["W", "M"] },
         email: { type: String, required: true, unique: true },
         phoneNumber: { type: String, required: true },
-        isAdmin: { type: Boolean, default: false }
+        isAdmin: { type: Boolean, default: false },
+        resetPassword: { type: Boolean, default: false },
+        previousPasswords: [
+            { password: { type: String } }
+        ],
+        disabled: { type: Boolean, default: false },
     }
 )
 

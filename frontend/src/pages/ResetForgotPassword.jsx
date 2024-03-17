@@ -1,19 +1,25 @@
 import React, { useState } from "react";
 import "../css/ForgotPassword.css";
+import axios from 'axios'
 
 const ResetForgotPassword = () => {
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
+  const [email, setEmail] = useState("")
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault()
 
-    // Here you would add your logic for handling the email submission.
-    // This could involve sending the email to your backend server to initiate the password reset process.
-
-    alert(`Password reset request sent to ${email}.`)
-    alert(`Please write down your current password:`)
-  };
+    try {
+      const response = await axios.post('http://localhost:3000/backend/user/forgot-password', { email: email })
+      if (response.status == 200) {
+        console.log('Response:', response.data)
+        alert(`Password reset request sent to ${email}.`)
+        alert(`Please write down your current password: ${response.data.newPassword}`)
+        window.location.href = '/login'
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }
 
   return (
     <div className="forgot-password-container">

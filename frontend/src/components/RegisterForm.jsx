@@ -22,6 +22,7 @@ const RegisterForm = () => {
             .then(response => {
                 console.log(response.data)
                 alert('Konto zostało utworzone. Możesz się zalogować.')
+                window.href = '/login'
             })
             .catch(error => {
                 alert(error)

@@ -26,6 +26,27 @@ const LoginForm = () => {
         }
     }
 
+    const loginAsUser = async (e) => {
+        e.preventDefault()
+        try {
+            const response = await axios.post('http://localhost:3000/backend/user/login', { email: 'user@gmail.com', password: 'user123' }, { withCredentials: true })
+            if (response.status === 200) window.location.href = '/'
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+
+    const loginAsAdmin = async (e) => {
+        e.preventDefault()
+        try {
+            const response = await axios.post('http://localhost:3000/backend/user/login', { email: 'admin@gmail.com', password: 'admin123' }, { withCredentials: true })
+            if (response.status === 200) window.location.href = '/'
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+
+
     return (
         <div className="login-container flex-col"> {/* Usunięcie kropki z klasy */}
             <h1 className='mb-10'>Witaj ponownie! </h1>
@@ -53,9 +74,13 @@ const LoginForm = () => {
                     <button type="submit">LOGIN</button>
                 </form>
                 {/* Dodanie linku do zapomnianego hasła */}
-                <Link id='forgot-password' href="">Forgot Password?</Link>
+                <Link id='forgot-password' to="/reset-forgot-password">Forgot Password?</Link>
+                <div className='my-4'>
+                    <button onClick={(e) => loginAsUser(e)}>LOGIN AS USER</button>
+                    <button className='my-4' onClick={(e) => loginAsAdmin(e)}>LOGIN AS ADMIN</button>
+                </div>
             </div>
-        </div>
+        </div >
     )
 }
 

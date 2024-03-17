@@ -23,13 +23,13 @@ function App() {
 				<Route element={<Contact />} path="/contact" />
 				<Route element={<ResetForgotPassword />} path="/reset-forgot-password" />
 				<Route element={<Visits />} path="/visits" />
-				<Route element={<EditPage />} path="/edit-page" />
-				<Route element={<ChangePassword />} path="/change-password" />
 				<Route element={<Doctors />} path="/doctors" />
 
 				<Route element={<PrivateRoutes />}>
+					<Route element={<EditPage />} path="/edit-page" />
 					<Route element={<Admin />} path="/admin" />
 					<Route element={<UserPage />} path="/user-page" />
+					<Route element={<ChangePassword />} path="/change-password" />
 				</Route>
 			</Routes>
 		</BrowserRouter>

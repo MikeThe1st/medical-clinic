@@ -1,12 +1,15 @@
 import User from "../models/User.js"
 import jwt from 'jsonwebtoken'
+import bcrypt from 'bcrypt'
 
 export const register = async (req, res) => {
     try {
         const { login, password, name, lastName, city, postalCode, street, propertyNumber, apartmentNumber, pesel, birthDate, gender, email, phoneNumber } = req.body
 
-        console.log(req.body)
-        const newUser = new User({ login, password, name, lastName, location: { city, postalCode, street, propertyNumber, apartmentNumber }, pesel, birthDate, gender, email, phoneNumber })
+        const salt = await bcrypt.genSalt(10)
+        const hashedPassword = await bcrypt.hash(password, salt)
+
+        const newUser = new User({ login, password: hashedPassword, name, lastName, location: { city, postalCode, street, propertyNumber, apartmentNumber }, pesel, birthDate, gender, email, phoneNumber })
         await newUser.save()
 
         return res.status(200).json(newUser)
@@ -25,7 +28,9 @@ export const login = async (req, res) => {
             return res.status(404).json({ msg: 'User not found.' })
         }
 
-        if (password === loginUser.password) {
+        const isPasswordCorrect = await bcrypt.compare(password, loginUser.password)
+
+        if (isPasswordCorrect) {
             console.log('Password matches. Login successful.')
             const secretKey = process.env.JWT_SECRET
             const token = jwt.sign(email, secretKey)
@@ -102,6 +107,12 @@ export const forgotPassword = async (req, res) => {
         const shuffleArray = (array) => array.sort(() => Math.random() - 0.5)
 
         const password = shuffleArray(passwordArray).join('')
+
+        const salt = await bcrypt.genSalt(10)
+        const hashedPassword = await bcrypt.hash(password, salt)
+
+        // Updating user
+        await User.findOneAndUpdate({ email: email }, { password: hashedPassword, resetPassword: true })
 
         return res.status(200).json({ user: user, newPassword: password })
     } catch (error) {
