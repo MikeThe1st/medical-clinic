@@ -40,7 +40,9 @@ const AdminTable = ({ users }) => {
 							<td>{user.phoneNumber}</td>
 							<td>
 								<button onClick={(e) => { e.preventDefault(); window.location.href = `/edit-page?login=${user.login}` }}>Edytuj</button>
-								<button onClick={(e) => { e.preventDefault(); alert(user.login) }}>Usuń</button>
+								{user.disabled ? <></> :
+									<button onClick={async (e) => { e.preventDefault(); await axios.post(`http://localhost:3000/backend/admin/disable-user `, { login: user.login }); }}>Usuń</button>
+								}
 							</td>
 						</tr>
 					))}

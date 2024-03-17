@@ -21,8 +21,14 @@ const LoginForm = () => {
             const response = await axios.post('http://localhost:3000/backend/user/login', userData, { withCredentials: true })
             console.log('Response:', response.data)
             if (response.status === 200) window.location.href = '/'
+            else console.log(response.data.msg)
+            // alert(response.data[0].msg)
         } catch (error) {
-            console.error('Error:', error);
+            console.error('Error:', error)
+            const message = error.response.data.msg
+            if (message) {
+                alert(message)
+            }
         }
     }
 

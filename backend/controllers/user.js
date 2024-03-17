@@ -28,6 +28,8 @@ export const login = async (req, res) => {
             return res.status(404).json({ msg: 'User not found.' })
         }
 
+        if (loginUser.disabled) return res.status(500).json({ msg: 'User wanted to be deleted.' })
+
         const isPasswordCorrect = await bcrypt.compare(password, loginUser.password)
 
         if (isPasswordCorrect) {
@@ -42,7 +44,6 @@ export const login = async (req, res) => {
             return res.status(409).json({ msg: 'Please provide valid email and password.' })
         }
     } catch (error) {
-        console.error('Display failed:', error)
         return res.status(500).json({ error: 'Login failed.' })
     }
 }

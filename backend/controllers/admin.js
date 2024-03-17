@@ -15,7 +15,6 @@ export const getUsers = async (req, res) => {
 export const getUserData = async (req, res) => {
     try {
         const { login } = req.params
-        console.log(login)
         const user = await User.findOne({ login })
 
         if (!user) {
@@ -99,5 +98,17 @@ export const editUser = async (req, res) => {
     } catch (error) {
         console.error('Display failed:', error);
         return res.status(500).json({ error: 'Display failed.' });
+    }
+}
+
+export const disableUser = async (req, res) => {
+    try {
+        const { login } = req.body
+        const disabledUser = await User.findOneAndUpdate({ login }, { disabled: true }).select('-password')
+
+        return res.status(201).json(disabledUser)
+    } catch (error) {
+        console.error('Error:', error);
+        return res.status(500).json({ error: 'Disable failed.' });
     }
 }
