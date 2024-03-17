@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 
 const AdminTable = ({ users }) => {
 	if (!users || users.length === 0) {
@@ -38,7 +39,7 @@ const AdminTable = ({ users }) => {
 							<td>{user.email}</td>
 							<td>{user.phoneNumber}</td>
 							<td>
-								<button onClick={(e) => { e.preventDefault(); alert(user.login) }}>Edytuj</button>
+								<button onClick={(e) => { e.preventDefault(); window.location.href = `/edit-page?login=${user.login}` }}>Edytuj</button>
 								<button onClick={(e) => { e.preventDefault(); alert(user.login) }}>Usuń</button>
 							</td>
 						</tr>

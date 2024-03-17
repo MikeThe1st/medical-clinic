@@ -1,7 +1,8 @@
 // EditProfilePage.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../css/EditPage.css";
+import { useLocation } from 'react-router-dom'
 
 const EditProfilePage = () => {
     const [userData, setUserData] = useState({
@@ -19,7 +20,42 @@ const EditProfilePage = () => {
         email: "",
         phoneNumber: "",
         password: ""
-    });
+    })
+
+    const [previousUserData, setPreviousUserData] = useState({
+        login: "",
+        name: "",
+        lastName: "",
+        location: {
+            city: "",
+            postalCode: "",
+            street: "",
+            propertyNumber: "",
+            apartmentNumber: "",
+        },
+        pesel: "",
+        birthDate: "",
+        gender: "",
+        email: "",
+        phoneNumber: "",
+        password: ""
+    })
+
+    const location = useLocation();
+    const query = new URLSearchParams(location.search).get('login')
+
+    useEffect(() => {
+        const getUser = async () => {
+            const response = await axios.get(`http://localhost:3000/backend/admin/user-data/${query}`)
+            setPreviousUserData(response.data)
+        }
+
+        getUser()
+        console.log(previousUserData)
+    }, []);
+
+
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -31,8 +67,13 @@ const EditProfilePage = () => {
                 newUser[key] = value;
             });
 
-            await axios.post("http://localhost:3000/backend/user/login", newUser, { withCredentials: true });
-            console.log("Changes submitted successfully.");
+            const { login: previousLogin } = previousUserData
+
+            const response = await axios.post(`http://localhost:3000/backend/admin/edit-user`, { newUser, previousLogin }, { withCredentials: true });
+            if (response.status == 201) {
+                alert("Changes submitted successfully.")
+                window.location.reload()
+            }
         } catch (error) {
             console.error("Error:", error);
         }
@@ -48,68 +89,74 @@ const EditProfilePage = () => {
 
     return (
         <div className="EditProfile-container">
-            <h1>Edit Profile</h1>
+            <h1>{`Edit profile: ${query || 'Default User'}`}</h1>
             <form className="EditProfile-form" onSubmit={handleSubmit}>
                 <div className="form-column">
                     <div className="form-group">
-                        <label htmlFor="login">Username</label>
+                        <label>{`Current username: ${previousUserData.login}` || ""}</label>
+                        <label htmlFor="login" className="font-bold">Username</label>
                         <input
                             type="text"
                             id="login"
                             name="login"
                             value={userData.login}
                             onChange={handleChange}
-                            required
+
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="name">First Name</label>
+                        <label>{`Current name: ${previousUserData.name}` || ""}</label>
+                        <label htmlFor="name" className="font-bold">First Name</label>
                         <input
                             type="text"
                             id="name"
                             name="name"
                             value={userData.name}
                             onChange={handleChange}
-                            required
+
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="lastName">Last Name</label>
+                        <label>{`Current lastName: ${previousUserData.lastName}` || ""}</label>
+                        <label htmlFor="lastName" className="font-bold">Last Name</label>
                         <input
                             type="text"
                             id="lastName"
                             name="lastName"
                             value={userData.lastName}
                             onChange={handleChange}
-                            required
+
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="city">City</label>
+                        <label>{`Current city: ${previousUserData.location.city}` || ""}</label>
+                        <label htmlFor="city" className="font-bold">City</label>
                         <input
                             type="text"
                             id="city"
                             name="city"
                             value={userData.city}
                             onChange={handleChange}
-                            required
+
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="postalCode">Postal Code</label>
+                        <label>{`Current city: ${previousUserData.location.postalCode}` || ""}</label>
+                        <label htmlFor="postalCode" className="font-bold">Postal Code</label>
                         <input
                             type="text"
                             id="postalCode"
                             name="postalCode"
                             value={userData.postalCode}
                             onChange={handleChange}
-                            required
+
                         />
                     </div>
                 </div>
                 <div className="form-column">
                     <div className="form-group">
-                        <label htmlFor="street">Street</label>
+                        <label>{`Current street: ${previousUserData.location.street}` || ""}</label>
+                        <label htmlFor="street" className="font-bold">Street</label>
                         <input
                             type="text"
                             id="street"
@@ -119,18 +166,20 @@ const EditProfilePage = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="propertyNumber">Property Number</label>
+                        <label>{`Current property number: ${previousUserData.location.propertyNumber}` || ""}</label>
+                        <label htmlFor="propertyNumber" className="font-bold">Property Number</label>
                         <input
                             type="text"
                             id="propertyNumber"
                             name="propertyNumber"
                             value={userData.propertyNumber}
                             onChange={handleChange}
-                            required
+
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="apartmentNumber">Apartment Number</label>
+                        <label>{`Current apartment number: ${previousUserData.location.apartmentNumber}` || ""}</label>
+                        <label htmlFor="apartmentNumber" className="font-bold">Apartment Number</label>
                         <input
                             type="text"
                             id="apartmentNumber"
@@ -140,78 +189,84 @@ const EditProfilePage = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="pesel">PESEL Number</label>
+                        <label>{`Current pesel: ${previousUserData.pesel}` || ""}</label>
+                        <label htmlFor="pesel" className="font-bold">PESEL Number</label>
                         <input
                             type="text"
                             id="pesel"
                             name="pesel"
                             value={userData.pesel}
                             onChange={handleChange}
-                            required
+
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="birthDate">Birth Date</label>
+                        <label>{`Current birth date: ${previousUserData.birthDate}` || ""}</label>
+                        <label htmlFor="birthDate" className="font-bold">Birth Date</label>
                         <input
                             type="date"
                             id="birthDate"
                             name="birthDate"
                             value={userData.birthDate}
                             onChange={handleChange}
-                            required
+
                         />
                     </div>
                 </div>
                 <div className="form-column">
                     <div className="form-group">
-                        <label htmlFor="email">Email Address</label>
+                        <label>{`Current email: ${previousUserData.email}` || ""}</label>
+                        <label htmlFor="email" className="font-bold">Email Address</label>
                         <input
                             type="email"
                             id="email"
                             name="email"
                             value={userData.email}
                             onChange={handleChange}
-                            required
+
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="phoneNumber">Phone Number</label>
+                        <label>{`Current phone number: ${previousUserData.phoneNumber}` || ""}</label>
+                        <label htmlFor="phoneNumber" className="font-bold">Phone Number</label>
                         <input
                             type="tel"
                             id="phoneNumber"
                             name="phoneNumber"
                             value={userData.phoneNumber}
                             onChange={handleChange}
-                            required
+
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="gender">Gender</label>
+                        <label>{`Current gender: ${previousUserData.gender}` || ""}</label>
+                        <label htmlFor="gender" className="font-bold">Gender</label>
                         <select
                             id="gender"
                             name="gender"
                             value={userData.gender}
                             onChange={handleChange}
-                            required
+
                         >
                             <option value="W">Woman</option>
                             <option value="M">Male</option>
                         </select>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="password">Password</label>
+                        <label>Only change if needed</label>
+                        <label htmlFor="password" className="font-bold">Password</label>
                         <input
                             type="password"
                             id="password"
                             name="password"
                             value={userData.password}
                             onChange={handleChange}
-                            required
+
                         />
                     </div>
-                <br />
-                <div className="edit-button"> <button type="submit">Submit Changes</button></div>
-               
+                    <br />
+                    <div className="edit-button"> <button type="submit">Submit Changes</button></div>
+
                 </div>
             </form>
         </div>

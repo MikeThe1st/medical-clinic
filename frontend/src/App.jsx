@@ -19,13 +19,13 @@ function App() {
 			<Routes>
 				<Route element={<Main />} path="/" />
 				<Route element={<Login />} path="/login" />
-				<Route element={<Registration />} path="/register" />
 				<Route element={<Contact />} path="/contact" />
 				<Route element={<ResetForgotPassword />} path="/reset-forgot-password" />
 				<Route element={<Visits />} path="/visits" />
 				<Route element={<Doctors />} path="/doctors" />
 
 				<Route element={<PrivateRoutes />}>
+					<Route element={<Registration />} path="/add-user" />
 					<Route element={<EditPage />} path="/edit-page" />
 					<Route element={<Admin />} path="/admin" />
 					<Route element={<UserPage />} path="/user-page" />
