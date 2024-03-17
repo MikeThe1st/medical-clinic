@@ -25,8 +25,8 @@ function App() {
 				<Route element={<Visits />} path="/visits" />
 				<Route element={<EditPage />} path="/edit-page" />
 				<Route element={<ChangePassword />} path="/change-password" />
-
 				<Route element={<Doctors />} path="/doctors" />
+
 				<Route element={<PrivateRoutes />}>
 					<Route element={<Admin />} path="/admin" />
 					<Route element={<UserPage />} path="/user-page" />

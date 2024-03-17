@@ -1,30 +1,26 @@
-import React, { useState } from "react";
-import "../css/ForgotPassword.css";
+import React, { useState } from "react"
+import "../css/ForgotPassword.css"
 
 const ChangePassword = () => {
-
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [message, setMessage] = useState("");
+  const [newPassword, setNewPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("")
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    // Tutaj możesz dodać swoją logikę obsługi resetowania hasła
-    setMessage("Password reset request sent."); // Przykładowy komunikat
-  };
+    e.preventDefault()
 
-  const handlePasswordChangeConfirmation = () => {
-    // Tutaj możesz dodać logikę potwierdzającą zmianę hasła
-    // Na przykład, możesz wysłać żądanie do serwera w celu zaktualizowania hasła
-    setMessage("Password changed successfully."); // Przykładowy komunikat
-  };
+    if (newPassword !== confirmPassword) {
+      alert("Passwords do not match.")
+      return
+    }
+
+    alert("Password has been successfully changed.")
+  }
 
   return (
     <div className="forgot-password-container">
       <div className="forgot-password-form">
-        <h2>Reset Forgotten Password</h2>
+        <h2>Change Password</h2>
         <form onSubmit={handleSubmit}>
-        
           <div className="input-container">
             <input
               type="password"
@@ -44,18 +40,12 @@ const ChangePassword = () => {
             />
           </div>
           <div className="button-container">
-            <input type="submit" value="Reset Password" />
-          </div>
-          <div className="button-container">
-            <button onClick={handlePasswordChangeConfirmation}>
-              Confirm Password Change
-            </button>
+            <input type="submit" value="Change Password" />
           </div>
         </form>
-        {message && <p>{message}</p>}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ChangePassword;
+export default ChangePassword

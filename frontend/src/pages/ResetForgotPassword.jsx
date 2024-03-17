@@ -3,28 +3,25 @@ import "../css/ForgotPassword.css";
 
 const ResetForgotPassword = () => {
   const [email, setEmail] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Tutaj możesz dodać swoją logikę obsługi resetowania hasła
-    setMessage("Password reset request sent."); // Przykładowy komunikat
-  };
 
-  const handlePasswordChangeConfirmation = () => {
-    // Tutaj możesz dodać logikę potwierdzającą zmianę hasła
-    // Na przykład, możesz wysłać żądanie do serwera w celu zaktualizowania hasła
-    setMessage("Password changed successfully."); // Przykładowy komunikat
+    // Here you would add your logic for handling the email submission.
+    // This could involve sending the email to your backend server to initiate the password reset process.
+
+    alert(`Password reset request sent to ${email}.`)
+    alert(`Please write down your current password:`)
   };
 
   return (
     <div className="forgot-password-container">
       <div className="forgot-password-form">
-        <h2>Reset Forgotten Password</h2>
+        <h2 className="text-center p-6 font-bold">Reset Forgotten Password</h2>
         <form onSubmit={handleSubmit}>
-          <div className="input-container">
+          <div className="input-container flex flex-col">
+            <label>Enter email</label>
             <input
               type="email"
               placeholder="Enter your email address"
@@ -36,13 +33,7 @@ const ResetForgotPassword = () => {
           <div className="button-container">
             <input type="submit" value="Reset Password" />
           </div>
-          <div className="button-container">
-            <button onClick={handlePasswordChangeConfirmation}>
-              Confirm Password Change
-            </button>
-          </div>
         </form>
-        {message && <p>{message}</p>}
       </div>
     </div>
   );
