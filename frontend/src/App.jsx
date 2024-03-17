@@ -9,6 +9,7 @@ import Contact from "./pages/Contact.jsx";
 import ResetForgotPassword from "./pages/ResetForgotPassword.jsx";
 import Visits from "./pages/Visits.jsx";
 import Doctors from "./pages/Doctors.jsx";
+
 function App() {
 	return (
 		<BrowserRouter>
@@ -28,4 +29,3 @@ function App() {
 }
 
 export default App;
-//hello

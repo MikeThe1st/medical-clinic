@@ -4,7 +4,7 @@ import Footer from "../components/Footer";
 import DoctorTable from "../components/DoctorTable"; // Importujemy komponent DoctorTable
 
 const Doctors = () => {
-  
+
   const doctorsArray = [
     {
       id: 1,
@@ -41,7 +41,7 @@ const Doctors = () => {
   ];
 
   return (
-    <div>
+    <div className="w-screen h-screen">
       <Navbar />
       {/* Przekazujemy listę lekarzy do komponentu DoctorTable */}
       <DoctorTable doctors={doctorsArray} />

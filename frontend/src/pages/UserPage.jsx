@@ -24,24 +24,28 @@ const UserPage = () => {
 		},
 	];
 
-  return (
-    <div className="admin-container">
-    <h1>Panel Administratora</h1>
+	return (
+		<div className="w-screen">
+			<Navbar />
 
-    <div className="admin-content">
-      <h2>Statystyki</h2>
-      <p>Liczba użytkowników: 100</p>
-      <p>Liczba zamówień: 50</p>
-    </div>
+			<div className="admin-container">
+				<h1>Panel Użytkownika</h1>
 
-    <div className="admin-actions">
-      <h2>Akcje Administratora</h2>
-      <button>Dodaj  użytkownika</button><br />
-    <button>usuń  użytkownika</button>
-    </div>
-    <UserTable user={userArray} />
-  </div>
-  );
+				<div className="admin-content">
+					<h2>Statystyki</h2>
+					<p>Liczba użytkowników: 100</p>
+					<p>Liczba zamówień: 50</p>
+				</div>
+
+				<div className="admin-actions">
+					<h2>Akcje Administratora</h2>
+					<button>Dodaj  użytkownika</button><br />
+					<button>usuń  użytkownika</button>
+				</div>
+				<UserTable user={userArray} />
+			</div>
+		</div>
+	);
 };
 
 export default UserPage;
