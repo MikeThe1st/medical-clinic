@@ -27,10 +27,10 @@ const LoginForm = () => {
     }
 
     return (
-        <div className="login-container"> {/* Usunięcie kropki z klasy */}
-            <h1>Witaj ponownie! </h1>
+        <div className="login-container flex-col"> {/* Usunięcie kropki z klasy */}
+            <h1 className='mb-10'>Witaj ponownie! </h1>
 
-            <div className="login-form">
+            <div className="login-form sm:max-w-[30vw]">
                 <form onSubmit={handleSubmit}>
                     <label htmlFor="email">Email ID</label>
                     <br />
@@ -53,7 +53,7 @@ const LoginForm = () => {
                     <button type="submit">LOGIN</button>
                 </form>
                 {/* Dodanie linku do zapomnianego hasła */}
-                <Link id='forgot-password'>Forgot Password?</Link>
+                <Link id='forgot-password' href="">Forgot Password?</Link>
             </div>
         </div>
     )

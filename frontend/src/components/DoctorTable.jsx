@@ -7,7 +7,7 @@ const DoctorTable = ({ doctors }) => {
   };
 
   return (
-    <div>
+    <div className="sm:mx-[20vw]">
       <h1 className="h1-doctor">Lista Lekarzy</h1>
       <table className="table-doctor">
         <thead>

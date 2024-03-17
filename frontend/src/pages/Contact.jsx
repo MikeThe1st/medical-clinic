@@ -4,11 +4,11 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 const Contact = () => {
 	return (
-		<div>
+		<div className="w-screen">
 			<Navbar />
 			<ContactForm />
-		<Footer/>
-        </div>
+			<Footer />
+		</div>
 	);
 };
 

@@ -6,11 +6,11 @@ import "../css/Contact.css";
 const ContactForm = () => {
     return (
         <div>
-          
+
             <div className='contact-container'>
-                <h1 className='clinic-title-contact'>Przychodnia Medicare</h1>
+                <h1 className='clinic-title-contact sm:max-w-[40vw] mx-auto'>Przychodnia Medicare</h1>
                 <div className='clinic-description-contact'>
-                    <div className="frame-contact">
+                    <div className="frame-contact sm:max-w-[80vw]">
                         <h2 className='contact-clinic-description-title'>Kontakt Naszej Przychodni:</h2>
                         <ul>
                             <li>Łódź ul.Rewolucji 1905.r/45</li>

@@ -4,7 +4,6 @@
 	justify-content: center;
 	align-items: center;
 	min-height: 100vh;
-	max-width: 30vw;
 	margin: auto;
 }
 
@@ -15,7 +14,7 @@
 	color: black;
 	width: 80%; /* Szerokość formularza dostosowana do różnych ekranów */
 	/* max-width: 400px; Maksymalna szerokość formularza */
-	margin: auto;
+	/* margin: auto; */
 }
 
 .login-form input {

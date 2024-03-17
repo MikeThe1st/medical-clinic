@@ -9,6 +9,7 @@ import Contact from "./pages/Contact.jsx";
 import ResetForgotPassword from "./pages/ResetForgotPassword.jsx";
 import Visits from "./pages/Visits.jsx";
 import Doctors from "./pages/Doctors.jsx";
+import PrivateRoutes from "./utils/PrivateRoutes.jsx";
 
 function App() {
 	return (
@@ -16,13 +17,15 @@ function App() {
 			<Routes>
 				<Route element={<Main />} path="/" />
 				<Route element={<Login />} path="/login" />
-				<Route element={<Admin />} path="/admin" />
-				<Route element={<UserPage />} path="/user-page" />
 				<Route element={<Registration />} path="/register" />
 				<Route element={<Contact />} path="/contact" />
 				<Route element={<ResetForgotPassword />} path="/reset-forgot-password" />
 				<Route element={<Visits />} path="/visits" />
 				<Route element={<Doctors />} path="/doctors" />
+				<Route element={<PrivateRoutes />}>
+					<Route element={<Admin />} path="/admin" />
+					<Route element={<UserPage />} path="/user-page" />
+				</Route>
 			</Routes>
 		</BrowserRouter>
 	);
