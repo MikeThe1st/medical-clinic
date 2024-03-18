@@ -41,7 +41,13 @@ const AdminTable = ({ users }) => {
 							<td>
 								<button onClick={(e) => { e.preventDefault(); window.location.href = `/edit-page?login=${user.login}` }}>Edytuj</button>
 								{user.disabled ? <></> :
-									<button onClick={async (e) => { e.preventDefault(); await axios.post(`http://localhost:3000/backend/admin/disable-user `, { login: user.login }); }}>Usuń</button>
+									<button onClick={async (e) => {
+										e.preventDefault();
+										const areYouSure = confirm(`Do you want to disable ${user.login}?`)
+										if (areYouSure) {
+											await axios.post(`http://localhost:3000/backend/admin/disable-user `, { login: user.login });
+										}
+									}}>Usuń</button>
 								}
 							</td>
 						</tr>
