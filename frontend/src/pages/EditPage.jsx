@@ -26,8 +26,11 @@ const EditPage = () => {
     ];
 
     return (
-        <div className="edit-container">
-            <EditTable userData={userArray} /> {/* Przekazanie danych użytkownika do tabeli */}
+        <div>
+            <Navbar />
+            <div className="edit-container">
+                <EditTable userData={userArray} /> {/* Przekazanie danych użytkownika do tabeli */}
+            </div>
         </div>
     );
 };

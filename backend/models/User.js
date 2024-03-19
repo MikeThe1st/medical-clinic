@@ -20,9 +20,7 @@ const UserSchema = new mongoose.Schema(
         phoneNumber: { type: String, required: true },
         isAdmin: { type: Boolean, default: false },
         resetPassword: { type: Boolean, default: false },
-        previousPasswords: [
-            { password: { type: String } }
-        ],
+        previousPasswords: [String],
         disabled: { type: Boolean, default: false },
     }
 )

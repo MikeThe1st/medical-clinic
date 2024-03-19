@@ -13,7 +13,6 @@ const Navbar = () => {
         const getUser = async () => {
             const response = await axios.get('http://localhost:3000/backend/user/get-user', { withCredentials: true })
             setUser(response.data[0])
-            console.log(user)
         }
 
         const myCookie = getCookie('token')

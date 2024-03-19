@@ -46,6 +46,7 @@ const AdminTable = ({ users }) => {
 										const areYouSure = confirm(`Do you want to disable ${user.login}?`)
 										if (areYouSure) {
 											await axios.post(`http://localhost:3000/backend/admin/disable-user `, { login: user.login });
+											window.location.reload()
 										}
 									}}>Usuń</button>
 								}

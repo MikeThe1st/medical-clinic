@@ -19,17 +19,20 @@ const LoginForm = () => {
 
         try {
             const response = await axios.post('http://localhost:3000/backend/user/login', userData, { withCredentials: true })
-            console.log('Response:', response.data)
-            alert('not')
-            if (response.status === 200) window.location.href = '/'
-            else alert(response.data[0])
+            console.log('Response:', response)
+            if (response.status === 200) {
+                if (response.data.resetPassword) {
+                    window.location.href = `/change-password?login=${response.data.login}`
+                }
+                else window.location.href = '/'
+            }
+            else alert(response.data)
         } catch (error) {
             console.error('Error:', error)
             const message = error.response.data.msg
             if (message) {
                 alert(message)
             }
-            alert('yes')
         }
     }
 
@@ -37,9 +40,19 @@ const LoginForm = () => {
         e.preventDefault()
         try {
             const response = await axios.post('http://localhost:3000/backend/user/login', { email: 'user@gmail.com', password: 'user123' }, { withCredentials: true })
-            if (response.status === 200) window.location.href = '/'
+            if (response.status === 200) {
+                if (response.data.resetPassword) {
+                    window.location.href = `/change-password?login=${response.data.login}`
+                }
+                else window.location.href = '/'
+            }
+            else alert(response.data[0])
         } catch (error) {
-            console.error('Error:', error);
+            console.error('Error:', error)
+            const message = error.response.data.msg
+            if (message) {
+                alert(message)
+            }
         }
     }
 
@@ -47,9 +60,19 @@ const LoginForm = () => {
         e.preventDefault()
         try {
             const response = await axios.post('http://localhost:3000/backend/user/login', { email: 'admin@gmail.com', password: 'admin123' }, { withCredentials: true })
-            if (response.status === 200) window.location.href = '/'
+            if (response.status === 200) {
+                if (response.data.resetPassword) {
+                    window.location.href = `/change-password?login=${response.data.login}`
+                }
+                else window.location.href = '/'
+            }
+            else alert(response.data[0])
         } catch (error) {
-            console.error('Error:', error);
+            console.error('Error:', error)
+            const message = error.response.data.msg
+            if (message) {
+                alert(message)
+            }
         }
     }
 

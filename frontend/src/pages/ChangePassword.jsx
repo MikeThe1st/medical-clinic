@@ -1,11 +1,16 @@
 import React, { useState } from "react"
 import "../css/ForgotPassword.css"
+import { useLocation } from "react-router-dom"
+import axios from "axios"
 
 const ChangePassword = () => {
   const [newPassword, setNewPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
 
-  const handleSubmit = (e) => {
+  const location = useLocation();
+  const query = new URLSearchParams(location.search).get('login')
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
     if (newPassword !== confirmPassword) {
@@ -13,7 +18,21 @@ const ChangePassword = () => {
       return
     }
 
-    alert("Password has been successfully changed.")
+    try {
+      const response = await axios.post('http://localhost:3000/backend/user/reset-password', { newPassword, confirmPassword, login: query }, { withCredentials: true })
+      console.log('Response:', response)
+      if (response.status === 201) {
+        alert('Password changed.')
+        window.location.href = '/'
+      }
+      else alert(response.data.msg)
+    } catch (error) {
+      console.error('Error:', error)
+      const { msg } = error.response.data
+      if (msg) {
+        alert(msg)
+      }
+    }
   }
 
   return (
