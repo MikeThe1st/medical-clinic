@@ -87,11 +87,6 @@ const Navbar = () => {
                                                     Logowanie
                                                 </li>
                                             </a>
-                                            <a href="/register">
-                                                <li className="hover:text-yellow-200 font-bold text-2xl bg-blue-700 px-2 rounded-lg p-4 mx-20 sm:mx-0">
-                                                    Rejestracja
-                                                </li>
-                                            </a>
                                         </div>
                                     )
                             }
