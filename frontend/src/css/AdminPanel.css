@@ -1,178 +1,188 @@
 /* Ogólne style dla strony */
 body {
-    font-family: "Arial", sans-serif;
-    margin: 0;
-    padding: 0;
+	font-family: "Arial", sans-serif;
+	margin: 0;
+	padding: 0;
 }
 
 /* Styl dla głównego kontenera */
 .admin-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    margin: 2vw auto;
-    padding: 4vw;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(95, 83, 83, 0.1);
-    overflow-y: auto; /* Dodaj pionowy pasek przewijania dla kontenera */
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	margin: 2vw auto;
+	padding: 4vw;
+	background-color: #ffffff;
+	border-radius: 8px;
+	box-shadow: 0 0 10px rgba(95, 83, 83, 0.1);
+	overflow-y: auto; /* Dodaj pionowy pasek przewijania dla kontenera */
 }
 
 /* Styl dla nagłówków */
 h1,
 h2,
 p {
-    color: #333;
+	color: #333;
 }
 
 /* Styl dla treści i akcji administracyjnych */
-.admin-content,
+.admin-content {
+	border: 2px solid rgb(93, 165, 243); /* dodanie większej ramki */
+	background-color: rgb(93, 165, 243); /* zmiana koloru wewnątrz */
+	border-radius: 5px; /* zaokrąglenie rogów */
+}
+
 .admin-actions {
-    margin-top: 2vw;
+	margin-top: 2vw;
 }
 
 /* Styl dla paragrafów i przycisków */
-.admin-content p,
+.admin-content p {
+	background-color: rgb(93, 165, 243); /* zmiana koloru wewnątrz */
+}
+
 .admin-actions button {
-    margin-bottom: 1vw;
+	margin-bottom: 1vw;
 }
 
 button {
-    padding: 10px;
-    background-color: #ffffff;
-    color: #ffffff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+	padding: 10px;
+	background-color: #000000;
+	color: #ffffff;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
 }
 
 button:hover {
-    background-color: rgb(37, 123, 163);
+	background-color: rgb(37, 123, 163);
 }
 
 /* Styl dla tabeli */
 table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 2vw;
-    background-color: #ffffff;
-    color: #000000;
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 2vw;
+	background-color: #ffffff;
+	color: #000000;
 }
 
 /* Styl dla komórek tabeli */
 th,
 td {
-    border: 1px solid #ffffff;
-    padding: 8px;
-    text-align: left;
+	border: 1px solid #ffffff;
+	padding: 8px;
+	text-align: left;
 }
 
 /* Styl dla nagłówka tabeli */
 th {
-    background-color: rgb(14, 43, 82);
-    color: rgb(253, 253, 253);
+	background-color: rgb(14, 43, 82);
+	color: rgb(253, 253, 253);
 }
 
 /* Dodatkowe style dla mniejszych ekranów */
 @media screen and (max-width: 576px) {
-    .admin-container {
-        margin: 4vw;
-        padding: 2vw;
-    }
+	.admin-container {
+		margin: 4vw;
+		padding: 2vw;
+	}
 
-    .admin-content,
-    .admin-actions {
-        margin-top: 1vw;
-    }
+	.admin-content,
+	.admin-actions {
+		margin-top: 1vw;
+	}
 
-    h1 {
-        font-size: 20px;
-    }
+	h1 {
+		font-size: 20px;
+	}
 
-    h2 {
-        font-size: 18px;
-    }
+	h2 {
+		font-size: 18px;
+	}
 
-    p {
-        font-size: 14px;
-    }
+	p {
+		font-size: 14px;
+	}
 
-    /* Przykładowe ukrycie niektórych elementów na bardzo małych ekranach */
-    .admin-actions button:nth-child(2) {
-        display: none;
-        font-size: 14px;
-    }
+	/* Przykładowe ukrycie niektórych elementów na bardzo małych ekranach */
+	.admin-actions button:nth-child(2) {
+		display: none;
+		font-size: 14px;
+	}
 
-    /* Stylizacja tabeli dla mniejszych ekranów */
-    table {
-        overflow-x: auto;
-    }
+	/* Stylizacja tabeli dla mniejszych ekranów */
+	table {
+		overflow-x: auto;
+	}
 
-    th,
-    td {
-        white-space: nowrap;
-        text-align: center; /* Dodatkowa stylizacja dla lepszego centrowania */
-    }
+	th,
+	td {
+		white-space: nowrap;
+		text-align: center; /* Dodatkowa stylizacja dla lepszego centrowania */
+	}
 
-    /* Ukryj nagłówki tabeli dla mniejszych ekranów */
-    th {
-        display: none;
-    }
+	/* Ukryj nagłówki tabeli dla mniejszych ekranów */
+	th {
+		display: none;
+	}
 
-    td:before {
-        content: attr(data-label); /* Dodaj etykietę przed każdą komórką */
-        display: inline-block;
-        font-weight: bold;
-        margin-right: 5px;
-    }
+	td:before {
+		content: attr(data-label); /* Dodaj etykietę przed każdą komórką */
+		display: inline-block;
+		font-weight: bold;
+		margin-right: 5px;
+	}
 }
 
 /* Styl dla tabelki z przewijaniem */
 .scrollable-table {
-    overflow-y: auto;
-    max-height: 400px; /* Ustaw maksymalną wysokość */
+	overflow-y: auto;
+	max-height: 400px; /* Ustaw maksymalną wysokość */
 }
 
 .admin-actions {
-    margin-top: 20px;
+	margin-top: 20px;
 }
 
-.admin-actions label {
-    margin-right: 10px;
+.admin-actions input[type="text"],
+.admin-actions input[type="email"] {
+	padding: 10px; /* Zwiększamy padding dla inputów */
+	margin-right: 10px; /* Dodatkowy margines między inputami */
+	background-color: #387ba1; /* Zmiana koloru tła */
+	border: 1px solid #000000ec; /* Kolor obramowania */
+	border-radius: 5px; /* Zaokrąglenie krawędzi */
+	width: 200px; /* Ustawienie szerokości inputów */
 }
 
-.scrollable-table {
-    overflow: auto;
-}
-
-.admin-actions input[type="text"] {
-    padding: 6%;
-    margin-right: 18px;
-    background-color: #387ba1; /* Zmiana koloru tła na czerwony */
-    border: 1px solid #feffffec; /* Kolor obramowania */
-    border-radius: 5px; /* Zaokrąglenie krawędzi */
-}
-
-.search-inputs {
-    display: flex; /* Ustawienie elementów w jednej linii */
-    margin-bottom: 15px;
-}
-
-.search-inputs .search-input {
-    margin-right: 10px; /* Dodatkowy margines między inputami */
-}
-/* Dodatkowa klasa dla przycisku Wyszukaj */
 .search-button {
-    padding: 2%; /* Dopasuj wysokość przycisku do wysokości inputów */
-    background-color: #000000; 
-    
-  
+	padding: 10px; /* Dopasuj wysokość przycisku do wysokości inputów */
+	background-color: #000000;
+	color: #ffffff;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: background-color 0.3s ease; /* Animacja podczas najechania */
+	width: 200px; /* Ustawienie szerokości przycisku */
 }
 
 .search-button:hover {
-    background-color: rgb(37, 123, 163);
+	background-color: rgb(37, 123, 163);
 }
 
+/* Styl dla przycisku */
+button.my-6 {
+	padding: 10px 20px; /* Zwiększamy padding */
+	background-color: rgb(0, 0, 0); /* Kolor tła */
+	color: #ffffff; /* Kolor tekstu */
+	border: none; /* Usuwamy obramowanie */
+	border-radius: 4px; /* Zaokrąglenie rogów */
+	cursor: pointer; /* Kursor podczas najechania */
+	transition: background-color 0.3s ease; /* Animacja podczas najechania */
+}
 
+button.my-6:hover {
+	background-color: #255f82; /* Zmiana koloru tła po najechaniu myszką */
+}
