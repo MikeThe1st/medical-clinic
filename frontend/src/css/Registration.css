@@ -47,12 +47,20 @@ body {
 .Registration-button-container {
 	display: flex;
 	justify-content: center;
-	margin-top: 20px; /* Adjust margin as needed */
-	background-color: rgb(14, 43, 82); /* Green button */
+	margin-top: 20px;
+	margin-bottom: 70px;
+	background-color: rgb(14, 43, 82);
 	color: white;
 	border-radius: 20px;
-	padding: 2px;
+	padding: 10px 20px; /* Zwiększam wewnętrzny padding przycisku */
 }
+
+.Registration-button-container button {
+	width: 200px; /* Dostosuj szerokość przycisku według potrzeb */
+	height: 50px; /* Dostosuj wysokość przycisku według potrzeb */
+	font-size: 16px; /* Dostosuj rozmiar czcionki przycisku według potrzeb */
+}
+
 
 /* Responsive behavior for smaller screens */
 @media (max-width: 768px) {

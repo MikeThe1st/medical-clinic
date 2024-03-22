@@ -274,11 +274,14 @@ const EditProfilePage = () => {
                         />
                     </div>
                     <br />
-                    <div className="edit-button"> <button type="submit">Submit Changes</button></div>
+                    
 
                 </div>
             </form>
+            <div className="edit-button"> <button type="submit">Submit Changes</button></div>
+
         </div>
+        
     );
 };
 

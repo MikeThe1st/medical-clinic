@@ -168,11 +168,12 @@ const RegisterForm = () => {
                         placeholder="Enter your password"
                         required
                     />
-                    <div className="Registration-button-container">
-                        <button type="submit">Zarejestruj się</button>
-                    </div>
+                    
                 </div>
             </form>
+            <div className="Registration-button-container">
+                        <button type="submit">Zarejestruj się</button>
+                    </div>
         </div>
     )
 }
