@@ -32,16 +32,14 @@ const RegisterForm = () => {
 
     const validateEmail = (email) => {
         const emailRegex = /^[\w.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-        return (
-            emailRegex.test(email) && email.split("@")[1].split(".").length === 2
-        );
+        return emailRegex.test(email);
     };
 
     const validatePESEL = (pesel) => {
         const peselRegex = /^[0-9]{11}$/;
         if (!peselRegex.test(pesel)) return false;
 
-        const year = parseInt(pesel.substring(0, 2));
+        let year = parseInt(pesel.substring(0, 2));
         const month = parseInt(pesel.substring(2, 4));
         const day = parseInt(pesel.substring(4, 6));
 
@@ -75,7 +73,20 @@ const RegisterForm = () => {
 
         sum = (10 - (sum % 10)) % 10;
 
-        return sum === parseInt(pesel.charAt(10));
+        if (sum !== parseInt(pesel.charAt(10))) {
+            return false;
+        }
+
+        // Określenie płci na podstawie ostatniej cyfry PESEL
+        const genderDigit = parseInt(pesel.charAt(9));
+        const gender = genderDigit % 2 === 0 ? "W" : "M"; // "W" - kobieta, "M" - mężczyzna
+
+        setFormData({
+            ...formData,
+            gender: gender,
+        });
+
+        return true;
     };
 
     const handleSubmit = async (e) => {
@@ -88,18 +99,14 @@ const RegisterForm = () => {
         if (!formData.lastName) errors.lastName = "Last name is required";
         if (!formData.city) errors.city = "City is required";
         if (!formData.postalCode) errors.postalCode = "Postal code is required";
-        if (!formData.propertyNumber)
-            errors.propertyNumber = "Property number is required";
+        if (!formData.propertyNumber) errors.propertyNumber = "Property number is required";
         if (!formData.pesel) errors.pesel = "PESEL is required";
-        else if (!validatePESEL(formData.pesel))
-            errors.pesel = "Invalid PESEL number";
+        else if (!validatePESEL(formData.pesel)) errors.pesel = "Invalid PESEL number";
         if (!formData.birthDate) errors.birthDate = "Birth date is required";
         if (!formData.email) errors.email = "Email is required";
-        else if (!validateEmail(formData.email))
-            errors.email = "Invalid email format";
+        else if (!validateEmail(formData.email)) errors.email = "Invalid email format";
         if (!formData.phoneNumber) errors.phoneNumber = "Phone number is required";
-        else if (!/^[0-9]{9}$/.test(formData.phoneNumber))
-            errors.phoneNumber = "Invalid phone number format";
+        else if (!/^[0-9]{9}$/.test(formData.phoneNumber)) errors.phoneNumber = "Invalid phone number format";
         if (!formData.password) errors.password = "Password is required";
 
         if (Object.keys(errors).length === 0) {
