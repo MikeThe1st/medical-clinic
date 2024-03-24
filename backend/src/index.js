@@ -5,6 +5,7 @@ import cors from 'cors'
 import cookieParser from 'cookie-parser'
 
 import mainRouter from '../routes/main.js'
+import Doctor from '../models/Doctor.js'
 
 dotenv.config()
 const app = express()
@@ -16,6 +17,7 @@ app.use(express.json())
 app.use(cookieParser())
 
 app.use('/backend', mainRouter)
+
 
 const start = async () => {
     try {
