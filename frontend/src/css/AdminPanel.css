@@ -15,7 +15,8 @@ body {
 	padding: 4vw;
 	background-color: #ffffff;
 	border-radius: 8px;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 0 10px rgba(95, 83, 83, 0.1);
+	overflow-y: auto; /* Dodaj pionowy pasek przewijania dla kontenera */
 }
 
 /* Styl dla nagłówków */
@@ -26,20 +27,28 @@ p {
 }
 
 /* Styl dla treści i akcji administracyjnych */
-.admin-content,
+.admin-content {
+	border: 2px solid rgb(93, 165, 243); /* dodanie większej ramki */
+	background-color: rgb(93, 165, 243); /* zmiana koloru wewnątrz */
+	border-radius: 5px; /* zaokrąglenie rogów */
+}
+
 .admin-actions {
 	margin-top: 2vw;
 }
 
 /* Styl dla paragrafów i przycisków */
-.admin-content p,
+.admin-content p {
+	background-color: rgb(93, 165, 243); /* zmiana koloru wewnątrz */
+}
+
 .admin-actions button {
 	margin-bottom: 1vw;
 }
 
 button {
 	padding: 10px;
-	background-color: #ffffff;
+	background-color: #000000;
 	color: #ffffff;
 	border: none;
 	border-radius: 4px;
@@ -48,7 +57,7 @@ button {
 }
 
 button:hover {
-	background-color: rgb(108, 147, 165);
+	background-color: rgb(37, 123, 163);
 }
 
 /* Styl dla tabeli */
@@ -70,7 +79,7 @@ td {
 
 /* Styl dla nagłówka tabeli */
 th {
-	background-color: rgb(14, 43, 82);;
+	background-color: rgb(14, 43, 82);
 	color: rgb(253, 253, 253);
 }
 
@@ -98,13 +107,10 @@ th {
 		font-size: 14px;
 	}
 
-	button {
-		font-size: 14px;
-	}
-
 	/* Przykładowe ukrycie niektórych elementów na bardzo małych ekranach */
 	.admin-actions button:nth-child(2) {
 		display: none;
+		font-size: 14px;
 	}
 
 	/* Stylizacja tabeli dla mniejszych ekranów */
@@ -129,4 +135,54 @@ th {
 		font-weight: bold;
 		margin-right: 5px;
 	}
+}
+
+/* Styl dla tabelki z przewijaniem */
+.scrollable-table {
+	overflow-y: auto;
+	max-height: 400px; /* Ustaw maksymalną wysokość */
+}
+
+.admin-actions {
+	margin-top: 20px;
+}
+
+.admin-actions input[type="text"],
+.admin-actions input[type="email"] {
+	padding: 10px; /* Zwiększamy padding dla inputów */
+	margin-right: 10px; /* Dodatkowy margines między inputami */
+	background-color: #387ba1; /* Zmiana koloru tła */
+	border: 1px solid #000000ec; /* Kolor obramowania */
+	border-radius: 5px; /* Zaokrąglenie krawędzi */
+	width: 200px; /* Ustawienie szerokości inputów */
+}
+
+.search-button {
+	padding: 10px; /* Dopasuj wysokość przycisku do wysokości inputów */
+	background-color: #000000;
+	color: #ffffff;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: background-color 0.3s ease; /* Animacja podczas najechania */
+	width: 200px; /* Ustawienie szerokości przycisku */
+}
+
+.search-button:hover {
+	background-color: rgb(37, 123, 163);
+}
+
+/* Styl dla przycisku */
+button.my-6 {
+	padding: 10px 20px; /* Zwiększamy padding */
+	background-color: rgb(0, 0, 0); /* Kolor tła */
+	color: #ffffff; /* Kolor tekstu */
+	border: none; /* Usuwamy obramowanie */
+	border-radius: 4px; /* Zaokrąglenie rogów */
+	cursor: pointer; /* Kursor podczas najechania */
+	transition: background-color 0.3s ease; /* Animacja podczas najechania */
+}
+
+button.my-6:hover {
+	background-color: #255f82; /* Zmiana koloru tła po najechaniu myszką */
 }

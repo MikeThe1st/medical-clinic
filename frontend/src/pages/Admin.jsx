@@ -1,65 +1,87 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
-import  "../css/AdminPanel.css";
+import "../css/AdminPanel.css";
 import UserTable from "../components/AdminTable";
+import Footer from "../components/Footer";
+import axios from "axios";
+
 const Admin = () => {
-	const usersArray = [
-		{
-			id: 1,
-			login: "john_doe_login",
-			firstName: "John",
-			lastName: "Doe",
-			address: {
-				city: "New York",
-				zipCode: "10001",
-				street: "Broadway",
-				houseNumber: "123",
-				apartmentNumber: "45",
-			},
-			pesel: "12345678901",
-			birthDate: "1990-01-15",
-			gender: "Male",
-			email: "john.doe@example.com",
-			phoneNumber: "123-456-789",
-		},
-		{
-			id: 2,
-			login: "jane_smith_login",
-			firstName: "Jane",
-			lastName: "Smith",
-			address: {
-				city: "Los Angeles",
-				zipCode: "90001",
-				street: "Hollywood Blvd",
-				houseNumber: "456",
-				apartmentNumber: "78",
-			},
-			pesel: "98765432109",
-			birthDate: "1985-08-22",
-			gender: "Female",
-			email: "jane.smith@example.com",
-			phoneNumber: "987-654-321",
-		},
-	];
+    const [users, setUsers] = useState(undefined);
+    const [login, setLogin] = useState("");
+    const [email, setEmail] = useState("");
+    const [name, setName] = useState("");
+    const [lastName, setLastName] = useState("");
 
-	return (
-		<div className="admin-container">
-			<h1>Panel Administratora</h1>
+    useEffect(() => {
+        const getUsers = async () => {
+            const response = await axios.get("http://localhost:3000/backend/admin/users")
+            setUsers(response.data);
+            console.log(response);
+        };
 
-			<div className="admin-content">
-				<h2>Statystyki</h2>
-				<p>Liczba użytkowników: 100</p>
-				<p>Liczba zamówień: 50</p>
-			</div>
+        getUsers();
+    }, []);
 
-			<div className="admin-actions">
-				<h2>Akcje Administratora</h2>
-				<button>Dodaj  użytkownika</button><br />
-			<button>usuń  użytkownika</button>
-			</div>
-			<UserTable users={usersArray} />
-		</div>
-	);
+    const handleInputChange = (setter) => (event) => {
+        setter(event.target.value);
+    };
+
+    const handleSearch = async (event) => {
+        event.preventDefault()
+        const searchData = { login, email, name, lastName }
+        const response = await axios.post("http://localhost:3000/backend/admin/search-users", searchData)
+        if (response.status == 200) {
+            setUsers(response.data)
+        }
+        console.log(response)
+    };
+
+    return (
+        <div className="w-screen">
+            <Navbar />
+            <div className="admin-container">
+                <h1>Panel Administratora</h1>
+                <div className="admin-content">
+                    <p>{`Liczba użytkowników: ${users?.length}`}</p>
+                </div>
+                <button className='my-6' onClick={() => window.location.href = '/add-user'}>Dodaj użytkownika</button>
+                <div className="admin-actions">
+                    <h2>Wyszukiwarka</h2>
+                    <form onSubmit={handleSearch} className="search-inputs">
+                        <input
+                            type="text"
+                            placeholder="Login"
+                            value={login}
+                            onChange={handleInputChange(setLogin)}
+                        />
+                        <input
+                            type="email"
+                            placeholder="Email"
+                            value={email}
+                            onChange={handleInputChange(setEmail)}
+                        />
+                        <input
+                            type="text"
+                            placeholder="Imię"
+                            value={name}
+                            onChange={handleInputChange(setName)}
+                        />
+                        <input
+                            type="text"
+                            placeholder="Nazwisko"
+                            value={lastName}
+                            onChange={handleInputChange(setLastName)}
+                        />
+                        <button type="submit" className="search-button">Wyszukaj</button>
+                    </form>
+                </div>
+                <div className="scrollable-table">
+                    <UserTable users={users} />
+                </div>
+            </div>
+            <Footer />
+        </div>
+    );
 };
 
 export default Admin;

@@ -1,79 +1,57 @@
-/* Styl dla całej strony */
-body {
-	background-color: rgb(
-		81,
-		179,
-		240
-	); /* Dodanie niebieskiego tła do całej strony */
-	color: white; /* Ustawienie koloru tekstu na biały */
-	font-family: Arial, sans-serif; /* Ustawienie czcionki */
-	margin: 0; /* Usunięcie domyślnego marginesu */
-	padding: 0; /* Usunięcie domyślnego wewnętrznego marginesu */
-}
-
-/* Styl dla tytułu przychodni */
-.clinic-title {
-	position: fixed;
-	top: 0;
-	left: 50%;
-	transform: translateX(-50%);
-	text-align: center; /* Wyśrodkowanie tekstu */
-	width: 100%; /* Zapewnia, że tekst będzie zajmował całą szerokość */
-	font-size: 48px; /* Rozmiar czcionki */
-	font-family: "Arial Black", sans-serif; /* Ustawienie czcionki */
-	background: linear-gradient(to right, #66adff, #000000); /* Gradient tła */
-	-webkit-background-clip: text; /* Cieniowanie tekstu */
-	color: transparent; /* Ukrycie koloru tekstu */
-	-webkit-text-fill-color: transparent; /* Ukrycie koloru tekstu */
-}
-
-/* Styl dla ramki */
-.frame {
-	border: 2px solid rgba(255, 255, 255, 0.5); /* Grubość i kolor obramowania z przezroczystością */
-	padding: 40px; /* Wewnętrzny margines ramki */
-	position: absolute; /* Ustawienie pozycji na absolutną */
-	top: 50%; /* Przesunięcie do góry o 50% */
-	left: 50%; /* Przesunięcie w lewo o 50% */
-	transform: translate(-50%, -50%); /* Wyśrodkowanie wertykalne i poziome */
-	max-width: 800px; /* Maksymalna szerokość ramki */
-	background-color: rgba(
-		255,
-		255,
-		255,
-		0.1
-	); /* Kolor tła ramki z przezroczystością */
-	border-radius: 20px; /* Zaokrąglenie rogów ramki */
-	box-shadow: 0 0 20px rgba(15, 22, 158, 0.942); /* Dodanie cienia */
-}
-
-/* Styl dla tytułu opisu */
-.clinic-description-title {
-	font-size: 24px; /* Rozmiar czcionki tytułu */
-	margin-bottom: 20px; /* Margines na dół */
-	background: linear-gradient(to right, #1c75da, #000000); /* Gradient tła */
-	-webkit-background-clip: text; /* Cieniowanie tekstu */
-	color: transparent; /* Ukrycie koloru tekstu */
-	-webkit-text-fill-color: transparent; /* Ukrycie koloru tekstu */
-}
-
-/* Styl dla listy punktowanej */
-.frame ul {
-	list-style-type: disc; /* Typ punktorów */
-	padding-left: 20px; /* Wewnętrzny margines lewy */
-}
-
-/* Styl dla elementów listy punktowanej */
-.frame li {
-	margin-bottom: 10px; /* Margines na dół dla każdego elementu */
-}
-.main-container {
+.contact-container {
+    text-align: center;
+    margin-bottom: 30px;
+    
+    min-height: calc(100vh - 150px); /* Nowy margines dolny, gdzie 150px to wysokość stopki */
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+
+	}
+
+.clinic-title-contact {
+    font-size: 2.5em;
+    color: #1f0471;
+    margin-bottom: 20px;
+    border: 10px solid #1f0471;
+    padding: 15px 25px;
+    border-radius: 20px;
+    background-color: #ffffffff;
+    margin-top: 20px; /* Zmniejszenie marginesu górnego */
 }
 
+.clinic-description-contact {
+    
+    padding: 20px;
+    margin: 50px auto; /* Usunięcie marginesu dolnego */
+    border-radius: 20px;
+    background-color:#1f0471;
+}
 
+.contact-clinic-description-title {
+    font-size: 1.5em;
+    color: #1f0471;
+    margin-bottom: 10px;
+}
+
+.contact-clinic-description ul {
+    list-style-type: none;
+    padding: 0;
+    text-align: left;
+}
+
+.contact-clinic-description ul li {
+    font-size: 1.2em;
+    color: #000000;
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+.frame-contact {
+    border: 2px solid rgb(48, 182, 244);
+    padding: 20px;
+    border-radius: 20px;
+    background-color: rgb(93, 165, 243);
+}
 .images-container {
     display: flex;
     justify-content: space-between;
@@ -81,6 +59,17 @@ body {
 }
 
 .clinic-image {
-    max-width: 30%; /* Ustawienie maksymalnej szerokości obrazu */
-    margin: 10px; /* Dodanie marginesu do rozdzielania obrazów */
+    border-radius: 10px;
+}
+
+.small-image {
+    width: 30%;
+}
+
+.medium-image {
+    width: 30%;
+}
+
+.large-image {
+    width: 30%;
 }

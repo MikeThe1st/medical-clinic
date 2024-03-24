@@ -1,0 +1,43 @@
+.calendar {
+    font-family: Arial, sans-serif;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .calendar-title {
+    text-align: center;
+  }
+  
+  .appointment-list {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .appointment {
+    cursor: pointer;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+  }
+  
+  .appointment:hover {
+    background-color: #e6e6e6;
+  }
+  
+  .selected-appointment {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+  }
+  
+  .selected-title {
+    margin-top: 0;
+  }
+  
+  .appointment-info, .selected-info {
+    margin: 5px 0;
+  }
+  

@@ -1,65 +1,70 @@
 body {
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgb(108, 147, 165);
-  }
-  
-  .Registration-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
-    background-size: cover;
-    background-position: center;
-  }
-  
-  .Registration-form {
-    display: flex;
-    flex-direction: row; /* Zmieniono flex-direction na 'row' */
-    justify-content: space-between; /* Dodano justify-content */
-    align-items: center;
-    width: 100%; /* Zmieniono szerokość na 60% (możesz dostosować według potrzeb) */
-    margin-top: 20px; /* Adjust margin as needed */
-    padding: 40px;
-    background-color: rgba(35, 59, 167, 0.5);
-    border-radius: 20px;
-    color: black;
-  }
-  
-  .Registration-column {
-    flex: 1; /* Równy podział przestrzeni między kolumnami */
-    margin-right: 20px; /* Dodałem margines między kolumnami (możesz dostosować) */
-  }
-  
-  
-  
-  .Registration-form input,
-  .Registration-form select {
-    padding: 10px;
-    margin-bottom: 15px;
-    border: none;
-    border-radius: 20px;
-    background-color: #f8f8f8;
-  }
-  
-  .Registration-button-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px; /* Adjust margin as needed */
-    background-color: rgb(14, 43, 82); /* Green button */
+	margin: 0;
+	padding: 0;
+	min-height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: rgb(108, 147, 165);
+}
+
+.Registration-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	min-height: 100vh;
+	background-size: cover;
+	background-position: center;
+}
+
+.Registration-form {
+	display: flex;
+	flex-direction: row; /* Zmieniono flex-direction na 'row' */
+	justify-content: space-between; /* Dodano justify-content */
+	align-items: center;
+	width: 100%; /* Zmieniono szerokość na 60% (możesz dostosować według potrzeb) */
+	margin-top: 20px; /* Adjust margin as needed */
+	padding: 40px;
+	background-color: rgba(35, 59, 167, 0.5);
+	border-radius: 20px;
+	color: black;
+}
+
+.Registration-column {
+	flex: 1; /* Równy podział przestrzeni między kolumnami */
+	margin-right: 20px; /* Dodałem margines między kolumnami (możesz dostosować) */
+}
+
+.Registration-form input,
+.Registration-form select {
+	padding: 10px;
+	margin-bottom: 15px;
+	border: none;
+	border-radius: 20px;
+	background-color: #fde9e9;
+}
+
+.Registration-button-container {
+	display: flex;
+	justify-content: center;
+	margin-top: 20px;
+	margin-bottom: 70px;
+	background-color: rgb(14, 43, 82);
 	color: white;
-    border-radius: 20px;
-    padding: 2px;
-  }
-  
-  /* Responsive behavior for smaller screens */
-  @media (max-width: 768px) {
-    .Registration-form {
-      width: 100%;
-    }
-  }
-  
+	border-radius: 20px;
+	padding: 10px 20px; /* Zwiększam wewnętrzny padding przycisku */
+}
+
+.Registration-button-container button {
+	width: 200px; /* Dostosuj szerokość przycisku według potrzeb */
+	height: 50px; /* Dostosuj wysokość przycisku według potrzeb */
+	font-size: 16px; /* Dostosuj rozmiar czcionki przycisku według potrzeb */
+}
+
+
+/* Responsive behavior for smaller screens */
+@media (max-width: 768px) {
+	.Registration-form {
+		width: 100%;
+	}
+}
