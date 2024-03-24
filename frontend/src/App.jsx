@@ -24,11 +24,11 @@ function App() {
 				<Route element={<ResetForgotPassword />} path="/reset-forgot-password" />
 				<Route element={<Visits />} path="/visits" />
 				<Route element={<Doctors />} path="/doctors" />
+				<Route element={<ChangePassword />} path="/change-password" />
 
 				{/* PATHS WHERE EVERY LOGGED USER CAN ACCESS */}
 				<Route element={<UserRoutes />}>
 					<Route element={<UserPage />} path="/user-page" />
-					<Route element={<ChangePassword />} path="/change-password" />
 				</Route>
 
 				{/* PATHS WHERE ONLY LOGGED ADMIN USER CAN ACCESS */}

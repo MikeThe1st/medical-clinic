@@ -40,12 +40,15 @@ const AdminTable = ({ users }) => {
 							<td>{user.phoneNumber}</td>
 							<td>
 								<button onClick={(e) => { e.preventDefault(); window.location.href = `/edit-page?login=${user.login}` }}>Edytuj</button>
+								<button onClick={(e) => { e.preventDefault(); window.location.href = `/change-password?login=${user.login}` }}>Zmień hasło</button>
+								<button onClick={(e) => { e.preventDefault(); window.location.href = `/display-data?login=${user.login}` }}>Wyświetl dane</button>
 								{user.disabled ? <></> :
 									<button onClick={async (e) => {
 										e.preventDefault();
 										const areYouSure = confirm(`Do you want to disable ${user.login}?`)
 										if (areYouSure) {
 											await axios.post(`http://localhost:3000/backend/admin/disable-user `, { login: user.login });
+											window.location.reload()
 										}
 									}}>Usuń</button>
 								}

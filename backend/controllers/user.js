@@ -37,7 +37,7 @@ export const login = async (req, res) => {
             const secretKey = process.env.JWT_SECRET
             const token = jwt.sign(email, secretKey)
             res.cookie("token", token, { httpOnly: false, secure: true, path: '/', sameSite: 'none', expiresIn: '1d' })
-            return res.status(200).json({ token, msg: 'Login success.' })
+            return res.status(200).json({ token, msg: 'Login success.', login: loginUser.login, resetPassword: loginUser.resetPassword })
         }
         else {
             console.log('Password does not match. Login failed.')
@@ -118,5 +118,38 @@ export const forgotPassword = async (req, res) => {
         return res.status(200).json({ user: user, newPassword: password })
     } catch (error) {
         return res.status(500).json({ error: 'Authentication failed.', status: false })
+    }
+}
+
+export const resetPassword = async (req, res) => {
+    const { login, newPassword, confirmPassword } = req.body
+    const user = await User.findOne({ login: login })
+    if (!user) {
+        return res.status(404).json({ msg: `User with ${login} not found.`, status: false })
+    }
+
+    if (newPassword !== confirmPassword) return res.status(409).json({ msg: 'Please make sure both passwords are the same!' })
+
+    const salt = await bcrypt.genSalt(10)
+    const newHashedPassword = await bcrypt.hash(newPassword, salt)
+
+
+    try {
+        const latestPreviousPasswords = user.previousPasswords.slice(-3)
+        console.log(latestPreviousPasswords)
+        for (const pass of latestPreviousPasswords) {
+            const isTheSame = await bcrypt.compare(newPassword, pass)
+            if (isTheSame) return res.status(409).json({ msg: 'Please make sure that current password is not the same as any of your 3 latest passwords!' })
+        }
+
+        user.previousPasswords.push(newHashedPassword)
+        user.password = newHashedPassword
+        user.resetPassword = false
+        await user.save()
+
+        return res.status(201).json({ msg: 'Password successfully updated!', status: true });
+    } catch (error) {
+        console.error('Error updating password:', error);
+        res.status(500).json({ msg: 'Error updating password.', status: false });
     }
 }

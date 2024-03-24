@@ -13,7 +13,6 @@ const Navbar = () => {
         const getUser = async () => {
             const response = await axios.get('http://localhost:3000/backend/user/get-user', { withCredentials: true })
             setUser(response.data[0])
-            console.log(user)
         }
 
         const myCookie = getCookie('token')
@@ -86,11 +85,6 @@ const Navbar = () => {
                                             <a href="/login">
                                                 <li className="hover:text-yellow-200 font-bold text-2xl bg-blue-700 px-2 rounded-lg p-4 mx-20 sm:mx-0">
                                                     Logowanie
-                                                </li>
-                                            </a>
-                                            <a href="/register">
-                                                <li className="hover:text-yellow-200 font-bold text-2xl bg-blue-700 px-2 rounded-lg p-4 mx-20 sm:mx-0">
-                                                    Rejestracja
                                                 </li>
                                             </a>
                                         </div>

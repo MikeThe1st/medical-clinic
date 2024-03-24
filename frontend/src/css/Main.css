@@ -1,7 +1,7 @@
 .image-container {
 	position: relative;
 	width: 100vw;
-	height: 100vh;
+	height: 137vh;
 	background-image: url("https://iursus.pl/static/files/gallery/29/1494830_1699263606.webp");
 	background-size: cover;
 	background-position: center;
@@ -14,7 +14,6 @@
 .Main-container {
 	text-align: center;
 	margin-bottom: 1px; /* Zmniejszony margines */
-	 
 }
 
 .Main-title {
@@ -79,4 +78,3 @@
 	color: #ffffff;
 	margin-bottom: 5px;
 }
-
