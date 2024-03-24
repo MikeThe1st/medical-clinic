@@ -1,0 +1,83 @@
+.calendar-container {
+	font-family: Arial, sans-serif;
+	max-width: 600px;
+	margin: 0 auto;
+	padding: 20px;
+	background-color: white; /* białe tło kalendarza */
+	border-radius: 3%;
+}
+
+.doctor-info h2 {
+	margin-bottom: 20px;
+}
+
+.calendar-month {
+	margin-bottom: 20px;
+}
+
+.calendar-days {
+	display: grid;
+	grid-template-columns: repeat(7, 1fr);
+	gap: 10px;
+}
+
+.calendar-day {
+	width: 40px;
+	height: 40px;
+	border: 1px solid black;
+	cursor: pointer;
+	color: black; /* Czarny kolor liter */
+}
+
+.available {
+	background-color: rgb(226, 222, 222);
+}
+
+.limited {
+	background-color: yellow;
+}
+
+.booked {
+	background-color: gray;
+	cursor: not-allowed;
+}
+
+.unavailable {
+	background-color: red;
+	cursor: not-allowed;
+}
+
+.calendar-time-selector {
+	margin-bottom: 20px;
+}
+
+.calendar-times {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 10px;
+}
+
+.calendar-time {
+	width: 60px;
+	height: 40px;
+	border: none;
+	cursor: pointer;
+}
+
+.book-button {
+	display: block;
+	width: 100%;
+	padding: 10px;
+	background-color: #007bff;
+	color: white;
+	border: none;
+	cursor: pointer;
+	margin-top: 2%;
+}
+
+.book-button:hover {
+	background-color: #0056b3;
+}
+.hh3 {
+	color: black;
+}

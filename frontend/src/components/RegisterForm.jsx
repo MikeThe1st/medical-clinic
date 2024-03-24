@@ -3,121 +3,128 @@ import "../css/Registration.css";
 import axios from "axios";
 
 const RegisterForm = () => {
-	const [formData, setFormData] = useState({
-		login: "",
-		name: "",
-		lastName: "",
-		city: "",
-		postalCode: "",
-		street: "",
-		propertyNumber: "",
-		apartmentNumber: "",
-		pesel: "",
-		birthDate: "",
-		gender: "W",
-		email: "",
-		phoneNumber: "",
-		password: "",
-	});
+    const [formData, setFormData] = useState({
+        login: "",
+        name: "",
+        lastName: "",
+        city: "",
+        postalCode: "",
+        street: "",
+        propertyNumber: "",
+        apartmentNumber: "",
+        pesel: "",
+        birthDate: "",
+        gender: "W",
+        email: "",
+        phoneNumber: "",
+        password: "",
+    });
 
-	const [errors, setErrors] = useState({});
+    const [errors, setErrors] = useState({});
 
-	const handleChange = (e) => {
-		const { name, value } = e.target;
-		setFormData({
-			...formData,
-			[name]: value,
-		});
-	};
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: value,
+        });
+    };
 
-	const validateEmail = (email) => {
-		const emailRegex = /^[\w.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-		return (
-			emailRegex.test(email) && email.split("@")[1].split(".").length === 2
-		);
-	};
+    const validateEmail = (email) => {
+        const emailRegex = /^[\w.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+        return emailRegex.test(email);
+    };
 
-	const validatePESEL = (pesel) => {
-		const peselRegex = /^[0-9]{11}$/;
-		if (!peselRegex.test(pesel)) return false;
+    const validatePESEL = (pesel) => {
+        const peselRegex = /^[0-9]{11}$/;
+        if (!peselRegex.test(pesel)) return false;
 
-		const year = parseInt(pesel.substring(0, 2));
-		const month = parseInt(pesel.substring(2, 4));
-		const day = parseInt(pesel.substring(4, 6));
+        let year = parseInt(pesel.substring(0, 2));
+        const month = parseInt(pesel.substring(2, 4));
+        const day = parseInt(pesel.substring(4, 6));
 
-		if (month > 80 && month < 93) {
-			year += 1800;
-		} else if (month > 0 && month < 13) {
-			year += 1900;
-		} else if (month > 20 && month < 33) {
-			year += 2000;
-		} else if (month > 40 && month < 53) {
-			year += 2100;
-		} else if (month > 60 && month < 73) {
-			year += 2200;
-		}
+        if (month > 80 && month < 93) {
+            year += 1800;
+        } else if (month > 0 && month < 13) {
+            year += 1900;
+        } else if (month > 20 && month < 33) {
+            year += 2000;
+        } else if (month > 40 && month < 53) {
+            year += 2100;
+        } else if (month > 60 && month < 73) {
+            year += 2200;
+        }
 
-		const birthDate = new Date(year, month - 1, day);
-		if (
-			birthDate.getDate() !== day ||
-			birthDate.getMonth() !== month - 1 ||
-			birthDate.getFullYear() !== year
-		) {
-			return false;
-		}
+        const birthDate = new Date(year, month - 1, day);
+        if (
+            birthDate.getDate() !== day ||
+            birthDate.getMonth() !== month - 1 ||
+            birthDate.getFullYear() !== year
+        ) {
+            return false;
+        }
 
-		const weights = [1, 3, 7, 9, 1, 3, 7, 9, 1, 3];
-		let sum = 0;
+        const weights = [1, 3, 7, 9, 1, 3, 7, 9, 1, 3];
+        let sum = 0;
 
-		for (let i = 0; i < 10; i++) {
-			sum += parseInt(pesel.charAt(i)) * weights[i];
-		}
+        for (let i = 0; i < 10; i++) {
+            sum += parseInt(pesel.charAt(i)) * weights[i];
+        }
 
-		sum = (10 - (sum % 10)) % 10;
+        sum = (10 - (sum % 10)) % 10;
 
-		return sum === parseInt(pesel.charAt(10));
-	};
+        if (sum !== parseInt(pesel.charAt(10))) {
+            return false;
+        }
 
-	const handleSubmit = async (e) => {
-		e.preventDefault();
+        // Określenie płci na podstawie ostatniej cyfry PESEL
+        const genderDigit = parseInt(pesel.charAt(9));
+        const gender = genderDigit % 2 === 0 ? "W" : "M"; // "W" - kobieta, "M" - mężczyzna
 
-		const errors = {};
+        setFormData({
+            ...formData,
+            gender: gender,
+        });
 
-		if (!formData.login) errors.login = "Login is required";
-		if (!formData.name) errors.name = "Name is required";
-		if (!formData.lastName) errors.lastName = "Last name is required";
-		if (!formData.city) errors.city = "City is required";
-		if (!formData.postalCode) errors.postalCode = "Postal code is required";
-		if (!formData.propertyNumber)
-			errors.propertyNumber = "Property number is required";
-		if (!formData.pesel) errors.pesel = "PESEL is required";
-		else if (!validatePESEL(formData.pesel))
-			errors.pesel = "Invalid PESEL number";
-		if (!formData.birthDate) errors.birthDate = "Birth date is required";
-		if (!formData.email) errors.email = "Email is required";
-		else if (!validateEmail(formData.email))
-			errors.email = "Invalid email format";
-		if (!formData.phoneNumber) errors.phoneNumber = "Phone number is required";
-		else if (!/^[0-9]{9}$/.test(formData.phoneNumber))
-			errors.phoneNumber = "Invalid phone number format";
-		if (!formData.password) errors.password = "Password is required";
+        return true;
+    };
 
-		if (Object.keys(errors).length === 0) {
-			try {
-				const response = await axios.post(
-					"http://localhost:3000/backend/user/register",
-					formData
-				);
-				console.log(response.data);
-				alert("Konto zostało utworzone. Możesz się zalogować.");
-				window.location.href = "/login";
-			} catch (error) {
-				alert(error);
-			}
-		} else {
-			setErrors(errors);
-		}
-	};
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const errors = {};
+
+        if (!formData.login) errors.login = "Login is required";
+        if (!formData.name) errors.name = "Name is required";
+        if (!formData.lastName) errors.lastName = "Last name is required";
+        if (!formData.city) errors.city = "City is required";
+        if (!formData.postalCode) errors.postalCode = "Postal code is required";
+        if (!formData.propertyNumber) errors.propertyNumber = "Property number is required";
+        if (!formData.pesel) errors.pesel = "PESEL is required";
+        else if (!validatePESEL(formData.pesel)) errors.pesel = "Invalid PESEL number";
+        if (!formData.birthDate) errors.birthDate = "Birth date is required";
+        if (!formData.email) errors.email = "Email is required";
+        else if (!validateEmail(formData.email)) errors.email = "Invalid email format";
+        if (!formData.phoneNumber) errors.phoneNumber = "Phone number is required";
+        else if (!/^[0-9]{9}$/.test(formData.phoneNumber)) errors.phoneNumber = "Invalid phone number format";
+        if (!formData.password) errors.password = "Password is required";
+
+        if (Object.keys(errors).length === 0) {
+            try {
+                const response = await axios.post(
+                    "http://localhost:3000/backend/user/register",
+                    formData
+                );
+                console.log(response.data);
+                alert("Konto zostało utworzone. Możesz się zalogować.");
+                window.location.href = "/login";
+            } catch (error) {
+                alert(error);
+            }
+        } else {
+            setErrors(errors);
+        }
+    };
 
 	return (
 		<div className="Registration-container max-w-[800px] mx-auto">
