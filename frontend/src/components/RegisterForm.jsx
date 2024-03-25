@@ -134,7 +134,10 @@ const RegisterForm = () => {
             alert("Konto zostało utworzone. Możesz się zalogować.");
             window.location.href = "/login";
         } catch (error) {
-            alert(error);
+            console.log(error)
+            if (error.response.data.msg) {
+                alert(error.response.data.msg)
+            }
         }
 
     };

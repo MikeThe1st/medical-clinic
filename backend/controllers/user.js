@@ -6,6 +6,19 @@ export const register = async (req, res) => {
     try {
         const { login, password, name, lastName, city, postalCode, street, propertyNumber, apartmentNumber, pesel, birthDate, gender, email, phoneNumber } = req.body
 
+        const loginUser = await User.findOne({ login: login })
+        if (loginUser) {
+            return res.status(403).json({ msg: `User with login: ${login} already exists.` })
+        }
+        const emailUser = await User.findOne({ email: email })
+        if (emailUser) {
+            return res.status(403).json({ msg: `User with email: ${email} already exists.` })
+        }
+        const peselUser = await User.findOne({ pesel: pesel })
+        if (peselUser) {
+            return res.status(403).json({ msg: `User with pesel: ${pesel} already exists.` })
+        }
+
         const salt = await bcrypt.genSalt(10)
         const hashedPassword = await bcrypt.hash(password, salt)
 
