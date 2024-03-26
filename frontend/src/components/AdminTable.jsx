@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 
 const AdminTable = ({ users }) => {
+
 	if (!users || users.length === 0) {
 		return (
 			<div>
@@ -41,7 +42,7 @@ const AdminTable = ({ users }) => {
 							<td>
 								<button onClick={(e) => { e.preventDefault(); window.location.href = `/edit-page?login=${user.login}` }}>Edytuj</button>
 								<button onClick={(e) => { e.preventDefault(); window.location.href = `/change-password?login=${user.login}` }}>Zmień hasło</button>
-								<button onClick={(e) => { e.preventDefault(); window.location.href = `/display-data?login=${user.login}` }}>Wyświetl dane</button>
+								<button onClick={(e) => { e.preventDefault(); window.location.href = `/user-page?login=${user.login}` }}>Wyświetl dane</button>
 								{user.disabled ? <></> :
 									<button onClick={async (e) => {
 										e.preventDefault();
