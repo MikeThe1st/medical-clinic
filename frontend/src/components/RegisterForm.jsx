@@ -213,7 +213,7 @@ const RegisterForm = () => {
                                 title="Postal code must be in the format XX-XXX"
                             />
                             <br />
-                            <label htmlFor="street">Ulica</label>
+                            <label htmlFor="street">Ulica*</label>
                             <br />
                             <input
                                 type="text"
@@ -222,6 +222,7 @@ const RegisterForm = () => {
                                 placeholder="Enter your street"
                                 value={formData.street}
                                 onChange={handleChange}
+                                required
                             />
                             <br />
                             <label htmlFor="propertyNumber">Numer posesji*</label>

@@ -234,13 +234,14 @@ const EditProfilePage = () => {
                 </div>
                 <div className="form-column">
                     <div className="form-group">
-                        <label htmlFor="street" className="font-bold">Street</label>
+                        <label htmlFor="street" className="font-bold">Street*</label>
                         <input
                             type="text"
                             id="street"
                             name="street"
                             value={userData.location.street}
                             onChange={handleChange}
+                            required
                         />
                     </div>
                     <div className="form-group">
