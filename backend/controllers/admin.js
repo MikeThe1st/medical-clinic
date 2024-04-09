@@ -102,3 +102,15 @@ export const disableUser = async (req, res) => {
         return res.status(500).json({ error: 'Disable failed.' });
     }
 }
+
+export const switchRole = async (req, res) => {
+    try {
+        const { login } = req.body
+        const userToBeModified = await User.findOne({ login })
+        const switchedRoleUser = await User.findOneAndUpdate({ login }, { isAdmin: !userToBeModified.isAdmin }, { new: true }).select('-password')
+        return res.status(201).json(switchedRoleUser)
+    } catch (error) {
+        console.error('Error:', error);
+        return res.status(500).json({ error: 'Switing failed.' });
+    }
+}

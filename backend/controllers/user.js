@@ -90,7 +90,7 @@ export const forgotPassword = async (req, res) => {
         const { email } = req.body
         const user = await User.findOne({ email: email })
         if (!user) {
-            return res.status(404).json({ msg: `User with ${email} not found.`, status: false })
+            return res.status(404).json({ msg: `User with email: ${email} not found.`, status: false })
         }
 
         const minLength = 8
@@ -128,7 +128,7 @@ export const forgotPassword = async (req, res) => {
         // Updating user
         await User.findOneAndUpdate({ email: email }, { password: hashedPassword, resetPassword: true })
 
-        return res.status(200).json({ user: user, newPassword: password })
+        return res.status(201).json({ user: user, newPassword: password })
     } catch (error) {
         return res.status(500).json({ error: 'Authentication failed.', status: false })
     }

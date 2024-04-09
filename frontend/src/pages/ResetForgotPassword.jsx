@@ -10,13 +10,24 @@ const ResetForgotPassword = () => {
 
     try {
       const response = await axios.post('http://localhost:3000/backend/user/forgot-password', { email: email })
-      if (response.status == 200) {
+      console.log('Response:', response)
+      if (response.status == 201) {
         console.log('Response:', response.data)
         alert(`Password reset request sent to ${email}.`)
         alert(`Please write down your current password: ${response.data.newPassword}`)
         window.location.href = '/login'
       }
+      else {
+        alert(response.data.msg || 'Unexpected response from server');
+      }
+
     } catch (error) {
+      if (error.response && error.response.status === 404) {
+        alert(error.response.data.msg || 'Resource not found');
+      } else {
+        // Handle other errors or status codes
+        alert('An error occurred. Please try again later.');
+      }
       console.error('Error:', error);
     }
   }

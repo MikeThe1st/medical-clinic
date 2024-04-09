@@ -69,7 +69,7 @@ const Navbar = () => {
                             {
                                 isLogged ? (
                                     <div className='flex flex-col lg:flex-row gap-20'>
-                                        <button className='text-2xl font-bold text-yellow-600 mx-20 sm:mx-0 bg-blue-700' onClick={() => user?.isAdmin ? window.location = '/admin' : window.location = '/user-page'}>{user?.email}</button>
+                                        <button className='text-2xl font-bold text-yellow-600 mx-20 sm:mx-0 bg-blue-700' onClick={() => user?.isAdmin ? window.location = '/admin' : window.location = `/user-page?login=${user?.login}`}>{user?.email}</button>
 
                                         <button className='text-2xl font-bold text-red-800 mx-20 sm:mx-0 bg-blue-500' onClick={() => {
                                             if (confirm('Czy na pewno chcesz się wylogować?') == true) {

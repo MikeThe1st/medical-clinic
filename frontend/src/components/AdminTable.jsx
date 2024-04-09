@@ -41,12 +41,18 @@ const AdminTable = ({ users }) => {
                             <td>{user.email}</td>
                             <td>{user.phoneNumber}</td>
                             <td>
-                            <button onClick={() => {
-    const roleText = user.isAdmin ? 'Admin' : 'Użytkownik';
-    alert(`ID: ${user._id}, Rola: ${roleText}`);
-}}>
-    {user.isAdmin ? 'Admin' : 'Użytkownik'}
-</button>
+                                <button onClick={async (e) => {
+                                    e.preventDefault()
+                                    const roleText = user.isAdmin ? 'Admin' : 'Użytkownik';
+                                    const areYouSure = confirm(`Czy chcesz rolę użytkownika z loginem:${user.login} na ${user.isAdmin ? 'Użytkownika' : 'Admina'}?`)
+                                    if (areYouSure) {
+                                        await axios.post(`http://localhost:3000/backend/admin/switch-user-role`, { login: user.login });
+                                        window.location.reload()
+                                    }
+                                    // alert(`ID: ${user._id}, Rola: ${roleText}`);
+                                }}>
+                                    {user.isAdmin ? 'Admin' : 'Użytkownik'}
+                                </button>
 
                             </td>
                             <td>
