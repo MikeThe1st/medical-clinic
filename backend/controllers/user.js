@@ -19,6 +19,43 @@ export const register = async (req, res) => {
             return res.status(403).json({ msg: `User with pesel: ${pesel} already exists.` })
         }
 
+        const minLength = 8
+        const maxLength = 15
+        const upperCaseLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
+        const lowerCaseLetters = 'abcdefghijklmnopqrstuvwxyz'.split('')
+        const numbers = '0123456789'.split('')
+        const specialCharacters = '-_!*#$&'.split('')
+
+        if (password.length < minLength)
+            return res.status(400).json({ msg: 'Password must be above 8 characters!' })
+
+        if (password.length > maxLength)
+            return res.status(400).json({ msg: 'Password can contain up to 15 characters at most!' })
+
+        let isUpperCase = false
+        upperCaseLetters.map((char) => {
+            if (password.includes(char)) isUpperCase = true
+        })
+        if (!isUpperCase) return res.status(400).json({ msg: 'Password must contain an upper case letter!' })
+
+        let isLowerCase = false
+        lowerCaseLetters.map((char) => {
+            if (password.includes(char)) isLowerCase = true
+        })
+        if (!isLowerCase) return res.status(400).json({ msg: 'Password must contain a lower case letter!' })
+
+        let isNum = false
+        numbers.map((char) => {
+            if (password.includes(char)) isNum = true
+        })
+        if (!isNum) return res.status(400).json({ msg: 'Password must contain a number!' })
+
+        let isSpecialChar = false
+        specialCharacters.map((char) => {
+            if (password.includes(char)) isSpecialChar = true
+        })
+        if (!isSpecialChar) return res.status(400).json({ msg: 'Password must contain a special character!' })
+
         const salt = await bcrypt.genSalt(10)
         const hashedPassword = await bcrypt.hash(password, salt)
 
@@ -143,9 +180,45 @@ export const resetPassword = async (req, res) => {
 
     if (newPassword !== confirmPassword) return res.status(409).json({ msg: 'Please make sure both passwords are the same!' })
 
+    const minLength = 8
+    const maxLength = 15
+    const upperCaseLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
+    const lowerCaseLetters = 'abcdefghijklmnopqrstuvwxyz'.split('')
+    const numbers = '0123456789'.split('')
+    const specialCharacters = '-_!*#$&'.split('')
+
+    if (newPassword.length < minLength)
+        return res.status(400).json({ msg: 'Password must be above 8 characters!' })
+
+    if (newPassword.length > maxLength)
+        return res.status(400).json({ msg: 'Password can contain up to 15 characters at most!' })
+
+    let isUpperCase = false
+    upperCaseLetters.map((char) => {
+        if (newPassword.includes(char)) isUpperCase = true
+    })
+    if (!isUpperCase) return res.status(400).json({ msg: 'Password must contain an upper case letter!' })
+
+    let isLowerCase = false
+    lowerCaseLetters.map((char) => {
+        if (newPassword.includes(char)) isLowerCase = true
+    })
+    if (!isLowerCase) return res.status(400).json({ msg: 'Password must contain a lower case letter!' })
+
+    let isNum = false
+    numbers.map((char) => {
+        if (newPassword.includes(char)) isNum = true
+    })
+    if (!isNum) return res.status(400).json({ msg: 'Password must contain a number!' })
+
+    let isSpecialChar = false
+    specialCharacters.map((char) => {
+        if (newPassword.includes(char)) isSpecialChar = true
+    })
+    if (!isSpecialChar) return res.status(400).json({ msg: 'Password must contain a special character!' })
+
     const salt = await bcrypt.genSalt(10)
     const newHashedPassword = await bcrypt.hash(newPassword, salt)
-
 
     try {
         const latestPreviousPasswords = user.previousPasswords.slice(-3)

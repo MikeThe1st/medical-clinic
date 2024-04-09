@@ -22,10 +22,9 @@ const ResetForgotPassword = () => {
       }
 
     } catch (error) {
-      if (error.response && error.response.status === 404) {
+      if (error.response && error.response.status === 404 || error.response.status === 400) {
         alert(error.response.data.msg || 'Resource not found');
       } else {
-        // Handle other errors or status codes
         alert('An error occurred. Please try again later.');
       }
       console.error('Error:', error);
