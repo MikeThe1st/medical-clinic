@@ -13,6 +13,7 @@ import ChangePassword from "./pages/ChangePassword.jsx";
 import Doctors from "./pages/Doctors.jsx";
 import UserRoutes from "./utils/UserRoutes.jsx";
 import AdminRoutes from "./utils/AdminRoutes.jsx";
+import Search from "./pages/Search.jsx";
 
 function App() {
 	return (
@@ -25,7 +26,7 @@ function App() {
 				<Route element={<Visits />} path="/visits" />
 				<Route element={<Doctors />} path="/doctors" />
 				<Route element={<ChangePassword />} path="/change-password" />
-
+				<Route element={<Search />} path="/Search" />
 				{/* PATHS WHERE EVERY LOGGED USER CAN ACCESS */}
 				<Route element={<UserRoutes />}>
 					<Route element={<UserPage />} path="/user-page" />
