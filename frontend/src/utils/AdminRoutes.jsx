@@ -29,7 +29,7 @@ const UserRoutes = () => {
         return <div>Loading...</div>;
     }
 
-    return isAuthenticated ? <Outlet /> : <Navigate to="/login" />
+    return isAuthenticated ? <Outlet /> : <Navigate to="/" />
 };
 
 export default UserRoutes
