@@ -7,12 +7,14 @@ import UserPage from "./pages/UserPage.jsx";
 import Registration from "./pages/Registration.jsx";
 import Contact from "./pages/Contact.jsx";
 import ResetForgotPassword from "./pages/ResetForgotPassword.jsx";
+import Roles from"./pages/Roles.jsx";
 import Visits from "./pages/Visits.jsx";
 import EditPage from "./pages/EditPage.jsx";
 import ChangePassword from "./pages/ChangePassword.jsx";
 import Doctors from "./pages/Doctors.jsx";
 import UserRoutes from "./utils/UserRoutes.jsx";
 import AdminRoutes from "./utils/AdminRoutes.jsx";
+
 
 function App() {
 	return (
@@ -36,6 +38,7 @@ function App() {
 					<Route element={<Registration />} path="/add-user" />
 					<Route element={<EditPage />} path="/edit-page" />
 					<Route element={<Admin />} path="/admin" />
+					<Route element={<Roles />} path="/roles" />
 				</Route>
 			</Routes>
 		</BrowserRouter>
