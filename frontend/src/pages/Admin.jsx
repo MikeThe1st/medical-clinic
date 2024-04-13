@@ -30,10 +30,15 @@ const Admin = () => {
         event.preventDefault()
         const searchData = { login, email, name, lastName }
         const response = await axios.post("http://localhost:3000/backend/admin/search-users", searchData)
-        if (response.status == 200) {
+        if (response.status === 200) {
             setUsers(response.data)
         }
         console.log(response)
+    };
+
+    const handleSearchPermissions = () => {
+        // Tutaj możesz dodać logikę przekierowania do strony wyszukiwania po uprawnieniach
+        // np. window.location.href = "/search-permissions";
     };
 
     return (
@@ -44,8 +49,9 @@ const Admin = () => {
                 <div className="admin-content">
                     <p>{`Liczba użytkowników: ${users?.length}`}</p>
                 </div>
-                <button className='my-6' onClick={() => window.location.href = '/add-user'}>Dodaj użytkownika</button>
                 <div className="admin-actions">
+                    <button className='my-6' onClick={() => window.location.href = '/add-user'}>Dodaj użytkownika</button>
+                    <button className='my-6' onClick={handleSearchPermissions}>Szukaj po uprawnieniach</button>
                     <h2>Wyszukiwarka</h2>
                     <form onSubmit={handleSearch} className="search-inputs">
                         <input

@@ -14,6 +14,7 @@ import ChangePassword from "./pages/ChangePassword.jsx";
 import Doctors from "./pages/Doctors.jsx";
 import UserRoutes from "./utils/UserRoutes.jsx";
 import AdminRoutes from "./utils/AdminRoutes.jsx";
+import Search from "./pages/Search.jsx";
 
 
 function App() {
@@ -27,16 +28,16 @@ function App() {
 				<Route element={<Visits />} path="/visits" />
 				<Route element={<Doctors />} path="/doctors" />
 				<Route element={<ChangePassword />} path="/change-password" />
-
+				<Route element={<Search />} path="/Search" />
 				{/* PATHS WHERE EVERY LOGGED USER CAN ACCESS */}
 				<Route element={<UserRoutes />}>
 					<Route element={<UserPage />} path="/user-page" />
+					<Route element={<EditPage />} path="/edit-page" />
 				</Route>
 
 				{/* PATHS WHERE ONLY LOGGED ADMIN USER CAN ACCESS */}
 				<Route element={<AdminRoutes />}>
 					<Route element={<Registration />} path="/add-user" />
-					<Route element={<EditPage />} path="/edit-page" />
 					<Route element={<Admin />} path="/admin" />
 					<Route element={<Roles />} path="/roles" />
 				</Route>
