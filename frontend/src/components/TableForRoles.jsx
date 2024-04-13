@@ -1,63 +1,110 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../css/RolesTable.css";
+import axios from "axios";
+import { useLocation } from 'react-router-dom'
 
 const TableForRoles = () => {
-    const roles = [
-        { name: "role1" },
-        { name: "role2" },
-        { name: "role3" },
-        { name: "role4" },
-        { name: "role5" },
-        { name: "role6" },
-        { name: "role7" },
-        { name: "role8" },
-        { name: "role9" },
-        { name: "role10" },
-        { name: "role11" },
-        { name: "role12" },
-        { name: "role13" },
-        { name: "role14" },
-        { name: "role15" },
-        { name: "role16" },
-        { name: "role17" },
-        { name: "role18" },
-        { name: "role19" },
-        { name: "role20" },
-    ];
 
-    const userLogin = "JohnDoe"; // Zastąp rzeczywistym loginem użytkownika
-	const handleCheckboxChange = (id) => {
-        setRoles((prevRoles) =>
-            prevRoles.map((role) =>
-                role.id === id ? { ...role, isChecked: !role.isChecked } : role
+    const [userData, setUserData] = useState({
+        login: "",
+        name: "",
+        lastName: "",
+        location: {
+            city: "",
+            postalCode: "",
+            street: "",
+            propertyNumber: "",
+            apartmentNumber: "",
+        },
+        pesel: "",
+        birthDate: "",
+        gender: "",
+        email: "",
+        phoneNumber: ""
+    })
+
+    const [rights, setRights] = useState([
+        { id: 1, name: "Zmiana hasła", isChecked: false },
+        { id: 2, name: "Edycja użytkownika", isChecked: false },
+        { id: 3, name: "Wyświetlenie szczegółowych danych", isChecked: false },
+        { id: 4, name: "Nadawanie/usuwanie admina", isChecked: false },
+        { id: 5, name: "Nadawanie uprawnień", isChecked: false },
+        { id: 6, name: "Umawianie wizyt", isChecked: false }
+    ])
+
+    const handleCheckboxChange = (name) => {
+        setRights((prevrights) =>
+            prevrights.map((rights) =>
+                rights.name === name ? { ...rights, isChecked: !rights.isChecked } : rights
             )
         );
+        console.log(rights)
     };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        const selectedRights = rights.filter(rights => rights.isChecked).map(rights => rights.name)
+        console.log(selectedRights)
+
+        try {
+            await axios.post('http://localhost:3000/backend/admin/change-user-rights', {
+                login: userData.login,
+                rights: selectedRights
+            })
+            alert('rights updated successfully!')
+            window.location.reload()
+        } catch (error) {
+            if (error.response.status == 403) alert(error.response.data.msg)
+            console.error('Failed to update rights:', error);
+        }
+    };
+
+    const location = useLocation();
+    const query = new URLSearchParams(location.search).get('login')
+
+    useEffect(() => {
+        const getUser = async () => {
+            const response = await axios.get(`http://localhost:3000/backend/admin/user-data/${query}`)
+            setUserData(response.data)
+        }
+
+        getUser()
+    }, []);
+
+    useEffect(() => {
+        userData?.rights?.map(right => {
+            rights.map(frontRight => {
+                if (frontRight.name == right) {
+                    frontRight.isChecked = true
+                }
+            })
+        })
+    }, [userData])
 
     return (
         <div className="container">
-            <h2 className="title">Nadawanie uprawnień dla {userLogin}</h2>
+            <h2 className="title">Nadawanie uprawnień dla: {userData?.login}</h2>
             <table className="rolesTable">
                 <tbody>
-                    {roles.map((role) => (
-                        <tr key={role.id}>
+                    {rights?.map((right) => (
+                        <tr key={right.name}>
                             <td>
                                 <input
                                     type="checkbox"
-                                    id={`role${role.id}`}
+                                    id={`right${right.id}`}
                                     className="checkbox"
-                                    checked={role.isChecked}
-                                    onChange={() => handleCheckboxChange(role.id)}
+                                    checked={right.isChecked}
+                                    onChange={() => handleCheckboxChange(right.name)}
                                 />
                             </td>
                             <td className="label-center">
-                                <label htmlFor={`role${role.id}`}>{role.name}</label>
+                                <label htmlFor={`right${right.id}`}>{right.name}</label>
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
-            <button>Zapisz zmiany</button>
+            <button onClick={handleSubmit} className="mx-auto flex mt-8 mb-4">Zapisz zmiany</button>
         </div>
     );
 };

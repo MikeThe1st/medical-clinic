@@ -4,8 +4,10 @@ import "../css/AdminPanel.css";
 import UserTable from "../components/AdminTable";
 import Footer from "../components/Footer";
 import axios from "axios";
+import { getCookie } from '../utils/cookie.js'
 
 const Admin = () => {
+    const [adminRights, setAdminRights] = useState(undefined);
     const [users, setUsers] = useState(undefined);
     const [login, setLogin] = useState("");
     const [email, setEmail] = useState("");
@@ -18,9 +20,15 @@ const Admin = () => {
             setUsers(response.data);
             console.log(response);
         };
+        const getAdminRights = async () => {
+            const response = await axios.get('http://localhost:3000/backend/user/get-user', { withCredentials: true })
+            setAdminRights(response.data[0].rights)
+        }
 
+        getAdminRights()
         getUsers();
     }, []);
+
 
     const handleInputChange = (setter) => (event) => {
         setter(event.target.value);
@@ -36,11 +44,6 @@ const Admin = () => {
         console.log(response)
     };
 
-    const handleSearchPermissions = () => {
-        // Tutaj możesz dodać logikę przekierowania do strony wyszukiwania po uprawnieniach
-        // np. window.location.href = "/search-permissions";
-    };
-
     return (
         <div className="w-screen">
             <Navbar />
@@ -51,7 +54,7 @@ const Admin = () => {
                 </div>
                 <div className="admin-actions">
                     <button className='my-6' onClick={() => window.location.href = '/add-user'}>Dodaj użytkownika</button>
-                    <button className='my-6' onClick={handleSearchPermissions}>Szukaj po uprawnieniach</button>
+                    <button className='my-6' onClick={() => window.location.href = '/search'}>Szukaj po uprawnieniach</button>
                     <h2>Wyszukiwarka</h2>
                     <form onSubmit={handleSearch} className="search-inputs">
                         <input
@@ -82,7 +85,7 @@ const Admin = () => {
                     </form>
                 </div>
                 <div className="scrollable-table">
-                    <UserTable users={users} />
+                    <UserTable users={users} adminRights={adminRights} />
                 </div>
             </div>
             <Footer />

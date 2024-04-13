@@ -39,7 +39,7 @@ function App() {
 				<Route element={<AdminRoutes />}>
 					<Route element={<Registration />} path="/add-user" />
 					<Route element={<Admin />} path="/admin" />
-					<Route element={<Roles />} path="/roles" />
+					<Route element={<Roles />} path="/rights" />
 				</Route>
 			</Routes>
 		</BrowserRouter>

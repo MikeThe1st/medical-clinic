@@ -114,3 +114,37 @@ export const switchRole = async (req, res) => {
         return res.status(500).json({ error: 'Switing failed.' });
     }
 }
+
+export const changeUserRights = async (req, res) => {
+    try {
+        const { login, rights } = req.body
+
+        const user = await User.findOne({ login }).select('-password')
+        if (!user.isAdmin) return res.status(403).json({ msg: 'Set user to admin in order to change rights!' });
+
+        const updatedUser = await User.findOneAndUpdate({ login }, { rights: rights }, { new: true }).select('-password')
+
+        console.log(updatedUser)
+
+        return res.status(201).json(updatedUser)
+    } catch (error) {
+        console.error('Role update failed:', error);
+        return res.status(500).json({ error: 'Role update failed.' });
+    }
+}
+
+export const searchUsersByRights = async (req, res) => {
+    try {
+        const { searchParams: rights } = req.body
+        let users
+        console.log(rights)
+
+        if (!rights || rights.length <= 0) users = await User.find({}).select('-password')
+        else users = await User.find({ rights: { $all: rights } }).select('-password')
+
+        return res.status(200).json(users)
+    } catch (error) {
+        console.error('Display failed:', error);
+        return res.status(500).json({ error: 'Display failed.' });
+    }
+}

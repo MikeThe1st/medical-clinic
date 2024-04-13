@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import "../css/Search.css";
+import axios from "axios";
 
 const Search = () => {
   const [funkcjonalnosci, setFunkcjonalnosci] = useState([
@@ -13,12 +14,8 @@ const Search = () => {
     { nazwa: "Umawianie wizyt", zaznaczone: false }
   ]);
 
-  
-  const [uzytkownicy, setUzytkownicy] = useState([
-    { login: "jan_kowalski", email: "jan@example.com", role: "Użytkownik" },
-    { login: "anna_nowak", email: "anna@example.com", role: "Admin" },
-    { login: "adam_malysz", email: "adam@example.com", role: "Użytkownik" }
-  ]);
+
+  const [uzytkownicy, setUzytkownicy] = useState(undefined);
 
   const [wybraneUprawnienia, setWybraneUprawnienia] = useState([]);
 
@@ -28,12 +25,28 @@ const Search = () => {
     setFunkcjonalnosci(zaktualizowaneFunkcjonalnosci);
   };
 
-  const handleSearch = () => {
+  const handleSearch = async () => {
     const wybrane = funkcjonalnosci.filter((funkcja) => funkcja.zaznaczone);
-    const wybraneNazwy = wybrane.map((funkcja) => funkcja.nazwa);
-    setWybraneUprawnienia(wybraneNazwy);
-    alert("Wybrane uprawnienia: " + wybraneNazwy.join(", "));
+    const searchParams = wybrane.map((funkcja) => funkcja.nazwa);
+    setWybraneUprawnienia(searchParams);
+    try {
+      const response = await axios.post("http://localhost:3000/backend/admin/search-by-rights", { searchParams })
+      setUzytkownicy(response.data)
+    } catch (error) {
+      console.log(error)
+    }
+
+    // alert("Wybrane uprawnienia: " + searchParams.join(", "));
   };
+
+  useEffect(() => {
+    const getUsers = async () => {
+      const response = await axios.post("http://localhost:3000/backend/admin/search-by-rights", {})
+      setUzytkownicy(response.data);
+    };
+
+    getUsers();
+  }, []);
 
   return (
     <div>
@@ -67,17 +80,26 @@ const Search = () => {
             </tr>
           </thead>
           <tbody>
-            {uzytkownicy.map((uzytkownik, index) => (
+            {uzytkownicy?.map((uzytkownik, index) => (
               <tr key={index}>
                 <td>{uzytkownik.login}</td>
                 <td>{uzytkownik.email}</td>
-                <td>{uzytkownik.role}</td>
+                <td>{uzytkownik.isAdmin ? "Admin" : "Użytkownik"}</td>
                 <td>
-                  <ul>
-                    {funkcjonalnosci.map((funkcja, index) => (
-                      <li key={index}>{funkcja.nazwa}</li>
-                    ))}
-                  </ul>
+                  {(() => {
+                    const userRights = funkcjonalnosci.filter(funkcja =>
+                      uzytkownik.rights.includes(funkcja.nazwa)
+                    );
+
+                    // Return either a list of rights or div
+                    return userRights.length > 0 ? (
+                      <ul>
+                        {userRights.map((funkcja, idx) => (
+                          <li key={idx}>{funkcja.nazwa}</li>
+                        ))}
+                      </ul>
+                    ) : <div>Brak uprawnień</div>;
+                  })()}
                 </td>
               </tr>
             ))}

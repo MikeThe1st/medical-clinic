@@ -22,6 +22,7 @@ const UserSchema = new mongoose.Schema(
         resetPassword: { type: Boolean, default: false },
         previousPasswords: [String],
         disabled: { type: Boolean, default: false },
+        rights: [String],
     }
 )
 
