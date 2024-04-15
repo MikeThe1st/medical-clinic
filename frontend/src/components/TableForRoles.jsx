@@ -29,7 +29,8 @@ const TableForRoles = () => {
         { id: 3, name: "Wyświetlenie szczegółowych danych", isChecked: false },
         { id: 4, name: "Nadawanie/usuwanie admina", isChecked: false },
         { id: 5, name: "Nadawanie uprawnień", isChecked: false },
-        { id: 6, name: "Umawianie wizyt", isChecked: false }
+        { id: 6, name: "Umawianie wizyt", isChecked: false },
+        { id: 7, name: "Dodawanie użytkowników", isChecked: false },
     ])
 
     const handleCheckboxChange = (name) => {

@@ -21,12 +21,13 @@ const Search = () => {
 
   const handleCheckboxChange = (index) => {
     const zaktualizowaneFunkcjonalnosci = [...funkcjonalnosci];
+    console.log("index", index, "funkcjonalnosci.length", funkcjonalnosci.length)
 
     // Jeśli kliknięto "Brak uprawnień", odznacz wszystkie inne opcje
     if (index === funkcjonalnosci.length - 1) {
       zaktualizowaneFunkcjonalnosci[index].zaznaczone = !zaktualizowaneFunkcjonalnosci[index].zaznaczone;
       zaktualizowaneFunkcjonalnosci.forEach((funkcja, idx) => {
-        if (idx !== index && idx !== funkcjonalnosci.length - 2) {
+        if (idx !== index) {
           zaktualizowaneFunkcjonalnosci[idx].zaznaczone = false;
         }
       });

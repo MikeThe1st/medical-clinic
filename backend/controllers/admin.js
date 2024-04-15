@@ -137,9 +137,9 @@ export const searchUsersByRights = async (req, res) => {
     try {
         const { searchParams: rights } = req.body
         let users
-        console.log(rights)
 
         if (!rights || rights.length <= 0) users = await User.find({}).select('-password')
+        else if (rights[0] == 'Brak uprawnień') users = await User.find({ $or: [{ rights: { $size: 0 } }, { rights: { $exists: false } }] }).select('-password')
         else users = await User.find({ rights: { $all: rights } }).select('-password')
 
         return res.status(200).json(users)
