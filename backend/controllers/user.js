@@ -1,6 +1,7 @@
 import User from "../models/User.js"
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
+import nodemailer from 'nodemailer'
 
 export const register = async (req, res) => {
     try {
@@ -158,6 +159,32 @@ export const forgotPassword = async (req, res) => {
         const shuffleArray = (array) => array.sort(() => Math.random() - 0.5)
 
         const password = shuffleArray(passwordArray).join('')
+
+        // Sending email
+        let transporter = nodemailer.createTransport({
+            service: "gmail",
+            auth: {
+                user: process.env.SENDING_MAIL,
+                pass: process.env.SENDING_PASSWORD
+            },
+            tls: {
+                rejectUnauthorized: false
+            }
+        });
+
+        const mailOptions = {
+            from: process.env.SENDING_MAIL,
+            to: email,
+            subject: 'Recovery password - Medical clinic',
+            text: `Password: ${password}`
+        };
+
+        try {
+            let info = await transporter.sendMail(mailOptions);
+            console.log('Email sent:', info.response);
+        } catch (error) {
+            console.error('Error sending email:', error);
+        }
 
         const salt = await bcrypt.genSalt(10)
         const hashedPassword = await bcrypt.hash(password, salt)
