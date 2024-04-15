@@ -1,0 +1,92 @@
+/* search.css */
+.lista-funkcjonalnosci {
+    margin-top: 40px;
+    padding: 25px;
+    border: 5px solid #000000;
+    border-radius: 5px;
+    display: flex;
+    background-color: #83c0f3; 
+    margin-top: 10px;
+    flex-wrap: wrap;
+  }
+  
+  .lista-funkcjonalnosci label {
+    flex-basis: calc(33.33% - 10px);
+    margin-right: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: 3px solid #000000;
+    border-radius: 5px;
+  }
+  
+  .lista-funkcjonalnosci input[type="checkbox"] {
+    margin-right: 5px;
+    vertical-align: middle;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ffffff;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .lista-funkcjonalnosci input[type="checkbox"]:checked {
+    background-color: #000000;
+    border-color: #fffefe;
+  }
+  
+  .lista-funkcjonalnosci label span {
+    font-size: 16px;
+  }
+  .search-button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .search-button-container button {
+    padding: 15px 25px; /* Zwiększam padding, aby przycisk był większy */
+    background-color: #000000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 1vh;
+    font-size: 1.2em; /* Dodaję większy rozmiar tekstu */
+}
+
+  .search-button-container button:hover {
+    background-color: #6faad6;
+  }
+  .search-header {
+    text-align: center;
+    margin-top: 18vh;
+    margin-bottom: 10vh;
+}
+.search-container {
+    max-height: 500px; /* Ustaw maksymalną wysokość, która zmieści się na ekranie */
+    overflow: auto; /* Dodaj pasek przewijania, gdy zawartość przekroczy maksymalną wysokość */
+  }
+  
+
+
+
+.tabela-uzytkownikow {
+    margin-bottom:20vh; 
+    margin-top: 5vh; /* Dodaj margines na górę tabeli */
+    height: 300px; /* Ustaw wysokość dla obszaru, w którym będzie pasek przewijania */
+    overflow-y: auto; /* Dodaj pasek przewijania tylko w osi Y */
+}
+
+.tabela-uzytkownikow table {
+    width: 100%; /* Ustaw tabelę na pełną szerokość kontenera */
+    border-collapse: collapse; /* Złącz obramowania komórek */
+}
+
+.tabela-uzytkownikow th, .tabela-uzytkownikow td {
+    border: 1px solid #000; /* Dodaj obramowanie dla komórek */
+    padding: 8px; /* Dodaj wewnętrzny odstęp dla komórek */
+}
+
+
