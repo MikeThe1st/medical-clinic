@@ -36,7 +36,7 @@ input,
 select {
 	width: 100%;
 	padding: 10px;
-	border: 1px solid #ccc; /* Changed border color to #ccc */
+	border: 1px solid #ffffff; /* Changed border color to #ccc */
 	border-radius: 5px;
 	box-sizing: border-box;
 }

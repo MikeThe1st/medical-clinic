@@ -11,17 +11,35 @@ const Search = () => {
     { nazwa: "Wyświetlenie szczegółowych danych", zaznaczone: false },
     { nazwa: "Nadawanie/usuwanie admina", zaznaczone: false },
     { nazwa: "Nadawanie uprawnień", zaznaczone: false },
-    { nazwa: "Umawianie wizyt", zaznaczone: false }
+    { nazwa: "Umawianie wizyt", zaznaczone: false },
+    { nazwa: "Dodawanie użytkowników", zaznaczone: false },
+    { nazwa: "Brak uprawnień", zaznaczone: false },
   ]);
 
-
   const [uzytkownicy, setUzytkownicy] = useState(undefined);
-
   const [wybraneUprawnienia, setWybraneUprawnienia] = useState([]);
 
   const handleCheckboxChange = (index) => {
     const zaktualizowaneFunkcjonalnosci = [...funkcjonalnosci];
-    zaktualizowaneFunkcjonalnosci[index].zaznaczone = !zaktualizowaneFunkcjonalnosci[index].zaznaczone;
+
+    // Jeśli kliknięto "Brak uprawnień", odznacz wszystkie inne opcje
+    if (index === funkcjonalnosci.length - 1) {
+      zaktualizowaneFunkcjonalnosci[index].zaznaczone = !zaktualizowaneFunkcjonalnosci[index].zaznaczone;
+      zaktualizowaneFunkcjonalnosci.forEach((funkcja, idx) => {
+        if (idx !== index && idx !== funkcjonalnosci.length - 2) {
+          zaktualizowaneFunkcjonalnosci[idx].zaznaczone = false;
+        }
+      });
+    } else {
+      // Jeśli kliknięto "Dodawanie użytkowników" lub inną opcję, odznacz "Brak uprawnień"
+      if (index === funkcjonalnosci.length - 2) {
+        zaktualizowaneFunkcjonalnosci[funkcjonalnosci.length - 1].zaznaczone = false;
+      } else if (zaktualizowaneFunkcjonalnosci[funkcjonalnosci.length - 1].zaznaczone) {
+        zaktualizowaneFunkcjonalnosci[funkcjonalnosci.length - 1].zaznaczone = false;
+      }
+      zaktualizowaneFunkcjonalnosci[index].zaznaczone = !zaktualizowaneFunkcjonalnosci[index].zaznaczone;
+    }
+
     setFunkcjonalnosci(zaktualizowaneFunkcjonalnosci);
   };
 
@@ -35,8 +53,6 @@ const Search = () => {
     } catch (error) {
       console.log(error)
     }
-
-    // alert("Wybrane uprawnienia: " + searchParams.join(", "));
   };
 
   useEffect(() => {
@@ -76,7 +92,7 @@ const Search = () => {
               <th>Login</th>
               <th>Email</th>
               <th>Rola</th>
-              <th>Uprawnienia</th> {/* Dodaj kolumnę dla funkcjonalności */}
+              <th>Uprawnienia</th>
             </tr>
           </thead>
           <tbody>
@@ -91,7 +107,7 @@ const Search = () => {
                       uzytkownik.rights.includes(funkcja.nazwa)
                     );
 
-                    // Return either a list of rights or div
+                    // Return either a list of rights or a div indicating no rights
                     return userRights.length > 0 ? (
                       <ul>
                         {userRights.map((funkcja, idx) => (
