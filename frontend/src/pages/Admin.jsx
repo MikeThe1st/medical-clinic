@@ -53,8 +53,8 @@ const Admin = () => {
                     <p>{`Liczba użytkowników: ${users?.length}`}</p>
                 </div>
                 <div className="admin-actions">
-                    <button className='my-6' onClick={() => window.location.href = '/add-user'}>Dodaj użytkownika</button>
-                    <button className='my-6' onClick={() => window.location.href = '/search'}>Szukaj po uprawnieniach</button>
+                    <button className='my-6' onClick={(e) => { e.preventDefault(); if (!adminRights.includes("Dodawanie użytkowników")) return alert("You don't have rights!"); window.location.href = '/add-user' }}>Dodaj użytkownika</button>
+                    <button className='my-6' onClick={(e) => { e.preventDefault(); if (!adminRights.includes("Wyszukiwanie po uprawnieniach")) return alert("You don't have rights!"); window.location.href = '/search' }}>Szukaj po uprawnieniach</button>
                     <h2>Wyszukiwarka</h2>
                     <form onSubmit={handleSearch} className="search-inputs">
                         <input
