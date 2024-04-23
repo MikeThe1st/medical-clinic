@@ -76,7 +76,7 @@ export const login = async (req, res) => {
 
         const loginUser = await User.findOne({ email: email })
         if (!loginUser) {
-            return res.status(404).json({ msg: 'User not found.' })
+            return res.status(404).json({ msg: 'Please provide valid email and password.' })
         }
 
         if (loginUser.disabled) return res.status(500).json({ msg: 'User wanted to be deleted.' })
