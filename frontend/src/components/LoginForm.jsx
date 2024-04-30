@@ -46,12 +46,11 @@ const LoginForm = () => {
         } catch (error) {
             console.error('Error:', error)
             setFailedLogins(failedLogins + 1)
-            alert(`Failed logins ${failedLogins}`)
             const message = error.response.data.msg
             if (message) {
                 alert(message)
             }
-            if (failedLogins >= 3) return alert(`You cannot login for the next 10 seconds, because of ${failedLogins} failed attempts.`)
+            if (failedLogins >= 3) return alert(`You cannot login for the next 10 seconds, because of ${failedLogins + 1} failed attempts.`)
         }
     }
 
