@@ -15,6 +15,7 @@ import Doctors from "./pages/Doctors.jsx";
 import UserRoutes from "./utils/UserRoutes.jsx";
 import AdminRoutes from "./utils/AdminRoutes.jsx";
 import Search from "./pages/Search.jsx";
+import ListOfUsers from "./pages/ListOfUsers.jsx";
 
 
 function App() {
@@ -33,7 +34,9 @@ function App() {
 				<Route element={<UserRoutes />}>
 					<Route element={<UserPage />} path="/user-page" />
 					<Route element={<EditPage />} path="/edit-page" />
+					<Route element={<ListOfUsers />} path="/ListOfUsers" />
 				</Route>
+				
 
 				{/* PATHS WHERE ONLY LOGGED ADMIN USER CAN ACCESS */}
 				<Route element={<AdminRoutes />}>
