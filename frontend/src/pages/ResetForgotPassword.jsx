@@ -14,7 +14,7 @@ const ResetForgotPassword = () => {
       if (response.status == 201) {
         console.log('Response:', response.data)
         alert(`Password reset request sent to ${email}.`)
-        alert(`Please write down your current password: ${response.data.newPassword}`)
+        // alert(`Please write down your current password: ${response.data.newPassword}`)
         window.location.href = '/login'
       }
       else {
