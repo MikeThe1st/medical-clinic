@@ -16,8 +16,8 @@ import UserRoutes from "./utils/UserRoutes.jsx";
 import AdminRoutes from "./utils/AdminRoutes.jsx";
 import Search from "./pages/Search.jsx";
 import ListOfUsers from "./pages/ListOfUsers.jsx";
-
-
+import EditPagePatient from "./pages/EditPagePatient.jsx";
+import AddPatient from "./pages/AddPatient.jsx";
 function App() {
 	return (
 		<BrowserRouter>
@@ -35,6 +35,7 @@ function App() {
 					<Route element={<UserPage />} path="/user-page" />
 					<Route element={<EditPage />} path="/edit-page" />
 					<Route element={<ListOfUsers />} path="/ListOfUsers" />
+					<Route element={<EditPagePatient />} path="/editpagepatient" />
 				</Route>
 				
 
@@ -43,6 +44,7 @@ function App() {
 					<Route element={<Registration />} path="/add-user" />
 					<Route element={<Admin />} path="/admin" />
 					<Route element={<Roles />} path="/rights" />
+					<Route element={<AddPatient />} path="/AddPatient" />
 				</Route>
 			</Routes>
 		</BrowserRouter>
