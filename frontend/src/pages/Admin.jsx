@@ -56,6 +56,7 @@ const Admin = () => {
                     <button className='my-6' onClick={(e) => { e.preventDefault(); if (!adminRights.includes("Dodawanie użytkowników")) return alert("You don't have rights!"); window.location.href = '/add-user' }}>Dodaj użytkownika</button>
                     <button className='my-6' onClick={(e) => { e.preventDefault(); if (!adminRights.includes("Wyszukiwanie po uprawnieniach")) return alert("You don't have rights!"); window.location.href = '/search' }}>Szukaj po uprawnieniach</button>
                     <button className='my-6' onClick={(e) => { e.preventDefault();  window.location.href = '/ListOfUsers' }}>Lista Użytkowników</button>
+                    <button className='my-6' onClick={(e) => { e.preventDefault();  window.location.href = '/AppointmentList' }}>Lista wizyt</button>
                     
                     <h2>Wyszukiwarka</h2>
                     <form onSubmit={handleSearch} className="search-inputs">

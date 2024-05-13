@@ -8,6 +8,7 @@ const Doctors = () => {
   return (
     <div className="w-screen h-screen">
       <Navbar />
+      
       <DoctorTable />
       <Footer />
     </div>
