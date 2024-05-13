@@ -1,11 +1,35 @@
-/* Przykładowe style CSS z marginesami dla klas h1-doctor i table-doctor */
+/* DoctorsTable.css */
 
-.h1-doctor {
-    margin-bottom: 20px; /* Margines dolny dla nagłówka h1 */
-  margin-top: 110px;
+.table-container {
+  max-height: 4px; /* Ustaw maksymalną wysokość kontenera tabeli */
+  overflow-y: auto; /* Dodaj pasek przewijania w pionie, gdy tabela jest dłuższa niż kontener */
 }
-  
-  .table-doctor {
-    margin-bottom: 100px; /* Margines dolny dla tabeli */
-  }
-  
+
+.table-doctor {
+  width: 100%;
+  border-collapse: collapse;
+
+}
+
+.table-doctor th,
+.table-doctor td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+/* DoctorsTable.css */
+
+.search-fields {
+  display: flex; /* Ustawienie elementów w jednym rzędzie */
+  justify-content: space-between; /* Rozłożenie elementów w równych odstępach */
+  align-items: center; /* Wyśrodkowanie elementów wzdłuż osi pionowej */
+}
+
+.search-fields input {
+  width: calc(33.33% - 5px); /* Szerokość inputa, minus odstępy */
+  padding: 8px; /* Wewnętrzny odstęp */
+  margin-right: 5px; /* Odstęp między inputami */
+}
+
+.search-fields button {
+  padding: 8px 16px; /* Wewnętrzny odstęp */
+}

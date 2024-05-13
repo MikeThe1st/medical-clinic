@@ -16,7 +16,7 @@ import UserRoutes from "./utils/UserRoutes.jsx";
 import AdminRoutes from "./utils/AdminRoutes.jsx";
 import Search from "./pages/Search.jsx";
 import ListOfUsers from "./pages/ListOfUsers.jsx";
-import AppointmentList from "./pages/AppointmentList.jsx";
+
 
 function App() {
 	return (
@@ -35,7 +35,6 @@ function App() {
 					<Route element={<UserPage />} path="/user-page" />
 					<Route element={<EditPage />} path="/edit-page" />
 					<Route element={<ListOfUsers />} path="/ListOfUsers" />
-					<Route element={<AppointmentList />} path="/AppointmentList" />
 				</Route>
 				
 
@@ -44,6 +43,7 @@ function App() {
 					<Route element={<Registration />} path="/add-user" />
 					<Route element={<Admin />} path="/admin" />
 					<Route element={<Roles />} path="/rights" />
+					<Route element={<AddPatient />} path="/AddPatient" />
 				</Route>
 			</Routes>
 		</BrowserRouter>
