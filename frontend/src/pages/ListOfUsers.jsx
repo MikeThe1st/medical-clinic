@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import axios from "axios";
 import "../css/SearchBox.css"; // Importujemy plik CSS dla wyszukiwarki
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -12,54 +12,24 @@ const ListOfUsers = () => {
     const [searchCity, setSearchCity] = useState("");
     const [searchStreet, setSearchStreet] = useState("");
     const [searchPhoneNumber, setSearchPhoneNumber] = useState("");
+    const [searchEmail, setSearchEmail] = useState("");
 
-    // Efekt pobierania danych z bazy danych (symulacja)
+    const fetchData = async () => {
+        event.preventDefault()
+        const searchData = { searchFirstName, searchLastName, searchPesel, searchCity, searchStreet, searchPhoneNumber, searchEmail }
+        const response = await axios.post("http://localhost:3000/backend/patient/search", searchData)
+        if (response.status === 200) {
+            setUsers(response.data)
+        }
+        else {
+            setUsers([])
+        }
+    };
+
     useEffect(() => {
-        // Symulacja pobierania danych z bazy danych
-        const fetchData = async () => {
-            // Tutaj mogłaby być rzeczywista integracja z bazą danych, np. za pomocą fetch lub biblioteki do zarządzania stanem
-            // Dla przykładu, tutaj jest symulowane pobieranie danych
-            const data = [
-                {
-                    id: 1,
-                    firstName: "Jan",
-                    lastName: "Kowalski",
-                    pesel: "12345678901",
-                    city: "Warszawa",
-                    street: "ul. Kwiatowa 5",
-                    phoneNumber: "123-456-789"
-                },
-                {
-                    id: 2,
-                    firstName: "Anna",
-                    lastName: "Nowak",
-                    pesel: "98765432109",
-                    city: "Kraków",
-                    street: "ul. Leśna 10",
-                    phoneNumber: "987-654-321"
-                },
-                // Tutaj mogą być inne dane użytkowników z bazy danych
-            ];
 
-            // Ustawienie pobranych danych do stanu
-            setUsers(data);
-        };
-
-        // Wywołanie funkcji pobierania danych
         fetchData();
     }, []);
-
-    // Funkcja do filtrowania użytkowników na podstawie wprowadzonych wartości w polach wyszukiwania
-    const filteredUsers = users.filter(user => {
-        return (
-            user.firstName.toLowerCase().includes(searchFirstName.toLowerCase()) &&
-            user.lastName.toLowerCase().includes(searchLastName.toLowerCase()) &&
-            user.pesel.includes(searchPesel) &&
-            user.city.toLowerCase().includes(searchCity.toLowerCase()) &&
-            user.street.toLowerCase().includes(searchStreet.toLowerCase()) &&
-            user.phoneNumber.includes(searchPhoneNumber)
-        );
-    });
 
     return (
         <div>
@@ -78,6 +48,13 @@ const ListOfUsers = () => {
                     id="lastName"
                     value={searchLastName}
                     onChange={e => setSearchLastName(e.target.value)}
+                />
+                <label htmlFor="email">Email:</label>
+                <input
+                    type="text"
+                    id="email"
+                    value={searchEmail}
+                    onChange={e => setSearchEmail(e.target.value)}
                 />
                 <label htmlFor="pesel">Pesel:</label>
                 <input
@@ -107,13 +84,14 @@ const ListOfUsers = () => {
                     value={searchPhoneNumber}
                     onChange={e => setSearchPhoneNumber(e.target.value)}
                 />
-                <button onClick={() => {}}>Wyszukaj</button>
+                <button onClick={() => { event.preventDefault(); fetchData() }}>Wyszukaj</button>
             </div>
             <table>
                 <thead>
                     <tr>
                         <th>Imię</th>
                         <th>Nazwisko</th>
+                        <th>Email</th>
                         <th>Pesel</th>
                         <th>Miasto</th>
                         <th>Ulica</th>
@@ -121,13 +99,14 @@ const ListOfUsers = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {filteredUsers.map(user => (
+                    {users.map(user => (
                         <tr key={user.id}>
-                            <td>{user.firstName}</td>
+                            <td>{user.name}</td>
                             <td>{user.lastName}</td>
+                            <td>{user.email}</td>
                             <td>{user.pesel}</td>
-                            <td>{user.city}</td>
-                            <td>{user.street}</td>
+                            <td>{user.location.city}</td>
+                            <td>{user.location.street}</td>
                             <td>{user.phoneNumber}</td>
                         </tr>
                     ))}

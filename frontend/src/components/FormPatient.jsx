@@ -4,7 +4,7 @@ import axios from "axios";
 
 const FormPatient = () => {
     const [formData, setFormData] = useState({
-        login: "",
+        // login: "",
         name: "",
         lastName: "",
         city: "",
@@ -75,14 +75,6 @@ const FormPatient = () => {
     }
 
     const validateFormData = () => {
-        // Simple presence check for required fields
-        const requiredFields = ['login', 'name', 'lastName', 'city', 'postalCode', 'street', 'propertyNumber', 'apartmentNumber', 'email'];
-        requiredFields.forEach(field => {
-            if (!formData[field]) {
-                alert(`Please provide ${field}, it is required.`)
-                return false
-            }
-        });
 
         // Postal code validation (xx-xxx format)
         if (formData.postalCode && !/^\d{2}-\d{3}$/.test(formData.postalCode)) {
@@ -122,12 +114,12 @@ const FormPatient = () => {
         if (validateFormData() == false) return
         try {
             const response = await axios.post(
-                "http://localhost:3000/backend/user/register",
+                "http://localhost:3000/backend/patient/add-patient",
                 formData
             );
             console.log(response.data);
-            alert("Konto zostało utworzone. Możesz się zalogować.");
-            window.location.href = "/login";
+            alert("Pacjent został dodany.");
+            window.location.reload();
         } catch (error) {
             console.log(error)
             if (error.response.data.msg) {
@@ -145,7 +137,7 @@ const FormPatient = () => {
                 <div className="flex flex-row">
                     <div className="Registration-column">
                         {/* Pierwsza kolumna */}
-                        <label htmlFor="login">Login*</label>
+                        {/* <label htmlFor="login">Login*</label>
                         <br />
                         <input
                             type="text"
@@ -156,7 +148,7 @@ const FormPatient = () => {
                             onChange={handleChange}
                             required
                         />
-                        <br />
+                        <br /> */}
                         <label htmlFor="name">Imię*</label>
                         <br />
                         <input

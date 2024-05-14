@@ -7,7 +7,7 @@ import UserPage from "./pages/UserPage.jsx";
 import Registration from "./pages/Registration.jsx";
 import Contact from "./pages/Contact.jsx";
 import ResetForgotPassword from "./pages/ResetForgotPassword.jsx";
-import Roles from"./pages/Roles.jsx";
+import Roles from "./pages/Roles.jsx";
 import Visits from "./pages/Visits.jsx";
 import EditPage from "./pages/EditPage.jsx";
 import ChangePassword from "./pages/ChangePassword.jsx";
@@ -16,6 +16,8 @@ import UserRoutes from "./utils/UserRoutes.jsx";
 import AdminRoutes from "./utils/AdminRoutes.jsx";
 import Search from "./pages/Search.jsx";
 import ListOfUsers from "./pages/ListOfUsers.jsx";
+import AddPatient from "./pages/AddPatient.jsx";
+import AppointmentList from "./pages/AppointmentList.jsx";
 
 
 function App() {
@@ -34,16 +36,17 @@ function App() {
 				<Route element={<UserRoutes />}>
 					<Route element={<UserPage />} path="/user-page" />
 					<Route element={<EditPage />} path="/edit-page" />
-					<Route element={<ListOfUsers />} path="/ListOfUsers" />
+					<Route element={<ListOfUsers />} path="/list-of-patients" />
 				</Route>
-				
+
 
 				{/* PATHS WHERE ONLY LOGGED ADMIN USER CAN ACCESS */}
 				<Route element={<AdminRoutes />}>
 					<Route element={<Registration />} path="/add-user" />
 					<Route element={<Admin />} path="/admin" />
 					<Route element={<Roles />} path="/rights" />
-					<Route element={<AddPatient />} path="/AddPatient" />
+					<Route element={<AddPatient />} path="/add-patient" />
+					<Route element={<AppointmentList />} path="/appointment-list" />
 				</Route>
 			</Routes>
 		</BrowserRouter>
