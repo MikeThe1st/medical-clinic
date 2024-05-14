@@ -1,8 +1,8 @@
 import express from 'express'
-import { getUserData, getUsers, searchUsers, editUser, disableUser, switchRole, changeUserRights, searchUsersByRights } from '../controllers/admin.js'
+import { getUserData, getUsers, searchUsers, editUser, disableUser, switchRole, changeUserRights, searchUsersByRights, getPatient } from '../controllers/admin.js'
 import { register, login, getUser, forgotPassword, resetPassword } from '../controllers/user.js'
 import { getDoctors, getDoctor } from '../controllers/doctors.js'
-import { addPatient, searchPatients } from '../controllers/patient.js'
+import { addPatient, searchPatients, editPatient } from '../controllers/patient.js'
 
 const mainRouter = express.Router()
 
@@ -14,6 +14,7 @@ mainRouter.post('/admin/disable-user', disableUser)
 mainRouter.post('/admin/switch-user-role', switchRole)
 mainRouter.post('/admin/change-user-rights', changeUserRights)
 mainRouter.post('/admin/search-by-rights', searchUsersByRights)
+mainRouter.get('/admin/patient-data/:_id', getPatient)
 
 mainRouter.post('/user/register', register)
 mainRouter.post('/user/login', login)
@@ -26,5 +27,6 @@ mainRouter.get('/doctor/:id', getDoctor)
 
 mainRouter.post('/patient/add-patient', addPatient)
 mainRouter.post('/patient/search', searchPatients)
+mainRouter.post('/patient/edit', editPatient)
 
 export default mainRouter

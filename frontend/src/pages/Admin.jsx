@@ -58,7 +58,6 @@ const Admin = () => {
                         <button className='my-6' onClick={(e) => { e.preventDefault(); if (!adminRights.includes("Dodawanie pacjentów")) return alert("You don't have rights!"); window.location.href = '/add-patient' }}>Dodaj pacjenta</button>
 
                         <button className='my-6' onClick={(e) => { e.preventDefault(); if (!adminRights.includes("Wyszukiwanie po uprawnieniach")) return alert("You don't have rights!"); window.location.href = '/search' }}>Szukaj po uprawnieniach</button>
-                        <button className='my-6' onClick={(e) => { e.preventDefault(); if (!adminRights.includes("Przeglądanie lekarzy")) return alert("You don't have rights!"); window.location.href = '/ListOfUsers' }}>Lista Lekarzy</button>
                         <button className='my-6' onClick={(e) => { e.preventDefault(); if (!adminRights.includes("Przeglądanie pacjentów")) return alert("You don't have rights!"); window.location.href = '/list-of-patients' }}>Lista pacjentów</button>
                         <button className='my-6' onClick={(e) => { e.preventDefault(); if (!adminRights.includes("Przeglądanie wszystkich wizyt" || "Przeglądanie tylko swoich wizyt")) return alert("You don't have rights!"); window.location.href = '/appointment-list' }}>Lista wizyt</button>
                     </div>

@@ -72,3 +72,26 @@ export const searchPatients = async (req, res) => {
         return res.status(500).json({ error: 'Display failed.' });
     }
 }
+
+export const editPatient = async (req, res) => {
+    try {
+        const { userData, query } = req.body
+        const { email, pesel } = userData
+
+        const emailPatient = await Patient.findOne({ email: email, _id: { $ne: query } })
+        if (emailPatient) {
+            return res.status(403).json({ msg: `Email: ${email} already exists for another user.` });
+        }
+        const peselPatient = await Patient.findOne({ pesel: pesel, _id: { $ne: query } })
+        if (peselPatient) {
+            return res.status(403).json({ msg: `PESEL: ${pesel} already exists for another user.` });
+        }
+
+        const updatedUser = await Patient.findOneAndUpdate({ _id: query }, userData, { new: true })
+
+        return res.status(201).json(updatedUser)
+    } catch (error) {
+        console.error('Display failed:', error);
+        return res.status(500).json({ error: 'Display failed.' });
+    }
+}

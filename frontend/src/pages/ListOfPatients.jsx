@@ -96,11 +96,12 @@ const ListOfUsers = () => {
                         <th>Miasto</th>
                         <th>Ulica</th>
                         <th>Numer telefonu</th>
+                        <th>Akcje</th>
                     </tr>
                 </thead>
                 <tbody>
                     {users.map(user => (
-                        <tr key={user.id}>
+                        <tr key={user._id}>
                             <td>{user.name}</td>
                             <td>{user.lastName}</td>
                             <td>{user.email}</td>
@@ -108,6 +109,7 @@ const ListOfUsers = () => {
                             <td>{user.location.city}</td>
                             <td>{user.location.street}</td>
                             <td>{user.phoneNumber}</td>
+                            <button onClick={() => { window.location.href = `/edit-page?patientId=${user._id}` }}>Edytuj</button>
                         </tr>
                     ))}
                 </tbody>

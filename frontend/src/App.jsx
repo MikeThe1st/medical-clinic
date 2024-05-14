@@ -15,7 +15,7 @@ import Doctors from "./pages/Doctors.jsx";
 import UserRoutes from "./utils/UserRoutes.jsx";
 import AdminRoutes from "./utils/AdminRoutes.jsx";
 import Search from "./pages/Search.jsx";
-import ListOfUsers from "./pages/ListOfUsers.jsx";
+import ListOfPatients from "./pages/ListOfPatients.jsx";
 import AddPatient from "./pages/AddPatient.jsx";
 import AppointmentList from "./pages/AppointmentList.jsx";
 
@@ -36,7 +36,7 @@ function App() {
 				<Route element={<UserRoutes />}>
 					<Route element={<UserPage />} path="/user-page" />
 					<Route element={<EditPage />} path="/edit-page" />
-					<Route element={<ListOfUsers />} path="/list-of-patients" />
+					<Route element={<ListOfPatients />} path="/list-of-patients" />
 				</Route>
 
 

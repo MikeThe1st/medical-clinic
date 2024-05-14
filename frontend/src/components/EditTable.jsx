@@ -103,12 +103,23 @@ const EditProfilePage = () => {
     }
 
     const location = useLocation();
-    const query = new URLSearchParams(location.search).get('login')
+    let query = new URLSearchParams(location.search).get('login')
+    let isPatient = false
+    if (!query) {
+        query = new URLSearchParams(location.search).get('patientId')
+        isPatient = true
+    }
 
     useEffect(() => {
         const getUser = async () => {
-            const response = await axios.get(`http://localhost:3000/backend/admin/user-data/${query}`)
-            setUserData(response.data)
+            if (!isPatient) {
+                const response = await axios.get(`http://localhost:3000/backend/admin/user-data/${query}`)
+                setUserData(response.data)
+            }
+            else {
+                const response = await axios.get(`http://localhost:3000/backend/admin/patient-data/${query}`)
+                setUserData(response.data)
+            }
         }
 
         getUser()
@@ -134,10 +145,19 @@ const EditProfilePage = () => {
         try {
             const previousLogin = query
 
-            const response = await axios.post(`http://localhost:3000/backend/admin/edit-user`, { userData, previousLogin }, { withCredentials: true });
-            if (response.status == 201) {
-                alert("Changes submitted successfully.")
-                window.location.reload()
+            if (!isPatient) {
+                const response = await axios.post(`http://localhost:3000/backend/admin/edit-user`, { userData, previousLogin }, { withCredentials: true });
+                if (response.status == 201) {
+                    alert("Changes submitted successfully.")
+                    window.location.reload()
+                }
+            }
+            else {
+                const response = await axios.post(`http://localhost:3000/backend/patient/edit`, { userData, query }, { withCredentials: true });
+                if (response.status == 201) {
+                    alert("Changes submitted successfully.")
+                    window.location.reload()
+                }
             }
         } catch (error) {
             console.error("Error:", error)
@@ -174,7 +194,7 @@ const EditProfilePage = () => {
             <h1>{`Edit profile: ${query || 'Default User'}`}</h1>
             <form className="EditProfile-form" onSubmit={handleSubmit}>
                 <div className="form-column">
-                    <div className="form-group">
+                    {!isPatient ? (<div className="form-group">
                         <label htmlFor="login" className="font-bold">Username*</label>
                         <input
                             type="text"
@@ -184,7 +204,8 @@ const EditProfilePage = () => {
                             onChange={handleChange}
                             required
                         />
-                    </div>
+                    </div>) : (<></>)}
+
                     <div className="form-group">
                         <label htmlFor="name" className="font-bold">First Name*</label>
                         <input
