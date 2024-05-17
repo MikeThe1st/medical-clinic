@@ -18,12 +18,13 @@ import Search from "./pages/Search.jsx";
 import ListOfPatients from "./pages/ListOfPatients.jsx";
 import AddPatient from "./pages/AddPatient.jsx";
 import AppointmentList from "./pages/AppointmentList.jsx";
-
+import NotAdmin from "./pages/NotAdmin.jsx";
 
 function App() {
 	return (
 		<BrowserRouter>
 			<Routes>
+			<Route element={<NotAdmin />} path="/Not-admin" />
 				<Route element={<Main />} path="/" />
 				<Route element={<Login />} path="/login" />
 				<Route element={<Contact />} path="/contact" />

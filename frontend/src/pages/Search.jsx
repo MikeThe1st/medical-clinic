@@ -13,6 +13,12 @@ const Search = () => {
     { nazwa: "Nadawanie uprawnień", zaznaczone: false },
     { nazwa: "Umawianie wizyt", zaznaczone: false },
     { nazwa: "Dodawanie użytkowników", zaznaczone: false },
+    { nazwa: "Wyszukiwanie po uprawnieniach", zaznaczone: false },
+    { nazwa: "Przeglądanie lekarzy", zaznaczone: false },
+    { nazwa: "Dodawanie pacjentów", zaznaczone: false },
+    { nazwa: "Przeglądanie pacjentów", zaznaczone: false },
+    { nazwa: "Przeglądanie wszystkich wizyt", zaznaczone: false },
+    { nazwa: "Przeglądanie tylko swoich wizyt", zaznaczone: false },
     { nazwa: "Brak uprawnień", zaznaczone: false },
   ]);
 
@@ -21,7 +27,7 @@ const Search = () => {
 
   const handleCheckboxChange = (index) => {
     const zaktualizowaneFunkcjonalnosci = [...funkcjonalnosci];
-    console.log("index", index, "funkcjonalnosci.length", funkcjonalnosci.length)
+    console.log("index", index, "funkcjonalnosci.length", funkcjonalnosci.length);
 
     // Jeśli kliknięto "Brak uprawnień", odznacz wszystkie inne opcje
     if (index === funkcjonalnosci.length - 1) {
@@ -32,10 +38,8 @@ const Search = () => {
         }
       });
     } else {
-      // Jeśli kliknięto "Dodawanie użytkowników" lub inną opcję, odznacz "Brak uprawnień"
-      if (index === funkcjonalnosci.length - 2) {
-        zaktualizowaneFunkcjonalnosci[funkcjonalnosci.length - 1].zaznaczone = false;
-      } else if (zaktualizowaneFunkcjonalnosci[funkcjonalnosci.length - 1].zaznaczone) {
+      // Jeśli kliknięto dowolną inną opcję, odznacz "Brak uprawnień"
+      if (zaktualizowaneFunkcjonalnosci[funkcjonalnosci.length - 1].zaznaczone) {
         zaktualizowaneFunkcjonalnosci[funkcjonalnosci.length - 1].zaznaczone = false;
       }
       zaktualizowaneFunkcjonalnosci[index].zaznaczone = !zaktualizowaneFunkcjonalnosci[index].zaznaczone;
@@ -49,16 +53,16 @@ const Search = () => {
     const searchParams = wybrane.map((funkcja) => funkcja.nazwa);
     setWybraneUprawnienia(searchParams);
     try {
-      const response = await axios.post("http://localhost:3000/backend/admin/search-by-rights", { searchParams })
-      setUzytkownicy(response.data)
+      const response = await axios.post("http://localhost:3000/backend/admin/search-by-rights", { searchParams });
+      setUzytkownicy(response.data);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 
   useEffect(() => {
     const getUsers = async () => {
-      const response = await axios.post("http://localhost:3000/backend/admin/search-by-rights", {})
+      const response = await axios.post("http://localhost:3000/backend/admin/search-by-rights", {});
       setUzytkownicy(response.data);
     };
 
@@ -104,7 +108,7 @@ const Search = () => {
                 <td>{uzytkownik.isAdmin ? "Admin" : "Użytkownik"}</td>
                 <td>
                   {(() => {
-                    const userRights = funkcjonalnosci.filter(funkcja =>
+                    const userRights = funkcjonalnosci.filter((funkcja) =>
                       uzytkownik.rights.includes(funkcja.nazwa)
                     );
 
@@ -115,7 +119,9 @@ const Search = () => {
                           <li key={idx}>{funkcja.nazwa}</li>
                         ))}
                       </ul>
-                    ) : <div>Brak uprawnień</div>;
+                    ) : (
+                      <div>Brak uprawnień</div>
+                    );
                   })()}
                 </td>
               </tr>

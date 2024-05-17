@@ -1,0 +1,8 @@
+.not-admin-message {
+    color: black;
+    text-align: center;
+    font-size: 36px; /* Zwiększenie rozmiaru czcionki */
+    font-weight: bold; /* Ustawienie grubszej czcionki */
+    margin-top: 30vh;
+    margin-bottom: 100vh;
+}

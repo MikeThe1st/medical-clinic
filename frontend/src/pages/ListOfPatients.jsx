@@ -13,23 +13,42 @@ const ListOfUsers = () => {
     const [searchStreet, setSearchStreet] = useState("");
     const [searchPhoneNumber, setSearchPhoneNumber] = useState("");
     const [searchEmail, setSearchEmail] = useState("");
+    const [isSearchDisabled, setIsSearchDisabled] = useState(true);
 
     const fetchData = async () => {
-        event.preventDefault()
-        const searchData = { searchFirstName, searchLastName, searchPesel, searchCity, searchStreet, searchPhoneNumber, searchEmail }
-        const response = await axios.post("http://localhost:3000/backend/patient/search", searchData)
+        event.preventDefault();
+        const searchData = { searchFirstName, searchLastName, searchPesel, searchCity, searchStreet, searchPhoneNumber, searchEmail };
+        const response = await axios.post("http://localhost:3000/backend/patient/search", searchData);
         if (response.status === 200) {
-            setUsers(response.data)
-        }
-        else {
-            setUsers([])
+            setUsers(response.data);
+        } else {
+            setUsers([]);
         }
     };
 
     useEffect(() => {
-
         fetchData();
     }, []);
+
+    useEffect(() => {
+        if (searchFirstName.trim() === "" || searchLastName.trim() === "") {
+            setIsSearchDisabled(true);
+        } else {
+            setIsSearchDisabled(false);
+        }
+    }, [searchFirstName, searchLastName]);
+
+    const resetForm = () => {
+        setSearchFirstName("");
+        setSearchLastName("");
+        setSearchPesel("");
+        setSearchCity("");
+        setSearchStreet("");
+        setSearchPhoneNumber("");
+        setSearchEmail("");
+        setUsers([]);
+        window.location.reload(); // Odświeża całą stronę
+    };
 
     return (
         <div>
@@ -84,7 +103,8 @@ const ListOfUsers = () => {
                     value={searchPhoneNumber}
                     onChange={e => setSearchPhoneNumber(e.target.value)}
                 />
-                <button onClick={() => { event.preventDefault(); fetchData() }}>Wyszukaj</button>
+                <button onClick={fetchData} disabled={isSearchDisabled}>Wyszukaj</button>
+                <button onClick={resetForm}>Resetuj</button>
             </div>
             <table>
                 <thead>

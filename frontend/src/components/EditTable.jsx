@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../css/EditPage.css";
@@ -21,7 +20,9 @@ const EditProfilePage = () => {
         gender: "",
         email: "",
         phoneNumber: ""
-    })
+    });
+    const [initialData, setInitialData] = useState({});
+    const [isActive, setIsActive] = useState(false);
 
     const calculatePESELControlDigit = (pesel) => {
         const weights = [1, 3, 7, 9, 1, 3, 7, 9, 1, 3];
@@ -37,7 +38,7 @@ const EditProfilePage = () => {
         }
 
         return sum;
-    }
+    };
 
     const validatePESEL = (pesel) => {
         if (pesel.length !== 11) {
@@ -48,7 +49,8 @@ const EditProfilePage = () => {
         const calculatedControlDigit = calculatePESELControlDigit(pesel);
 
         return controlDigit === calculatedControlDigit;
-    }
+    };
+
     function validateBirthDateWithPESEL(birthDate, pesel) {
         // Extracting birth date from PESEL
         const year = parseInt(pesel.substring(0, 2), 10) + (parseInt(pesel.substring(2, 3), 10) >= 2 ? 2000 : 1900);
@@ -68,62 +70,67 @@ const EditProfilePage = () => {
     }
 
     const validateFormData = () => {
-
         // Postal code validation (xx-xxx format)
         if (userData.postalCode && !/^\d{2}-\d{3}$/.test(userData.postalCode)) {
-            alert('Invalid postal code format. Expected format: XX-XXX.')
-            return false
+            alert('Invalid postal code format. Expected format: XX-XXX.');
+            return false;
         }
 
         // Phone number length check
         if (userData.phoneNumber && userData.phoneNumber.length !== 9) {
-            alert('Phone number must be 9 digits long.')
-            return false
+            alert('Phone number must be 9 digits long.');
+            return false;
         }
 
         // PESEL validation
         if (userData.pesel && !validatePESEL(userData.pesel)) {
-            alert('Invalid PESEL.')
-            return false
+            alert('Invalid PESEL.');
+            return false;
         }
 
         // Birth date validation with PESEL
         if (userData.pesel && userData.birthDate && !validateBirthDateWithPESEL(userData.birthDate, userData.pesel)) {
-            alert('Birth date does not match the date in PESEL.')
-            return false
+            alert('Birth date does not match the date in PESEL.');
+            return false;
         }
 
         // Gender validation with PESEL
         if (userData.pesel && userData.gender && !validateGenderWithPESEL(userData.gender, userData.pesel)) {
             alert('Gender does not match the gender in PESEL.');
-            return false
+            return false;
         }
 
-        return true
-    }
+        // Check if any changes were made
+        if (JSON.stringify(userData) === JSON.stringify(initialData)) {
+            alert('No changes made.');
+            return false;
+        }
+
+        return true;
+    };
 
     const location = useLocation();
-    let query = new URLSearchParams(location.search).get('login')
-    let isPatient = false
+    let query = new URLSearchParams(location.search).get('login');
+    let isPatient = false;
     if (!query) {
-        query = new URLSearchParams(location.search).get('patientId')
-        isPatient = true
+        query = new URLSearchParams(location.search).get('patientId');
+        isPatient = true;
     }
 
     useEffect(() => {
         const getUser = async () => {
             if (!isPatient) {
-                const response = await axios.get(`http://localhost:3000/backend/admin/user-data/${query}`)
-                setUserData(response.data)
+                const response = await axios.get(`http://localhost:3000/backend/admin/user-data/${query}`);
+                setUserData(response.data);
+                setInitialData(response.data);
+            } else {
+                const response = await axios.get(`http://localhost:3000/backend/admin/patient-data/${query}`);
+                setUserData(response.data);
+                setInitialData(response.data);
             }
-            else {
-                const response = await axios.get(`http://localhost:3000/backend/admin/patient-data/${query}`)
-                setUserData(response.data)
-            }
-        }
+        };
 
-        getUser()
-        console.log(userData)
+        getUser();
     }, []);
 
     useEffect(() => {
@@ -137,33 +144,31 @@ const EditProfilePage = () => {
         }
     }, [userData.birthDate]);
 
-
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const checkData = validateFormData()
-        if (checkData == false) return
+        const checkData = validateFormData();
+        if (!checkData) return;
         try {
-            const previousLogin = query
+            const previousLogin = query;
 
             if (!isPatient) {
                 const response = await axios.post(`http://localhost:3000/backend/admin/edit-user`, { userData, previousLogin }, { withCredentials: true });
-                if (response.status == 201) {
-                    alert("Changes submitted successfully.")
-                    window.location.reload()
+                if (response.status === 201) {
+                    alert("Changes submitted successfully.");
+                    window.location.reload();
                 }
-            }
-            else {
+            } else {
                 const response = await axios.post(`http://localhost:3000/backend/patient/edit`, { userData, query }, { withCredentials: true });
-                if (response.status == 201) {
-                    alert("Changes submitted successfully.")
-                    window.location.reload()
+                if (response.status === 201) {
+                    alert("Changes submitted successfully.");
+                    window.location.reload();
                 }
             }
         } catch (error) {
-            console.error("Error:", error)
+            console.error("Error:", error);
             if (error.response.data.msg) {
-                alert(error.response.data.msg)
-                window.location.reload()
+                alert(error.response.data.msg);
+                window.location.reload();
             }
         }
     };
@@ -172,39 +177,48 @@ const EditProfilePage = () => {
         const { name, value } = e.target;
         const arrayOfLocations = ['city', 'postalCode', 'street', 'propertyNumber', 'apartmentNumber'];
         if (arrayOfLocations.includes(name)) {
-            setUserData(prevUserData => ({
+            setUserData((prevUserData) => ({
                 ...prevUserData,
                 location: {
                     ...prevUserData.location,
-                    [name]: value
-                }
+                    [name]: value,
+                },
             }));
         } else {
-            setUserData(prevUserData => ({
+            setUserData((prevUserData) => ({
                 ...prevUserData,
-                [name]: value
+                [name]: value,
             }));
         }
+
+        // Check if any changes were made and set the activity of the button accordingly
+        if (JSON.stringify(userData) !== JSON.stringify(initialData)) {
+            setIsActive(true);
+        } else {
+            setIsActive(false);
+        }
     };
-
-
 
     return (
         <div className="EditProfile-container">
             <h1>{`Edit profile: ${query || 'Default User'}`}</h1>
             <form className="EditProfile-form" onSubmit={handleSubmit}>
                 <div className="form-column">
-                    {!isPatient ? (<div className="form-group">
-                        <label htmlFor="login" className="font-bold">Username*</label>
-                        <input
-                            type="text"
-                            id="login"
-                            name="login"
-                            value={userData.login}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>) : (<></>)}
+                    {!isPatient ? (
+                        <div className="form-group">
+                            <label htmlFor="login" className="font-bold">Username*</label>
+                            <input
+                                type="text"
+                                id="login"
+                                name="login"
+                                value={userData.login}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                    ) : (
+                        <></>
+                    )}
 
                     <div className="form-group">
                         <label htmlFor="name" className="font-bold">First Name*</label>
@@ -350,11 +364,11 @@ const EditProfilePage = () => {
                         </select>
                     </div>
                 </div>
-                <div className="edit-button"> <button type="submit">Submit Changes</button></div>
+                <div className="edit-button">
+                    <button type="submit" disabled={!isActive}>Submit Changes</button>
+                </div>
             </form>
-
         </div>
-
     );
 };
 

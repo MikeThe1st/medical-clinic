@@ -7,6 +7,10 @@ const DoctorTable = () => {
     window.location.href = `/visits?id=${doctorId}`;
   };
 
+  const handleAddWorkingHours = (doctorId) => {
+    // Ta funkcja nie robi nic
+  };
+
   const [doctors, setDoctors] = useState(undefined);
   const [searchName, setSearchName] = useState("");
   const [searchLastName, setSearchLastName] = useState("");
@@ -95,6 +99,7 @@ const DoctorTable = () => {
               <td>{doctor.price}zł</td>
               <td>
                 <button onClick={() => handleReservation(doctor._id)}>Zarezerwuj</button>
+                <button onClick={() => handleAddWorkingHours(doctor._id)}>Dodaj godziny pracy</button>
               </td>
             </tr>
           ))}
