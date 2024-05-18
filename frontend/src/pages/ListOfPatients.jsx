@@ -103,8 +103,11 @@ const ListOfUsers = () => {
                     value={searchPhoneNumber}
                     onChange={e => setSearchPhoneNumber(e.target.value)}
                 />
-                <button onClick={fetchData} disabled={isSearchDisabled}>Wyszukaj</button>
+                 <div className="buttonForSearch"> <button onClick={fetchData} disabled={isSearchDisabled}>Wyszukaj</button> 
                 <button onClick={resetForm}>Resetuj</button>
+               
+                </div>
+               
             </div>
             <table>
                 <thead>
@@ -134,6 +137,7 @@ const ListOfUsers = () => {
                     ))}
                 </tbody>
             </table>
+            <div> <button onClick={() => { window.location.href = '/Admin' }}> Back to Admin </button></div>
             <Footer />
         </div>
     );

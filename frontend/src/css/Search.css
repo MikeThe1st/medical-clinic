@@ -89,4 +89,7 @@
     padding: 8px; /* Dodaj wewnętrzny odstęp dla komórek */
 }
 
-
+.buttonForSearch{
+  display: flex;
+  gap: 10px
+}

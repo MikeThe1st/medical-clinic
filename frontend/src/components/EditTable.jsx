@@ -366,6 +366,8 @@ const EditProfilePage = () => {
                 </div>
                 <div className="edit-button">
                     <button type="submit" disabled={!isActive}>Submit Changes</button>
+                  </div><div>
+                    <button onClick={() => { window.location.href = '/list-of-patients' }}>Back to table </button>
                 </div>
             </form>
         </div>

@@ -99,7 +99,7 @@ const DoctorTable = () => {
               <td>{doctor.price}zł</td>
               <td>
                 <button onClick={() => handleReservation(doctor._id)}>Zarezerwuj</button>
-                <button onClick={() => handleAddWorkingHours(doctor._id)}>Dodaj godziny pracy</button>
+                <div> <button onClick={() => { window.location.href = '/AddNewHours' }}> Dodaj godziny pracy </button></div>
               </td>
             </tr>
           ))}

@@ -1,0 +1,15 @@
+/* Dropdowns.module.css */
+.container {
+    margin-bottom: 20px;
+  }
+  
+  .label {
+    font-size: 16px;
+  }
+  
+  .select {
+    margin-left: 10px;
+    padding: 5px;
+    font-size: 16px;
+  }
+  

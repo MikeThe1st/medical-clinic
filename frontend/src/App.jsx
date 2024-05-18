@@ -19,6 +19,8 @@ import ListOfPatients from "./pages/ListOfPatients.jsx";
 import AddPatient from "./pages/AddPatient.jsx";
 import AppointmentList from "./pages/AppointmentList.jsx";
 import NotAdmin from "./pages/NotAdmin.jsx";
+import AddNewHours from "./pages/AddNewHours.jsx";
+import VisitData from "./pages/VisitData.jsx";
 
 function App() {
 	return (
@@ -38,6 +40,8 @@ function App() {
 					<Route element={<UserPage />} path="/user-page" />
 					<Route element={<EditPage />} path="/edit-page" />
 					<Route element={<ListOfPatients />} path="/list-of-patients" />
+					<Route element={<AddNewHours />} path="/AddNewHours" />
+					<Route element={<VisitData />} path="/VisitData" />
 				</Route>
 
 
