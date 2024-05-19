@@ -1,31 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../css/AddNewHours.css"; // Załóżmy, że plik CSS zawiera style dla powiększonej sekcji
+import { useLocation } from "react-router-dom";
 
 function AddNewHours() {
   const [id, setId] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [selectedMonth, setSelectedMonth] = useState("");
-  const [selectedYear, setSelectedYear] = useState("");
-  const [selectedDay, setSelectedDay] = useState("");
-  const [selectedHourFrom, setSelectedHourFrom] = useState("");
-  const [selectedHourTo, setSelectedHourTo] = useState("");
+  const [selectedMonth, setSelectedMonth] = useState("01");
+  const [selectedYear, setSelectedYear] = useState("2024");
+  const [selectedDay, setSelectedDay] = useState("01");
+  const [selectedHour, setSelectedHour] = useState("10:00");
   const [message, setMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:3000/your-endpoint", {
+      const response = await axios.post("http://localhost:3000/backend/doctor/add-working-date", {
         id,
-        firstName,
-        lastName,
         selectedMonth,
         selectedYear,
         selectedDay,
-        selectedHourFrom,
-        selectedHourTo,
-      });
+        selectedHour
+      }, { withCredentials: true });
+      console.log(response)
       setMessage(response.data.message);
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -46,6 +44,26 @@ function AddNewHours() {
     return days;
   };
 
+  const location = useLocation();
+  const query = new URLSearchParams(location.search).get("id");
+  useEffect(() => {
+    const getDoctor = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:3000/backend/doctor/${query}`
+        );
+        setId(query)
+        setFirstName(response.data.name)
+        setLastName(response.data.lastName)
+      } catch (error) {
+        console.error("Error fetching doctor data:", error);
+      }
+    };
+
+    getDoctor()
+
+  }, [])
+
   return (
     <div className="add-new-hours-container"> {/* Dodana klasa CSS */}
       <h2>Add New Hours</h2>
@@ -58,6 +76,7 @@ function AddNewHours() {
             value={id}
             onChange={(e) => setId(e.target.value)}
             required
+            disabled
           />
         </div>
         <div>
@@ -68,6 +87,7 @@ function AddNewHours() {
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
             required
+            disabled
           />
         </div>
         <div>
@@ -78,6 +98,7 @@ function AddNewHours() {
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
             required
+            disabled
           />
         </div>
         <div>
@@ -88,7 +109,7 @@ function AddNewHours() {
             onChange={(e) => setSelectedMonth(e.target.value)}
             required
           >
-            <option value="">Select Month</option>
+            {/* <option value="">Select Month</option> */}
             <option value="01">January</option>
             <option value="02">February</option>
             <option value="03">March</option>
@@ -111,9 +132,10 @@ function AddNewHours() {
             onChange={(e) => setSelectedYear(e.target.value)}
             required
           >
-            <option value="">Select Year</option>
-            <option value="2023">2023</option>
+            {/* <option value="">Select Year</option> */}
+            {/* <option value="2023">2023</option> */}
             <option value="2024">2024</option>
+            <option value="2025">2025</option>
           </select>
         </div>
         <div>
@@ -124,27 +146,17 @@ function AddNewHours() {
             onChange={(e) => setSelectedDay(e.target.value)}
             required
           >
-            <option value="">Select Day</option>
+            {/* <option value="">Select Day</option> */}
             {renderDays()}
           </select>
         </div>
         <div>
-          <label htmlFor="hourFrom">Hour From:</label>
+          <label htmlFor="hourFrom">Hour (format XX:XX):</label>
           <input
             type="text"
             id="hourFrom"
-            value={selectedHourFrom}
-            onChange={(e) => setSelectedHourFrom(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="hourTo">Hour To:</label>
-          <input
-            type="text"
-            id="hourTo"
-            value={selectedHourTo}
-            onChange={(e) => setSelectedHourTo(e.target.value)}
+            value={selectedHour}
+            onChange={(e) => setSelectedHour(e.target.value)}
             required
           />
         </div>

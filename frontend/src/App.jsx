@@ -40,8 +40,8 @@ function App() {
 					<Route element={<UserPage />} path="/user-page" />
 					<Route element={<EditPage />} path="/edit-page" />
 					<Route element={<ListOfPatients />} path="/list-of-patients" />
-					<Route element={<AddNewHours />} path="/AddNewHours" />
-					<Route element={<VisitData />} path="/VisitData" />
+					<Route element={<AddNewHours />} path="/add-new-hours" />
+					<Route element={<VisitData />} path="/visit-data" />
 				</Route>
 
 
