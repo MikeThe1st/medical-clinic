@@ -53,6 +53,7 @@ const ListOfUsers = () => {
     return (
         <div>
             <Navbar />
+            <h1>Lista Pacjentów</h1>
             <div className="search-container">
                 <label htmlFor="firstName">Imię:</label>
                 <input
@@ -133,6 +134,7 @@ const ListOfUsers = () => {
                             <td>{user.location.street}</td>
                             <td>{user.phoneNumber}</td>
                             <button onClick={() => { window.location.href = `/edit-page?patientId=${user._id}` }}>Edytuj</button>
+                            <div> <button onClick={() => { window.location.href = '/appointment-list' }}> Dane pacjenta </button></div>
                         </tr>
                     ))}
                 </tbody>

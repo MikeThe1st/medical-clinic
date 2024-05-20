@@ -13,6 +13,7 @@ const ScrollableTable = () => {
 			doctorSpecialization: "Pediatra",
 			doctorStatus: "Aktywna",
 			visitDay: "29.04.2003",
+			hours:"11:11",
 		},
 		{
 			patientFirstName: "Alicja",
@@ -23,6 +24,7 @@ const ScrollableTable = () => {
 			doctorSpecialization: "Internista",
 			doctorStatus: "Aktywna",
 			visitDay: "29.04.2003",
+			hours:"11:12",
 		},
 		// Dodaj więcej przykładowych danych według potrzeb
 	];
@@ -41,6 +43,7 @@ const ScrollableTable = () => {
 	const [searchvisitDay, setvisitDay] = useState("");
 
 	const lastInputRef = useRef(null);
+	
 
 	const handleSearchChange = (event, setSearchTerm) => {
 		setSearchTerm(event.target.value);
@@ -152,6 +155,7 @@ const ScrollableTable = () => {
 							<th>Status</th>
 							<th>Specjalizacja lekarza</th>
 							<th>Termin</th>
+							<th>Godzina</th>
                             <th>Akcje</th>
 						</tr>
 					</thead>
@@ -166,13 +170,14 @@ const ScrollableTable = () => {
 								<td>{row.doctorStatus}</td>
 								<td>{row.doctorSpecialization}</td>
                                 <td>{row.visitDay}</td>
+								<td>{row.hours}</td>
 								<td>
 									{" "}
 									<div>
 										{" "}
 										<button
 											onClick={() => {
-												window.location.href = "/VisitData";
+												window.location.href = "/visit-data";
 											}}
 										>
 											{" "}
