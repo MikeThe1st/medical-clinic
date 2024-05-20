@@ -152,11 +152,11 @@ export const searchUsersByRights = async (req, res) => {
 
 export const getPatient = async (req, res) => {
     try {
-        const { _id } = req.params
-        const patient = await Patient.findOne({ _id })
+        const { id } = req.params
+        const patient = await Patient.findOne({ _id: id })
 
         if (!patient) {
-            return res.status(404).json({ msg: `Patient with ${login} not found.` })
+            return res.status(404).json({ msg: `Pacjent z id:${id} nie istnieje.` })
         }
 
         return res.status(200).json(patient)

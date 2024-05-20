@@ -16,6 +16,17 @@ const PatientSchema = new mongoose.Schema(
         gender: { type: String, required: true, enum: ["W", "M"] },
         email: { type: String, required: true, unique: true },
         phoneNumber: { type: String, required: true },
+        reservations: [{
+            reservationId: { type: mongoose.Schema.Types.ObjectId, required: true },
+            doctorId: { type: mongoose.Schema.Types.ObjectId, ref: 'Doctor', required: true },
+            dateTime: { type: Date, required: true },
+            status: { type: String, required: true },
+            description: { type: String },
+            patientCondition: { type: String },
+            treatment: { type: String },
+        },
+        { timestamps: true }
+        ],
     }
 )
 

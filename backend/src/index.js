@@ -5,7 +5,7 @@ import cors from 'cors'
 import cookieParser from 'cookie-parser'
 
 import mainRouter from '../routes/main.js'
-import Doctor from '../models/Doctor.js'
+import Room from '../models/Room.js'
 
 dotenv.config()
 const app = express()
@@ -23,12 +23,12 @@ const start = async () => {
     try {
         // Connect to MongoDB
         await mongoose.connect(mongoURL)
-            .then(() => {
-                console.log('Connected to MongoDB');
-            })
-            .catch((error) => {
-                console.error('Error connecting to MongoDB:', error);
-            })
+        .then(() => {
+            console.log('Connected to MongoDB');
+        })
+        .catch((error) => {
+            console.error('Error connecting to MongoDB:', error);
+        })
 
         app.listen(appPort, () => console.log(`App is running on Port: ${appPort}`))
     } catch (error) {

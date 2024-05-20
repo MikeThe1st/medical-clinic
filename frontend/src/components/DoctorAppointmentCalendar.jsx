@@ -9,7 +9,7 @@ function DoctorAppointmentCalendar() {
 	const [appointments, setAppointments] = useState({});
 	const [doctor, setDoctor] = useState(undefined);
 	const [email, setEmail] = useState("");
-	const [room, setRoom] = useState("");
+	const [room, setRoom] = useState(1);
 	const [description, setDescription] = useState("");
 	const [selectedMonth, setSelectedMonth] = useState("08"); // Default to August
 	const [selectedYear, setSelectedYear] = useState("2024"); // Default to 2024
@@ -34,7 +34,8 @@ function DoctorAppointmentCalendar() {
 	}, [query]);
 
 	const handleDayClick = (day) => {
-		setSelectedDay(day);
+		const formattedDay = new Date(day).getUTCDate()
+		setSelectedDay(formattedDay);
 		setSelectedTime(null);
 	};
 
@@ -42,13 +43,20 @@ function DoctorAppointmentCalendar() {
 		setSelectedTime(time);
 	};
 
-	const handleBookAppointment = () => {
-		if (selectedDay && selectedTime) {
-			alert(`Selected day: ${selectedDay}`);
-			alert(`Selected time: ${selectedTime}`);
-			setSelectedDay(null);
-			setSelectedTime(null);
+	const handleBookAppointment = async () => {
+		try {
+			if (selectedDay && selectedTime) {
+				const visit = { query, room, email, selectedYear, selectedMonth, selectedDay, selectedTime, description }
+				const response = await axios.post(
+					`http://localhost:3000/backend/patient/reserve-visit`, visit
+				)
+				alert(response.data.msg)
+				window.location.href('/doctors')
+			}
+		} catch (error) {
+			alert(error.response.data.msg)
 		}
+
 	};
 
 	const renderDays = () => {
@@ -83,6 +91,7 @@ function DoctorAppointmentCalendar() {
 			if (hasNoAvailableSlot) {
 				buttonClass += " unavailable";
 			}
+			buttonClass += " flex text-start p-2"
 
 			days.push(
 				<button
@@ -122,39 +131,44 @@ function DoctorAppointmentCalendar() {
 				<>
 					<div className="doctor-info">
 						<h2>
-							Reserve visit with Doctor {doctor.name} {doctor.lastName}
+							Zarezerwuj wizytę z Dr. {doctor.name} {doctor.lastName}
 						</h2>
-						<p>Type: {doctor.type}</p>
+						<p>Typ: {doctor.type}</p>
 					</div>
 					<input
-						type="text"
-						placeholder="Email"
+						type="email"
+						placeholder="Email pacjenta"
 						value={email}
 						onChange={(e) => setEmail(e.target.value)}
 					/>
-					<input
-						type="text"
-						placeholder="Room"
+					<select
 						value={room}
 						onChange={(e) => setRoom(e.target.value)}
-					/>
+					>
+						<option value="1">Gabinet nr.1</option>
+						<option value="2">Gabinet nr.2</option>
+						<option value="3">Gabinet nr.3</option>
+						<option value="4">Gabinet nr.4</option>
+						<option value="5">Gabinet nr.5</option>
+						<option value="6">Gabinet nr.6</option>
+					</select>
 					<div className="description-dropdowns">
 						<select
 							value={selectedMonth}
 							onChange={(e) => setSelectedMonth(e.target.value)}
 						>
-							<option value="01">January</option>
-							<option value="02">February</option>
-							<option value="03">March</option>
-							<option value="04">April</option>
-							<option value="05">May</option>
-							<option value="06">June</option>
-							<option value="07">July</option>
-							<option value="08">August</option>
-							<option value="09">September</option>
-							<option value="10">October</option>
-							<option value="11">November</option>
-							<option value="12">December</option>
+							<option value="01">Styczeń</option>
+							<option value="02">Luty</option>
+							<option value="03">Marzec</option>
+							<option value="04">Kwiecień</option>
+							<option value="05">Maj</option>
+							<option value="06">Czerwiec</option>
+							<option value="07">Lipiec</option>
+							<option value="08">Sierpień</option>
+							<option value="09">Wrzesień</option>
+							<option value="10">Październik</option>
+							<option value="11">Listopad</option>
+							<option value="12">Grudzień</option>
 						</select>
 						<select
 							value={selectedYear}
@@ -176,10 +190,10 @@ function DoctorAppointmentCalendar() {
 					</div>
 					{selectedDay && (
 						<div className="calendar-time-selector">
-							<h3 className="hh3">Select a time for {selectedDay}</h3>
-							<div className="calendar-times">{renderTimes(selectedDay)}</div>
+							<h3 className="hh3 my-4">Wybierz godzinę dla dnia: {`${selectedYear}-${selectedMonth}-${selectedDay}`}</h3>
+							<div className="calendar-times">{renderTimes(`${selectedYear}-${selectedMonth}-${selectedDay}`)}</div>
 							<button className="book-button" onClick={handleBookAppointment}>
-								Book
+								Zarezerwuj
 							</button>
 						</div>
 					)}

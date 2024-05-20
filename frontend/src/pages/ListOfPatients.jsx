@@ -17,8 +17,10 @@ const ListOfUsers = () => {
 
     const fetchData = async () => {
         event.preventDefault();
+        // alert(searchFirstName)
         const searchData = { searchFirstName, searchLastName, searchPesel, searchCity, searchStreet, searchPhoneNumber, searchEmail };
         const response = await axios.post("http://localhost:3000/backend/patient/search", searchData);
+        console.log(response)
         if (response.status === 200) {
             setUsers(response.data);
         } else {
@@ -31,7 +33,7 @@ const ListOfUsers = () => {
     }, []);
 
     useEffect(() => {
-        if (searchFirstName.trim() === "" || searchLastName.trim() === "") {
+        if (!searchFirstName && searchLastName || searchFirstName && !searchLastName) {
             setIsSearchDisabled(true);
         } else {
             setIsSearchDisabled(false);
@@ -104,11 +106,11 @@ const ListOfUsers = () => {
                     value={searchPhoneNumber}
                     onChange={e => setSearchPhoneNumber(e.target.value)}
                 />
-                 <div className="buttonForSearch"> <button onClick={fetchData} disabled={isSearchDisabled}>Wyszukaj</button> 
-                <button onClick={resetForm}>Resetuj</button>
-               
+                <div className="buttonForSearch"> <button onClick={fetchData} disabled={isSearchDisabled}>Wyszukaj</button>
+                    <button onClick={resetForm}>Resetuj</button>
+
                 </div>
-               
+
             </div>
             <table>
                 <thead>
@@ -133,13 +135,14 @@ const ListOfUsers = () => {
                             <td>{user.location.city}</td>
                             <td>{user.location.street}</td>
                             <td>{user.phoneNumber}</td>
-                            <button onClick={() => { window.location.href = `/edit-page?patientId=${user._id}` }}>Edytuj</button>
-                            <div> <button onClick={() => { window.location.href = '/appointment-list' }}> Dane pacjenta </button></div>
+                            <div className="p-1 flex gap-2">
+                                <button onClick={() => { window.location.href = `/edit-page?patientId=${user._id}` }}>Edytuj</button>
+                                <button onClick={() => { window.location.href = `/patient-page?id=${user._id}` }}> Dane pacjenta </button></div>
                         </tr>
                     ))}
                 </tbody>
             </table>
-            <div> <button onClick={() => { window.location.href = '/Admin' }}> Back to Admin </button></div>
+            <div> <button className="my-6" onClick={() => { window.location.href = '/Admin' }}> Back to Admin </button></div>
             <Footer />
         </div>
     );

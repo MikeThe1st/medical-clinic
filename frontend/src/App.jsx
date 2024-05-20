@@ -37,7 +37,7 @@ function App() {
 				<Route element={<Search />} path="/Search" />
 				{/* PATHS WHERE EVERY LOGGED USER CAN ACCESS */}
 				<Route element={<UserRoutes />}>
-					<Route element={<UserPage />} path="/user-page" />
+					<Route element={<UserPage />} path="/patient-page" />
 					<Route element={<EditPage />} path="/edit-page" />
 					<Route element={<ListOfPatients />} path="/list-of-patients" />
 					<Route element={<AddNewHours />} path="/add-new-hours" />

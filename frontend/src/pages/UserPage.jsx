@@ -7,12 +7,13 @@ const UserPage = () => {
 	const [userData, setUserData] = useState(undefined);
 
 	const location = useLocation();
-	const query = new URLSearchParams(location.search).get('login');
+	const query = new URLSearchParams(location.search).get('id');
 
 	useEffect(() => {
 		const getUser = async () => {
 			try {
-				const response = await axios.get(`http://localhost:3000/backend/admin/user-data/${query}`);
+				const response = await axios.get(`http://localhost:3000/backend/admin/patient-data/${query}`);
+				console.log(response)
 				setUserData(response.data)
 			} catch (error) {
 				console.error("Error fetching user data:", error);
@@ -41,13 +42,12 @@ const UserPage = () => {
 		<div className="user-page">
 			{/* Header and user info */}
 			<div className="header">
-				<h1 className="header-title">Mój pulpit nawigacyjny</h1>
+				<h1 className="header-title">Profil pacjenta</h1>
 				<div className="user-info">
 					<img className="user-photo" src={"https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"} alt="User" />
 					<p className="welcome-message">
-						{userData && `Witaj, ${userData.name} ${userData.lastName}!`}
+						{userData && `${userData.name} ${userData.lastName}`}
 					</p>
-					<p className="user-login">{userData && `Login: ${userData.login}`}</p>
 				</div>
 			</div>
 
@@ -55,7 +55,7 @@ const UserPage = () => {
 			<div className="main-content">
 				<div className="sidebar">
 					<div className="my-profile">
-						<h2 className="profile-title">Mój profil</h2>
+						<h2 className="profile-title">Dane</h2>
 						<div className="form-container">
 							<form>
 
@@ -68,10 +68,10 @@ const UserPage = () => {
 										<label>Last name:</label>
 										<span>{userData && userData.lastName}</span>
 									</div>
-									<div className="input-container">
+									{/* <div className="input-container">
 										<label>Login:</label>
 										<span>{userData && userData.login}</span>
-									</div>
+									</div> */}
 									{/* Populate user data */}
 									{userData && Object.entries(userData.location).map(([key, value]) => (
 										<div className="input-container" key={key}>
@@ -100,20 +100,16 @@ const UserPage = () => {
 									<button
 										type="button"
 										className="edit-profile-button"
-										onClick={(e) => { e.preventDefault(); window.location.href = `/edit-page?login=${userData.login}` }}
+										onClick={(e) => { e.preventDefault(); window.location.href = `/edit-page?patientId=${userData._id}` }}
 									>
 										Edytuj profil
-									</button>
-									<button
-										type="button"
-										className="edit-profile-button"
-										onClick={(e) => { e.preventDefault(); window.location.href = `/change-password?login=${userData.login}` }}
-									>
-										Zmień hasło
 									</button>
 								</div>
 							</form>
 						</div>
+					</div>
+					<div>
+						<button className="mt-10 p-5 text-lg shadow-sm" onClick={() => { window.location.href = '/list-of-patients' }}>Wróć do listy pacjentów</button>
 					</div>
 				</div>
 				{/* Reservations sidebar */}
@@ -125,9 +121,10 @@ const UserPage = () => {
 								<li key={index} className="reservation-item">
 									<p>Doctor ID: {reservation.doctorId}</p>
 									<p>Doctor Name: {reservation.doctorName}</p>
-									<p>Type: {reservation.type}</p>
-									<p>Date: {reservation.date}</p>
-									<p>Time: {reservation.time}</p>
+									<p>Status: {reservation.status}</p>
+									<p>Date: {reservation.dateTime.split("T")[0]}</p>
+									<p>Time: {reservation.dateTime.split("T")[1].slice(0, 5)}</p>
+									<p>Opis: {reservation.description}</p>
 								</li>
 							))}
 						</ul>

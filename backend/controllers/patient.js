@@ -1,4 +1,7 @@
+import Doctor from "../models/Doctor.js"
 import Patient from "../models/Patient.js"
+import Room from "../models/Room.js"
+import mongoose from "mongoose"
 
 export const addPatient = async (req, res) => {
     try {
@@ -90,6 +93,79 @@ export const editPatient = async (req, res) => {
         const updatedUser = await Patient.findOneAndUpdate({ _id: query }, userData, { new: true })
 
         return res.status(201).json(updatedUser)
+    } catch (error) {
+        console.error('Display failed:', error);
+        return res.status(500).json({ error: 'Display failed.' });
+    }
+}
+
+export const reserveVisit = async (req, res) => {
+    try {
+        const { query: doctorId, room, email: patientEmail, selectedYear, selectedMonth, selectedDay, selectedTime, description } = req.body
+
+        // Checking if doctor and patient exist
+        const doctor = await Doctor.findOne({ _id: doctorId })
+        if (!doctor) {
+            return res.status(404).json({ msg: `Doktor z id:${doctorId} nie istnieje.` });
+        }
+        const patient = await Patient.findOne({ email: patientEmail })
+        if (!patient) {
+            return res.status(403).json({ msg: `Pacjent z mailem: ${patientEmail} nie istnieje.` });
+        }
+
+        const newReservationId = new mongoose.Types.ObjectId()
+
+        // Checking if date and room are still available
+        const dateKey = `${selectedYear}-${selectedMonth.toString().padStart(2, '0')}-${selectedDay.toString().padStart(2, '0')}`
+        const formattedDate = new Date(`${dateKey} ${selectedTime}`)
+        if (doctor.workingDates.has(dateKey)) {
+            const times = doctor.workingDates.get(dateKey);
+            console.log(times)
+            if (times[selectedTime]) {
+                const foundRoom = await Room.findOne({ 'reservedDates.dateTime': formattedDate, numberOfRoom: room })
+                console.log(foundRoom)
+                if (!foundRoom) {
+                    const newReservation = {
+                        reservationId: newReservationId,
+                        doctorId: doctorId,
+                        dateTime: formattedDate,
+                        status: "Zarejestrowana",
+                        description,
+                        patientCondition: null,
+                        treatment: null
+                    }
+                    patient.reservations.push(newReservation)
+
+                    times[selectedTime] = false;
+                    doctor.workingDates.set(dateKey, times);
+
+                    const updatedRoom = await Room.findOneAndUpdate(
+                        { numberOfRoom: room },
+                        {
+                            $push: {
+                                'reservedDates': {
+                                    reservationId: new mongoose.Types.ObjectId(),
+                                    doctorId: doctorId,
+                                    dateTime: formattedDate
+                                }
+                            }
+                        },
+                        { new: true }
+                    )
+                    console.log(updatedRoom.reservedDates)
+                }
+            }
+            else {
+                return res.status(409).json({ msg: `Termin ${formattedDate} jest już zarezerwowany.` });
+            }
+        } else {
+            return res.status(403).json({ msg: `Brak danych dla ${dateKey}.` });
+        }
+
+        await patient.save()
+        await doctor.save()
+
+        return res.status(201).json({ msg: `Rezerwacja id: ${newReservationId} została zapisana.` })
     } catch (error) {
         console.error('Display failed:', error);
         return res.status(500).json({ error: 'Display failed.' });
