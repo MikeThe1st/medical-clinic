@@ -172,7 +172,7 @@ const ScrollableTable = () => {
 								<td>{row.patientPESEL}</td>
 								<td>{row.doctorFirstName}</td>
 								<td>{row.doctorLastName}</td>
-								<td>{row.doctorStatus}</td>
+								<td>{row.status}</td>
 								<td>{row.doctorSpecialization}</td>
 								<td>{row.visitDay}</td>
 								<td>{row.hours}</td>

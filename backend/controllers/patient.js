@@ -221,7 +221,7 @@ export const getAllReservations = async (req, res) => {
                     doctorFirstName: doctor.name,
                     doctorLastName: doctor.lastName,
                     doctorSpecialization: doctor.type,
-                    doctorStatus: reservation.status,
+                    status: reservation.status,
                     visitDay: reservation.dateTime.toLocaleDateString('pl-PL'),
                     hours: reservation.dateTime.toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit' }),
                     roomNumber
