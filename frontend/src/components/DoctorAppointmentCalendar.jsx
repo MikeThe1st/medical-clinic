@@ -51,7 +51,8 @@ function DoctorAppointmentCalendar() {
 					`http://localhost:3000/backend/patient/reserve-visit`, visit
 				)
 				alert(response.data.msg)
-				window.location.href('/doctors')
+				// window.location.href('/doctors')
+				window.location.reload()
 			}
 		} catch (error) {
 			alert(error.response.data.msg)

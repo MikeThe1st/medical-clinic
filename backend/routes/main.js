@@ -2,7 +2,7 @@ import express from 'express'
 import { getUserData, getUsers, searchUsers, editUser, disableUser, switchRole, changeUserRights, searchUsersByRights, getPatient } from '../controllers/admin.js'
 import { register, login, getUser, forgotPassword, resetPassword } from '../controllers/user.js'
 import { getDoctors, getDoctor, addDoctorWorkingDate } from '../controllers/doctors.js'
-import { addPatient, searchPatients, editPatient, reserveVisit } from '../controllers/patient.js'
+import { addPatient, searchPatients, editPatient, reserveVisit, getAllReservations } from '../controllers/patient.js'
 
 const mainRouter = express.Router()
 
@@ -30,5 +30,6 @@ mainRouter.post('/patient/add-patient', addPatient)
 mainRouter.post('/patient/search', searchPatients)
 mainRouter.post('/patient/edit', editPatient)
 mainRouter.post('/patient/reserve-visit', reserveVisit)
+mainRouter.get('/patient/reservations', getAllReservations)
 
 export default mainRouter

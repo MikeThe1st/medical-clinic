@@ -144,7 +144,7 @@ export const reserveVisit = async (req, res) => {
                         {
                             $push: {
                                 'reservedDates': {
-                                    reservationId: new mongoose.Types.ObjectId(),
+                                    reservationId: newReservationId,
                                     doctorId: doctorId,
                                     dateTime: formattedDate
                                 }
@@ -166,6 +166,70 @@ export const reserveVisit = async (req, res) => {
         await doctor.save()
 
         return res.status(201).json({ msg: `Rezerwacja id: ${newReservationId} została zapisana.` })
+    } catch (error) {
+        console.error('Display failed:', error);
+        return res.status(500).json({ error: 'Display failed.' });
+    }
+}
+
+export const getAllReservations = async (req, res) => {
+    try {
+        const patients = await Patient.find()
+
+        // Collect all doctorIds and reservationIds
+        let doctorIds = [];
+        let reservationIds = [];
+
+        patients.forEach(patient => {
+            patient.reservations.forEach(reservation => {
+                doctorIds.push(reservation.doctorId);
+                reservationIds.push(reservation.reservationId.toString());
+            });
+        });
+
+        // Fetch all doctors
+        const doctors = await Doctor.find({ _id: { $in: doctorIds } })
+        const doctorsMap = doctors.reduce((acc, doctor) => {
+            acc[doctor._id] = doctor;
+            return acc;
+        }, {});
+
+        // Fetch all rooms
+        const rooms = await Room.find({ 'reservedDates.reservationId': { $in: reservationIds } })
+        let roomMap = {};
+        rooms.forEach(room => {
+            room.reservedDates.forEach(reservedDate => {
+                if (reservationIds.includes(reservedDate.reservationId.toString())) {
+                    roomMap[reservedDate.reservationId] = room.numberOfRoom;
+                }
+            });
+        });
+
+        // console.log(roomMap)
+
+        // Combine data
+        const visitData = [];
+        patients.forEach(patient => {
+            patient.reservations.forEach(reservation => {
+                const doctor = doctorsMap[reservation.doctorId];
+                const roomNumber = roomMap[reservation.reservationId] || 'N/A';
+
+                visitData.push({
+                    patientFirstName: patient.name,
+                    patientLastName: patient.lastName,
+                    patientPESEL: patient.pesel,
+                    doctorFirstName: doctor.name,
+                    doctorLastName: doctor.lastName,
+                    doctorSpecialization: doctor.type,
+                    doctorStatus: reservation.status,
+                    visitDay: reservation.dateTime.toLocaleDateString('pl-PL'),
+                    hours: reservation.dateTime.toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit' }),
+                    roomNumber
+                });
+            });
+        });
+
+        return res.status(200).json(visitData)
     } catch (error) {
         console.error('Display failed:', error);
         return res.status(500).json({ error: 'Display failed.' });

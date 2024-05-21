@@ -1,9 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import "../css/ScrollableTable.css"; // Importowanie pliku z stylami CSS
+import axios from "axios";
 
 const ScrollableTable = () => {
 	// Przykładowe dane
-	const sampleData = [
+	let sampleData = [
 		{
 			patientFirstName: "Jan",
 			patientLastName: "Kowalski",
@@ -13,7 +14,7 @@ const ScrollableTable = () => {
 			doctorSpecialization: "Pediatra",
 			doctorStatus: "Aktywna",
 			visitDay: "29.04.2003",
-			hours:"11:11",
+			hours: "11:11",
 		},
 		{
 			patientFirstName: "Alicja",
@@ -24,7 +25,7 @@ const ScrollableTable = () => {
 			doctorSpecialization: "Internista",
 			doctorStatus: "Aktywna",
 			visitDay: "29.04.2003",
-			hours:"11:12",
+			hours: "11:12",
 		},
 		// Dodaj więcej przykładowych danych według potrzeb
 	];
@@ -41,9 +42,10 @@ const ScrollableTable = () => {
 		useState("");
 	const [searchTermDoctorStatus, setSearchTermDoctorStatus] = useState("");
 	const [searchvisitDay, setvisitDay] = useState("");
+	const [reservations, setReservations] = useState([]);
 
 	const lastInputRef = useRef(null);
-	
+
 
 	const handleSearchChange = (event, setSearchTerm) => {
 		setSearchTerm(event.target.value);
@@ -55,30 +57,33 @@ const ScrollableTable = () => {
 		}
 	}, [searchTermDoctorSpecialization]);
 
-	const filteredData = sampleData.filter(
-		(row) =>
-			row.patientFirstName
-				.toLowerCase()
-				.includes(searchTermPatientFirstName.toLowerCase()) &&
-			row.patientLastName
-				.toLowerCase()
-				.includes(searchTermPatientLastName.toLowerCase()) &&
-			row.patientPESEL.includes(searchTermPatientPESEL) &&
-			row.doctorFirstName
-				.toLowerCase()
-				.includes(searchTermDoctorFirstName.toLowerCase()) &&
-			row.doctorLastName
-				.toLowerCase()
-				.includes(searchTermDoctorLastName.toLowerCase()) &&
-			row.doctorSpecialization
-				.toLowerCase()
-				.includes(searchTermDoctorSpecialization.toLowerCase()) &&
-			row.doctorStatus.toLowerCase().includes(searchvisitDay.toLowerCase()) &&
-			row.doctorStatus.toLowerCase().includes
-	);
+	useEffect(() => {
+		async function fetchReserations() {
+			const response = await axios.get('http://localhost:3000/backend/patient/reservations')
+			// console.log(response.data)
+			setReservations(response.data)
+		}
+
+		fetchReserations()
+	}, [])
+
 	const handleSearch = () => {
 		// Wyświetlenie wszystkich danych w formie alertu
-		alert(JSON.stringify(filteredData, null, 2));
+		// alert(JSON.stringify(filteredData, null, 2));
+		const filteredData = reservations.filter(row => (
+			(searchTermPatientFirstName === "" || row.patientFirstName.startsWith(searchTermPatientFirstName)) &&
+			(searchTermPatientLastName === "" || row.patientLastName.startsWith(searchTermPatientLastName)) &&
+			(searchTermPatientPESEL === "" || row.patientPESEL.startsWith(searchTermPatientPESEL)) &&
+			(searchTermDoctorFirstName === "" || row.doctorFirstName.startsWith(searchTermDoctorFirstName)) &&
+			(searchTermDoctorLastName === "" || row.doctorLastName.startsWith(searchTermDoctorLastName)) &&
+			(searchTermDoctorSpecialization === "" || row.doctorSpecialization.startsWith(searchTermDoctorSpecialization)) &&
+			(searchTermDoctorStatus === "" || row.doctorStatus.startsWith(searchTermDoctorStatus)) &&
+			(searchvisitDay === "" || row.visitDay.startsWith(searchvisitDay))
+		));
+		// sampleData = filteredData
+		// alert(JSON.stringify(filteredData))
+		console.log(filteredData)
+		setReservations(filteredData)
 	};
 
 	return (
@@ -144,7 +149,7 @@ const ScrollableTable = () => {
 			</div>
 			<button onClick={handleSearch}>Wyszukaj</button>
 			<div className="scrollable-table">
-				<table>
+				<table className="mx-8">
 					<thead>
 						<tr>
 							<th>Imię pacjenta</th>
@@ -156,11 +161,11 @@ const ScrollableTable = () => {
 							<th>Specjalizacja lekarza</th>
 							<th>Termin</th>
 							<th>Godzina</th>
-                            <th>Akcje</th>
+							<th>Akcje</th>
 						</tr>
 					</thead>
 					<tbody>
-						{filteredData.map((row, index) => (
+						{reservations?.map((row, index) => (
 							<tr key={index}>
 								<td>{row.patientFirstName}</td>
 								<td>{row.patientLastName}</td>
@@ -169,7 +174,7 @@ const ScrollableTable = () => {
 								<td>{row.doctorLastName}</td>
 								<td>{row.doctorStatus}</td>
 								<td>{row.doctorSpecialization}</td>
-                                <td>{row.visitDay}</td>
+								<td>{row.visitDay}</td>
 								<td>{row.hours}</td>
 								<td>
 									{" "}
