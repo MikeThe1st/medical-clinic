@@ -23,6 +23,7 @@ function DoctorAppointmentCalendar() {
 				const response = await axios.get(
 					`http://localhost:3000/backend/doctor/${query}`
 				);
+				console.log(response.data)
 				setDoctor(response.data);
 				setAppointments(response.data.workingDates || {});
 			} catch (error) {
@@ -111,6 +112,7 @@ function DoctorAppointmentCalendar() {
 
 	const renderTimes = (day) => {
 		const dayAppointments = appointments[day] || {};
+		console.log(dayAppointments)
 		const availableTimes = Object.keys(dayAppointments).filter(
 			(time) => dayAppointments[time] === true
 		);
@@ -192,7 +194,7 @@ function DoctorAppointmentCalendar() {
 					{selectedDay && (
 						<div className="calendar-time-selector">
 							<h3 className="hh3 my-4">Wybierz godzinę dla dnia: {`${selectedYear}-${selectedMonth}-${selectedDay}`}</h3>
-							<div className="calendar-times">{renderTimes(`${selectedYear}-${selectedMonth}-${selectedDay}`)}</div>
+							<div className="calendar-times">{renderTimes(`${selectedYear}-${selectedMonth}-${String(selectedDay).padStart(2, "0")}`)}</div>
 							<button className="book-button" onClick={handleBookAppointment}>
 								Zarezerwuj
 							</button>

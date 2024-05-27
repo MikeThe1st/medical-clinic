@@ -25,6 +25,8 @@ function AddNewHours() {
       }, { withCredentials: true });
       console.log(response)
       setMessage(response.data.message);
+      console.log(response)
+      alert("Dodano godzinę pracy.");
     } catch (error) {
       console.error("Error submitting form:", error);
       setMessage("An error occurred while submitting the form.");
@@ -61,7 +63,6 @@ function AddNewHours() {
     };
 
     getDoctor()
-
   }, [])
 
   return (

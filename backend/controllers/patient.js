@@ -1,5 +1,6 @@
 import Doctor from "../models/Doctor.js"
 import Patient from "../models/Patient.js"
+import User from "../models/User.js"
 import Room from "../models/Room.js"
 import mongoose from "mongoose"
 
@@ -104,7 +105,7 @@ export const reserveVisit = async (req, res) => {
         const { query: doctorId, room, email: patientEmail, selectedYear, selectedMonth, selectedDay, selectedTime, description } = req.body
 
         // Checking if doctor and patient exist
-        const doctor = await Doctor.findOne({ _id: doctorId })
+        const doctor = await User.findOne({ _id: doctorId })
         if (!doctor) {
             return res.status(404).json({ msg: `Doktor z id:${doctorId} nie istnieje.` });
         }
@@ -188,7 +189,7 @@ export const getAllReservations = async (req, res) => {
         });
 
         // Fetch all doctors
-        const doctors = await Doctor.find({ _id: { $in: doctorIds } })
+        const doctors = await User.find({ _id: { $in: doctorIds } })
         const doctorsMap = doctors.reduce((acc, doctor) => {
             acc[doctor._id] = doctor;
             return acc;
@@ -218,9 +219,9 @@ export const getAllReservations = async (req, res) => {
                     patientFirstName: patient.name,
                     patientLastName: patient.lastName,
                     patientPESEL: patient.pesel,
-                    doctorFirstName: doctor.name,
-                    doctorLastName: doctor.lastName,
-                    doctorSpecialization: doctor.type,
+                    doctorFirstName: doctor ? doctor.name : 'N/A',
+                    doctorLastName: doctor ? doctor.lastName : 'N/A',
+                    doctorSpecialization: doctor ? doctor.type : 'N/A',
                     status: reservation.status,
                     visitDay: reservation.dateTime.toLocaleDateString('pl-PL'),
                     hours: reservation.dateTime.toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit' }),

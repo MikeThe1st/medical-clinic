@@ -60,6 +60,7 @@ const ScrollableTable = () => {
 	useEffect(() => {
 		async function fetchReserations() {
 			const response = await axios.get('http://localhost:3000/backend/patient/reservations')
+			console.log(response)
 			// console.log(response.data)
 			setReservations(response.data)
 		}
