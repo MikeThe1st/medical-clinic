@@ -201,7 +201,7 @@ const EditProfilePage = () => {
 
     return (
         <div className="EditProfile-container">
-            <h1>{`Edit profile: ${query || 'Default User'}`}</h1>
+            <h2>{`Edit profile: ${query || 'Default User'}`}</h2>
             <form className="EditProfile-form" onSubmit={handleSubmit}>
                 <div className="form-column">
                     {!isPatient ? (
@@ -221,7 +221,7 @@ const EditProfilePage = () => {
                     )}
 
                     <div className="form-group">
-                        <label htmlFor="name" className="font-bold">First Name*</label>
+                        <label htmlFor="name" className="font-bold">Imie*</label>
                         <input
                             type="text"
                             id="name"
@@ -232,7 +232,7 @@ const EditProfilePage = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="lastName" className="font-bold">Last Name*</label>
+                        <label htmlFor="lastName" className="font-bold">Nazwisko*</label>
                         <input
                             type="text"
                             id="lastName"
@@ -243,7 +243,7 @@ const EditProfilePage = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="city" className="font-bold">City*</label>
+                        <label htmlFor="city" className="font-bold">Miasto*</label>
                         <input
                             type="text"
                             id="city"
@@ -254,7 +254,7 @@ const EditProfilePage = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="postalCode" className="font-bold">Postal Code*</label>
+                        <label htmlFor="postalCode" className="font-bold">Kod pocztowy*</label>
                         <input
                             type="text"
                             id="postalCode"
@@ -269,7 +269,7 @@ const EditProfilePage = () => {
                 </div>
                 <div className="form-column">
                     <div className="form-group">
-                        <label htmlFor="street" className="font-bold">Street*</label>
+                        <label htmlFor="street" className="font-bold">Ulica*</label>
                         <input
                             type="text"
                             id="street"
@@ -280,7 +280,7 @@ const EditProfilePage = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="propertyNumber" className="font-bold">Property Number*</label>
+                        <label htmlFor="propertyNumber" className="font-bold">Numer Posesji*</label>
                         <input
                             type="text"
                             id="propertyNumber"
@@ -291,7 +291,7 @@ const EditProfilePage = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="apartmentNumber" className="font-bold">Apartment Number</label>
+                        <label htmlFor="apartmentNumber" className="font-bold">Numer mieszkania</label>
                         <input
                             type="text"
                             id="apartmentNumber"
@@ -301,7 +301,7 @@ const EditProfilePage = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="pesel" className="font-bold">PESEL Number*</label>
+                        <label htmlFor="pesel" className="font-bold">Numer pesel*</label>
                         <input
                             type="text"
                             id="pesel"
@@ -314,7 +314,7 @@ const EditProfilePage = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="birthDate" className="font-bold">Birth Date*</label>
+                        <label htmlFor="birthDate" className="font-bold">Data urodzin*</label>
                         <input
                             type="date"
                             id="birthDate"
@@ -327,7 +327,7 @@ const EditProfilePage = () => {
                 </div>
                 <div className="form-column">
                     <div className="form-group">
-                        <label htmlFor="email" className="font-bold">Email Address*</label>
+                        <label htmlFor="email" className="font-bold">Adres Email*</label>
                         <input
                             type="email"
                             id="email"
@@ -338,7 +338,7 @@ const EditProfilePage = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="phoneNumber" className="font-bold">Phone Number*</label>
+                        <label htmlFor="phoneNumber" className="font-bold">Numer telefonu*</label>
                         <input
                             type="tel"
                             id="phoneNumber"
@@ -351,7 +351,7 @@ const EditProfilePage = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="gender" className="font-bold">Gender*</label>
+                        <label htmlFor="gender" className="font-bold">Płeć*</label>
                         <select
                             id="gender"
                             name="gender"
@@ -359,16 +359,19 @@ const EditProfilePage = () => {
                             onChange={handleChange}
                             required
                         >
-                            <option value="W">Woman</option>
-                            <option value="M">Male</option>
+                            <option value="W">Kobieta</option>
+                            <option value="M">Mężczyzna</option>
                         </select>
                     </div>
                 </div>
-                <div className="edit-button">
-                    <button type="submit" disabled={!isActive}>Submit Changes</button>
-                  </div><div>
-                    <button onClick={() => { window.location.href = '/list-of-patients' }}>Back to table </button>
+               
+                  <div>
+                    <button onClick={() => { window.location.href = '/list-of-patients' }}>Powrót </button>
                 </div>
+                <div className="edit-button">
+                    <button type="submit" disabled={!isActive}>Zapisz</button>
+                    
+                  </div>
             </form>
         </div>
     );

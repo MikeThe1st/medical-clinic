@@ -146,6 +146,8 @@ const ScrollableTable = () => {
 						handleSearchChange(event, setSearchTermDoctorSpecialization)
 					}
 				/>
+				<input type="date" />
+				<input type="date" />
 			</div>
 			<button onClick={handleSearch}>Wyszukaj</button>
 			<div className="scrollable-table">
@@ -194,7 +196,9 @@ const ScrollableTable = () => {
 						))}
 					</tbody>
 				</table>
-				<div>
+				
+			</div>
+			<div>
 					{" "}
 					<button
 						onClick={() => {
@@ -205,7 +209,6 @@ const ScrollableTable = () => {
 						Back to Admin{" "}
 					</button>
 				</div>
-			</div>
 		</div>
 	);
 };

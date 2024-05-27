@@ -10,7 +10,21 @@
     margin-right: 10px;
     font-size: 14px;
 }
-
+.scrollable-table-container input[type="time"] {
+    width: 130px;
+    margin-right: 10px;
+    font-size: 14px;
+}
+.scrollable-table-container input[type="date"] {
+    width: 130px;
+    margin-right: 10px;
+    font-size: 14px;
+}
+.scrollable-table-container input[type="date"]:last-child {
+    width: auto;
+}.scrollable-table-container input[type="time"]:last-child {
+    width: auto;
+}
 .scrollable-table-container input[type="text"]:last-child {
     width: auto;
 }
