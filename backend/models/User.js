@@ -35,7 +35,7 @@ const UserSchema = new mongoose.Schema(
         previousPasswords: [String],
         disabled: { type: Boolean, default: false },
         rights: [String],
-        type: { type: String, required: true },
+        type: { type: String },
         rating: { type: Number, default: 0 },
         price: { type: Number, default: 0 },
         workingDates: {

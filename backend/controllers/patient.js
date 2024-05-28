@@ -214,8 +214,9 @@ export const getAllReservations = async (req, res) => {
             patient.reservations.forEach(reservation => {
                 const doctor = doctorsMap[reservation.doctorId];
                 const roomNumber = roomMap[reservation.reservationId] || 'N/A';
-
+                console.log(reservation)
                 visitData.push({
+                    reservationId: reservation.reservationId,
                     patientFirstName: patient.name,
                     patientLastName: patient.lastName,
                     patientPESEL: patient.pesel,
@@ -234,5 +235,63 @@ export const getAllReservations = async (req, res) => {
     } catch (error) {
         console.error('Display failed:', error);
         return res.status(500).json({ error: 'Display failed.' });
+    }
+}
+
+export const getSingleReservation = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const patientsWithReservations = await Patient.find(
+            { 'reservations.reservationId': { $exists: true } },
+        )
+
+        const findReservationById = (patientsWithReservations, reservationId) => {
+            for (const patient of patientsWithReservations) {
+                for (const reservation of patient.reservations) {
+                    const reserveId = reservation.reservationId.toString()
+                    console.log(reserveId, reservationId)
+                    if (reserveId == reservationId) {
+                        return reservation;
+                    }
+                }
+            }
+            return null; // If no reservation is found with the given ID
+        }
+        const desiredReservation = findReservationById(patientsWithReservations, id)
+
+        return res.status(200).json(desiredReservation);
+    } catch (error) {
+        console.error('Registration failed:', error)
+        return res.status(500).json({ error: 'Registration failed.' })
+    }
+}
+
+export const postAppointmentTreatment = async (req, res) => {
+    try {
+        const { appointmentId, patientInfo, treatmentInfo } = req.body
+        console.log(req.body)
+
+        // const updatedPatient = await Patient.findOneAndUpdate({ 'reservations.reservationId': appointmentId }, { $set: { 'reservations.patientCondition': patientInfo, treatment: treatmentInfo } })
+        // const updatedPatient = await Patient.findOne({ 'reservations.reservationId': appointmentId })
+
+        const patient = await Patient.findOneAndUpdate(
+            { 'reservations.reservationId': appointmentId },
+            {
+                $set: {
+                    'reservations.$.patientCondition': patientInfo,
+                    'reservations.$.treatment': treatmentInfo,
+                    'reservations.$.status': "Zrealizowana"
+                }
+            },
+            { new: true }
+        );
+
+        console.log(patient)
+
+        return res.status(201).json({ msg: "Informacje o leczeniu zostały zapisane." })
+    } catch (error) {
+        console.error('Registration failed:', error)
+        return res.status(500).json({ error: 'Registration failed.' })
     }
 }

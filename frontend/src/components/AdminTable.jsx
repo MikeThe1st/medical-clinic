@@ -8,7 +8,6 @@ const AdminTable = ({ users, adminRights }) => {
             <div>
                 <h2>Lista Użytkowników</h2>
                 <p className="text-4xl text-bold">No users found!</p>
-                <p className="text-4xl text-bold">Loading...</p>
             </div>
         );
     }
@@ -60,7 +59,7 @@ const AdminTable = ({ users, adminRights }) => {
                                 <button onClick={(e) => { e.preventDefault(); if (!user.isAdmin) return alert("You cannot set rights to default user, switch to admin first!"); if (!adminRights.includes("Nadawanie uprawnień")) return alert("You don't have rights!"); window.location.href = `/rights?login=${user.login}` }}>Zmień uprawnienia</button>
                                 <button onClick={(e) => { e.preventDefault(); if (!adminRights.includes("Edycja użytkownika")) return alert("You don't have rights!"); window.location.href = `/edit-page?login=${user.login}` }}>Edytuj</button>
                                 <button onClick={(e) => { e.preventDefault(); if (!adminRights.includes("Zmiana hasła")) return alert("You don't have rights!"); window.location.href = `/change-password?login=${user.login}` }}>Zmień hasło</button>
-                                <button onClick={(e) => { e.preventDefault(); if (!adminRights.includes("Wyświetlenie szczegółowych danych")) return alert("You don't have rights!"); window.location.href = `/user-page?login=${user.login}` }}>Wyświetl dane</button>
+                                {/* <button onClick={(e) => { e.preventDefault(); if (!adminRights.includes("Wyświetlenie szczegółowych danych")) return alert("You don't have rights!"); window.location.href = `/user-page?login=${user.login}` }}>Wyświetl dane</button> */}
                                 {user.disabled ? <></> :
                                     <button onClick={async (e) => {
                                         e.preventDefault();

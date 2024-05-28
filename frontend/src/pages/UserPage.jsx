@@ -119,12 +119,14 @@ const UserPage = () => {
 						<ul>
 							{userData && userData.reservations && userData.reservations.map((reservation, index) => (
 								<li key={index} className="reservation-item">
-									<p>Doctor ID: {reservation.doctorId}</p>
-									<p>Doctor Name: {reservation.doctorName}</p>
+									<p>Doktor ID: {reservation.doctorId}</p>
+									<p>Rezerwacja ID: {reservation.reservationId}</p>
 									<p>Status: {reservation.status}</p>
-									<p>Date: {reservation.dateTime.split("T")[0]}</p>
-									<p>Time: {reservation.dateTime.split("T")[1].slice(0, 5)}</p>
+									<p>Data: {reservation.dateTime.split("T")[0]}</p>
+									<p>Czas: {reservation.dateTime.split("T")[1].slice(0, 5)}</p>
 									<p>Opis: {reservation.description}</p>
+									<p>Dolegliwości / schorzenia: {reservation?.patientCondition || "Brak"}</p>
+									<p>Leczenie: {reservation?.treatment || "Brak"}</p>
 								</li>
 							))}
 						</ul>

@@ -185,7 +185,7 @@ const ScrollableTable = () => {
 										{" "}
 										<button
 											onClick={() => {
-												window.location.href = "/visit-data";
+												window.location.href = `/visit-data?id=${row.reservationId}`;
 											}}
 										>
 											{" "}
@@ -197,19 +197,19 @@ const ScrollableTable = () => {
 						))}
 					</tbody>
 				</table>
-				
+
 			</div>
 			<div>
+				{" "}
+				<button
+					onClick={() => {
+						window.location.href = "/Admin";
+					}}
+				>
 					{" "}
-					<button
-						onClick={() => {
-							window.location.href = "/Admin";
-						}}
-					>
-						{" "}
-						Back to Admin{" "}
-					</button>
-				</div>
+					Back to Admin{" "}
+				</button>
+			</div>
 		</div>
 	);
 };
