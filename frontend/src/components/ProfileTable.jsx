@@ -47,7 +47,7 @@ const ProfilTable = ({ users }) => {
               <td>{user.gender}</td>
               <td>{user.email}</td>
               <td>{user.phoneNumber}</td>
-             
+
             </tr>
           ))}
         </tbody>

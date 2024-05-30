@@ -1,5 +1,17 @@
 import mongoose from 'mongoose'
 
+const timeSlotSchema = new mongoose.Schema({
+    "08:00": { type: Boolean },
+    "09:00": { type: Boolean },
+    "10:00": { type: Boolean },
+    "11:00": { type: Boolean },
+    "12:00": { type: Boolean },
+    "13:00": { type: Boolean },
+    "14:00": { type: Boolean },
+    "15:00": { type: Boolean },
+}, { _id: false })
+
+
 const UserSchema = new mongoose.Schema(
     {
         login: { type: String, required: true, unique: true },
@@ -23,6 +35,13 @@ const UserSchema = new mongoose.Schema(
         previousPasswords: [String],
         disabled: { type: Boolean, default: false },
         rights: [String],
+        type: { type: String },
+        rating: { type: Number, default: 0 },
+        price: { type: Number, default: 0 },
+        workingDates: {
+            type: Map,
+            of: timeSlotSchema
+        }
     }
 )
 

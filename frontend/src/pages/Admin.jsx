@@ -53,8 +53,15 @@ const Admin = () => {
                     <p>{`Liczba użytkowników: ${users?.length}`}</p>
                 </div>
                 <div className="admin-actions">
-                    <button className='my-6' onClick={() => window.location.href = '/add-user'}>Dodaj użytkownika</button>
-                    <button className='my-6' onClick={() => window.location.href = '/search'}>Szukaj po uprawnieniach</button>
+                    <div className="flex flex-row flex-grow [&>button]:mx-8">
+                        <button className='my-6' onClick={(e) => { e.preventDefault(); if (!adminRights.includes("Dodawanie użytkowników")) return alert("You don't have rights!"); window.location.href = '/add-user' }}>Dodaj użytkownika</button>
+                        <button className='my-6' onClick={(e) => { e.preventDefault(); if (!adminRights.includes("Dodawanie pacjentów")) return alert("You don't have rights!"); window.location.href = '/add-patient' }}>Dodaj pacjenta</button>
+
+                        <button className='my-6' onClick={(e) => { e.preventDefault(); if (!adminRights.includes("Wyszukiwanie po uprawnieniach")) return alert("You don't have rights!"); window.location.href = '/search' }}>Szukaj po uprawnieniach</button>
+                        <button className='my-6' onClick={(e) => { e.preventDefault(); if (!adminRights.includes("Przeglądanie pacjentów")) return alert("You don't have rights!"); window.location.href = '/list-of-patients' }}>Lista pacjentów</button>
+                        <button className='my-6' onClick={(e) => { e.preventDefault(); if (!adminRights.includes("Przeglądanie wszystkich wizyt" || "Przeglądanie tylko swoich wizyt")) return alert("You don't have rights!"); window.location.href = '/appointment-list' }}>Lista wizyt</button>
+                    </div>
+
                     <h2>Wyszukiwarka</h2>
                     <form onSubmit={handleSearch} className="search-inputs">
                         <input

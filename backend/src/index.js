@@ -5,7 +5,7 @@ import cors from 'cors'
 import cookieParser from 'cookie-parser'
 
 import mainRouter from '../routes/main.js'
-import Doctor from '../models/Doctor.js'
+import Patient from '../models/Patient.js'
 
 dotenv.config()
 const app = express()

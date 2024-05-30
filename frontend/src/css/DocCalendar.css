@@ -81,3 +81,10 @@
 .hh3 {
 	color: black;
 }
+.description-textarea {
+    width: 100%; /* Szerokość 100% dostosowuje pole opisu do szerokości kontenera */
+    height: 150px; /* Możesz dostosować wysokość do preferencji */
+    resize: vertical; /* Pozwala na zmianę rozmiaru tylko w pionie */
+    /* Dodaj inne style, jeśli to konieczne */
+}
+

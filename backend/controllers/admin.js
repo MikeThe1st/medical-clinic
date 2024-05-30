@@ -1,3 +1,4 @@
+import Patient from "../models/Patient.js"
 import User from "../models/User.js"
 import bcrypt from 'bcrypt'
 
@@ -35,16 +36,16 @@ export const searchUsers = async (req, res) => {
         let searchCriteria = [];
 
         if (login) {
-            searchCriteria.push({ login: { $regex: login, $options: 'i' } });
+            searchCriteria.push({ login: { $regex: `^${login}`, $options: 'i' } });
         }
         if (email) {
-            searchCriteria.push({ email: { $regex: email, $options: 'i' } });
+            searchCriteria.push({ email: { $regex: `^${email}`, $options: 'i' } });
         }
         if (name) {
-            searchCriteria.push({ name: { $regex: name, $options: 'i' } });
+            searchCriteria.push({ name: { $regex: `^${name}`, $options: 'i' } });
         }
         if (lastName) {
-            searchCriteria.push({ lastName: { $regex: lastName, $options: 'i' } });
+            searchCriteria.push({ lastName: { $regex: `^${lastName}`, $options: 'i' } });
         }
 
         if (searchCriteria.length > 0) {
@@ -143,6 +144,22 @@ export const searchUsersByRights = async (req, res) => {
         else users = await User.find({ rights: { $all: rights } }).select('-password')
 
         return res.status(200).json(users)
+    } catch (error) {
+        console.error('Display failed:', error);
+        return res.status(500).json({ error: 'Display failed.' });
+    }
+}
+
+export const getPatient = async (req, res) => {
+    try {
+        const { id } = req.params
+        const patient = await Patient.findOne({ _id: id })
+
+        if (!patient) {
+            return res.status(404).json({ msg: `Pacjent z id:${id} nie istnieje.` })
+        }
+
+        return res.status(200).json(patient)
     } catch (error) {
         console.error('Display failed:', error);
         return res.status(500).json({ error: 'Display failed.' });

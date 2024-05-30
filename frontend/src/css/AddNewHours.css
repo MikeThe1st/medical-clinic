@@ -1,0 +1,63 @@
+.add-new-hours-container {
+    width: 90%; /* Możesz dostosować szerokość według potrzeb */
+    margin: 0 auto; /* Centrowanie sekcji na ekranie */
+    padding: 20px;
+    border: 1px solid #ccc; /* Dodajemy obramowanie */
+    border-radius: 10px; /* Zaokrąglenie krawędzi */
+    background-color: #f9f9f9; /* Kolor tła */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Cień */
+  }.add-new-hours-container h2 {
+    margin-bottom: 20px; /* Odstęp od nagłówka do reszty formularza */
+  }.add-new-hours-container form div {
+    margin-bottom: 10px; /* Odstęp między elementami formularza */
+  }.add-new-hours-container form div {
+    margin-bottom: 10px; /* Odstęp między elementami formularza */
+  }
+  
+  .add-new-hours-container label {
+    display: block; /* Labelki powinny być wyświetlane jeden pod drugim */
+    font-weight: bold; /* Pogrubienie tekstu */
+  }
+  
+  .add-new-hours-container input[type="text"],
+  .add-new-hours-container select {
+    width: 100%; /* Szerokość inputów i selectów na 100% szerokości kontenera */
+    padding: 8px; /* Wielkość wewnętrznego marginesu */
+    font-size: 16px; /* Wielkość czcionki */
+    border-radius: 5px; /* Zaokrąglenie krawędzi */
+    border: 1px solid #ccc; /* Obramowanie */
+    box-sizing: border-box; /* Wielkość elementu obejmuje padding i border */
+  }
+  
+  .add-new-hours-container button[type="submit"] {
+    background-color: #007bff; /* Kolor tła przycisku */
+    color: #fff; /* Kolor tekstu */
+    padding: 10px 20px; /* Wielkość paddingu */
+    font-size: 16px; /* Wielkość czcionki */
+    border: none; /* Usunięcie obramowania */
+    border-radius: 5px; /* Zaokrąglenie krawędzi */
+    cursor: pointer; /* Kursor w postaci wskaźnika */
+  }
+  
+  .add-new-hours-container button[type="submit"]:hover {
+    background-color: #0056b3; /* Kolor tła przycisku po najechaniu myszką */
+  }
+  
+  .add-new-hours-container p {
+    margin-top: 10px; /* Odstęp od ostatniego elementu formularza */
+  }
+  
+  .add-new-hours-container button.back-button {
+    background-color: #dc3545; /* Kolor tła przycisku */
+    color: #fff; /* Kolor tekstu */
+    padding: 10px 20px; /* Wielkość paddingu */
+    font-size: 16px; /* Wielkość czcionki */
+    border: none; /* Usunięcie obramowania */
+    border-radius: 5px; /* Zaokrąglenie krawędzi */
+    cursor: pointer; /* Kursor w postaci wskaźnika */
+    margin-top: 20px; /* Dodatkowy odstęp od poprzedniego elementu */
+  }
+  
+  .add-new-hours-container button.back-button:hover {
+    background-color: #c82333; /* Kolor tła przycisku po najechaniu myszką */
+  }
