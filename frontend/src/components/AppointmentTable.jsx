@@ -41,6 +41,8 @@ const ScrollableTable = () => {
 	const [searchTermDoctorSpecialization, setSearchTermDoctorSpecialization] =
 		useState("");
 	const [searchTermDoctorStatus, setSearchTermDoctorStatus] = useState("");
+	const [dateBegin, setDateBegin] = useState("")
+	const [dateEnd, setDateEnd] = useState("")
 	const [searchvisitDay, setvisitDay] = useState("");
 	const [reservations, setReservations] = useState([]);
 
@@ -69,9 +71,10 @@ const ScrollableTable = () => {
 	}, [])
 
 	const handleSearch = () => {
+		// console.log(dateBegin)
 		// Wyświetlenie wszystkich danych w formie alertu
 		// alert(JSON.stringify(filteredData, null, 2));
-		const filteredData = reservations.filter(row => (
+		let filteredData = reservations.filter(row => (
 			(searchTermPatientFirstName === "" || row.patientFirstName.startsWith(searchTermPatientFirstName)) &&
 			(searchTermPatientLastName === "" || row.patientLastName.startsWith(searchTermPatientLastName)) &&
 			(searchTermPatientPESEL === "" || row.patientPESEL.startsWith(searchTermPatientPESEL)) &&
@@ -80,16 +83,39 @@ const ScrollableTable = () => {
 			(searchTermDoctorSpecialization === "" || row.doctorSpecialization.startsWith(searchTermDoctorSpecialization)) &&
 			(searchTermDoctorStatus === "" || row.doctorStatus.startsWith(searchTermDoctorStatus)) &&
 			(searchvisitDay === "" || row.visitDay.startsWith(searchvisitDay))
-		));
+		))
+			.filter(row => {
+				const visitDate = parseDDMMYYYY(row.visitDay)
+				// console.log("visit", row.visitDay)
+				// console.log(dateBegin, dateEnd)
+				// console.log(new Date(dateBegin).toISOString().split('T')[0])
+				if (dateBegin && dateEnd) {
+					return visitDate >= new Date(dateBegin) && visitDate <= new Date(dateEnd);
+				} else if (dateBegin) {
+					// console.log(new Date(dateBegin))
+					return visitDate >= new Date(dateBegin);
+				} else if (dateEnd) {
+					return visitDate <= new Date(dateEnd);
+				}
+				return true;  // If neither dateBegin nor dateEnd is provided, include all rows
+			});
+
+
+
 		// sampleData = filteredData
 		// alert(JSON.stringify(filteredData))
 		console.log(filteredData)
 		setReservations(filteredData)
 	};
 
+	function parseDDMMYYYY(dateString) {
+		const [day, month, year] = dateString.split('.').map(Number);
+		return new Date(year, month - 1, day); // Months are 0-based in JavaScript Date
+	}
+
 	return (
 		<div className="scrollable-table-container">
-			<div className="search-inputs">
+			<div className="search-inputs flex">
 				<input
 					type="text"
 					placeholder="Imię pacjenta..."
@@ -147,8 +173,22 @@ const ScrollableTable = () => {
 						handleSearchChange(event, setSearchTermDoctorSpecialization)
 					}
 				/>
-				<input type="date" />
-				<input type="date" />
+				<div className="flex flex-row">
+					<label className="m-2">Data od:</label>
+					<input type="date"
+						value={dateBegin}
+						onChange={(event) =>
+							handleSearchChange(event, setDateBegin)
+						}
+					/>
+					<label className="m-2">Data do:</label>
+					<input type="date"
+						value={dateEnd}
+						onChange={(event) =>
+							handleSearchChange(event, setDateEnd)
+						}
+					/>
+				</div>
 			</div>
 			<button onClick={handleSearch}>Wyszukaj</button>
 			<div className="scrollable-table">

@@ -39,11 +39,11 @@ const DoctorTable = () => {
     const filtered = doctors.filter(searchFilter);
     setFilteredDoctors(filtered); // Update filteredDoctors state with filtered results
 
-    if (filtered.length === 1) {
-      alert(`Znaleziono lekarza: ${filtered[0].name} ${filtered[0].lastName}`);
-    } else {
-      alert(`Znaleziono ${filtered.length} lekarzy`);
-    }
+    // if (filtered.length === 1) {
+    //   alert(`Znaleziono lekarza: ${filtered[0].name} ${filtered[0].lastName}`);
+    // } else {
+    //   alert(`Znaleziono ${filtered.length} lekarzy`);
+    // }
   };
 
   const handleClear = () => {
